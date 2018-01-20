@@ -2,7 +2,7 @@
 package ru.job4j;
 
 /**
-*This is my first class on course job4j, but not in my programming practice
+*This is my first class on course job4j, but not in my programming practice(chapter_001)
 *time:   jan 20 2018
 *author: Sabirov Svytoslav
 */
