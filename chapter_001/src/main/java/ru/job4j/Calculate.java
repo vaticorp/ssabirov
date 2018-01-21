@@ -22,7 +22,7 @@ public class Calculate {
 	 * Metod created for outputing string value on the screen
 	 *@ param - String[](default parameter) 
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 	    System.out.println("Hello world!");
 	}
 	
