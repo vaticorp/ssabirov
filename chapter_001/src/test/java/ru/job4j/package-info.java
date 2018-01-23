@@ -5,4 +5,4 @@
 * @version $Id$
 * @since 20.01.2017
 */
-package test.java.ru.job4j;
+package ru.job4j;
