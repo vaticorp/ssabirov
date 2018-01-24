@@ -1,6 +1,5 @@
-
 /**
- * Package for classes: DummyBot,Point,Triangle.
+ * Package for test-classes.
  *
  * @author Svyatoslav Sabirov (vaticorp@mail.ru)
  * @version $Id$
