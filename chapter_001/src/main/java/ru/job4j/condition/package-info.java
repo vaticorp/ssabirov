@@ -1,6 +1,6 @@
 
 /**
- * Package for point task.
+ * Package for DummyBot task.
  *
  * @author Svyatoslav Sabirov (vaticorp@mail.ru)
  * @version $Id$
