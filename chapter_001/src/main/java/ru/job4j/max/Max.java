@@ -9,7 +9,7 @@ package ru.job4j.max;
 public class Max {
 
     /**
-     * Our meaning method.
+     * Maximum of two numbers.
      * @param first - first number.
      * @param second - second number.
      * @return maximum value.
@@ -18,4 +18,14 @@ public class Max {
         return first > second ? first : second;
     }
 
+    /**
+     * Maximum of three numbers.
+     * @param first - first number.
+     * @param second - second number.
+     * @param third - third number.
+     * @return maximum value.
+     */
+    public int max(int first, int second, int third) {
+       return max(max(first, second), max(second, third));
+    }
 }
