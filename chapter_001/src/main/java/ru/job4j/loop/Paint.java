@@ -49,7 +49,7 @@ public class Paint {
     }
 
     /**
-     * This is our main method.
+     * This is my main method.
      * @param height - pyramid height.
      * @return - pyramid string.
      */
