@@ -17,9 +17,8 @@ public class Factorial {
 
         int result = 1;
 
-        while (n > 0) {
-            result *= n;
-            n--;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
         }
 
         return result;
