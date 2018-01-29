@@ -18,7 +18,7 @@ public class MatrixTest {
 
         Matrix matrix = new Matrix();
         int[][] arraymatrix = matrix.multiple(3);
-        int[][] expectearray = new int[][]{{0, 0, 0}, {0, 1, 2}, {0, 2, 4}};
+        int[][] expectearray = new int[][]{{1, 2, 3}, {2, 4, 6}, {3, 6, 9}};
         assertThat(arraymatrix, is(expectearray));
     }
 
@@ -27,7 +27,7 @@ public class MatrixTest {
 
         Matrix matrix = new Matrix();
         int[][] arraymatrix = matrix.multiple(4);
-        int[][] expectearray = new int[][]{{0, 0, 0, 0}, {0, 1, 2, 3}, {0, 2, 4, 6}, {0, 3, 6, 9}};
+        int[][] expectearray = new int[][]{{1, 2, 3, 4}, {2, 4, 6, 8}, {3, 6, 9, 12}, {4, 8, 12, 16}};
         assertThat(arraymatrix, is(expectearray));
     }
 
