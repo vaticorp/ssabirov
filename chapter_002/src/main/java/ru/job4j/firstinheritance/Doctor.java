@@ -23,7 +23,7 @@ public class Doctor extends Profession {
     }
 
     public void relax() {
-
+        System.out.println("Doctor relaxing...");
     }
 
 }

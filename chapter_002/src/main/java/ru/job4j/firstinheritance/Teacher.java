@@ -19,11 +19,11 @@ public class Teacher extends Profession {
     }
 
     public void teach(Doctor doctor) {
-
+        System.out.println(this.getName() + " teaching " + doctor.getName());
     }
 
     public void selfstudy() {
-
+        System.out.println("Teacher studying...");
     }
 
 }

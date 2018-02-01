@@ -13,10 +13,10 @@ public class Engineer extends Profession {
     }
 
     public void study() {
-
+        System.out.println("Engineer getting new skills...");
     }
 
     public void service(Teacher teacher) {
-
+        System.out.println(this.getName() + " serving " + teacher.getName());
     }
 }
