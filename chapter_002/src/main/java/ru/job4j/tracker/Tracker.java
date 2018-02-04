@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-
 /**
  * This class is using for storage items.
  * @author Svytoslav Sabirov.
@@ -50,7 +49,7 @@ public class Tracker {
         for (int index = 0; index < items.length; index++) {
             if (items[index] != null && items[index].getId().equals(id)) {
                 items[index] = null;
-                Item[] updatedarray = new Item[items.length - 1];
+                //Item[] updatedarray = new Item[items.length - 1];
                 //В одной строке не очень хорошо читается
                 System.arraycopy(items, index + 1, items, index, items.length - index - 1);
                 break;
@@ -63,7 +62,6 @@ public class Tracker {
      * @return - list of bid.
      */
     public Item[] findAll() {
-
         Item[] currientitems = new Item[this.position];
         for (int index = 0; index < this.position; index++) {
             currientitems[index] = this.items[index];
@@ -77,18 +75,14 @@ public class Tracker {
      * @return bid-list.
      */
     public Item[] findByName(String key) {
-
         Item[] currientitems = new Item[this.position];
         int overlap = 0;
-
         for (Item item:items) {
             if (item != null && item.getName().equals(key)) {
                 currientitems[overlap++] = item;
             }
         }
-
         System.arraycopy(currientitems, 0, currientitems, 0, overlap);
-
         return currientitems;
     }
 
@@ -98,7 +92,6 @@ public class Tracker {
      * @return bid.
      */
     public Item findById(String id) {
-
         Item found = null;
         for (Item item : items) {
             if (item != null && item.getId().equals(id)) {
@@ -106,7 +99,6 @@ public class Tracker {
                 break;
             }
         }
-
         return found;
     }
 
@@ -118,6 +110,4 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + (int) (Math.random() * 3));
     }
-
-
 }

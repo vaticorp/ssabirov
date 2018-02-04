@@ -9,13 +9,10 @@ package ru.job4j.array;
 public class Union {
 
     public int[] unionarrays(int[] firstarray, int[] secondarray) {
-
         int[] resultarray = new int[firstarray.length + secondarray.length];
         int firstindex  = 0;
         int secondindex = 0;
-
         for (int curientindex = 0; curientindex < resultarray.length; curientindex++) {
-
             if (firstindex == firstarray.length) {
                 resultarray[curientindex] = secondarray[secondindex];
                 secondindex++;
@@ -30,8 +27,6 @@ public class Union {
                 secondindex++;
             }
         }
-
         return resultarray;
     }
-
 }

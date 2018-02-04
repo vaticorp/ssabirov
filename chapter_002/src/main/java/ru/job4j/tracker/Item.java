@@ -25,6 +25,16 @@ public class Item {
         this.created = created;
     }
 
+    /**
+     * Overloaded constructor.
+     * @param name - name item.
+     * @param description - item info.
+     */
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,5 +53,10 @@ public class Item {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", created=" + created + ", id='" + id + '\'' + '}';
     }
 }

@@ -22,7 +22,6 @@ public class TrackerTest {
 
     @Test
     public void whenReplaceNameThenReturnNewName() {
-
         Tracker tracker = new Tracker();
         Item previous = new Item("test1", "testDescription", 123L);
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
@@ -35,12 +34,10 @@ public class TrackerTest {
         tracker.replace(previous.getId(), next);
         // Проверяем, что заявка с таким id имеет новые имя test2.
         assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
-
     }
 
     @Test
     public void whenDeleteItemThenTrackerHaveLessAndPreviousItem() {
-
         Tracker tracker = new Tracker();
         Item previous = new Item("test1", "testDescription", 123L);
         tracker.add(previous);
@@ -65,7 +62,6 @@ public class TrackerTest {
 
     @Test
     public void whenFindByNameThenCompareTwoNames() {
-
         Tracker tracker = new Tracker();
         Item previous = new Item("test1", "testDescription", 123L);
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
@@ -73,12 +69,10 @@ public class TrackerTest {
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
         assertThat(tracker.findByName("test1")[0].getName(), is("test1"));
-
     }
 
     @Test
     public void whenFindByIdThenCompareTwoItems() {
-
         Tracker tracker = new Tracker();
         Item previous = new Item("test1", "testDescription", 123L);
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
@@ -86,9 +80,6 @@ public class TrackerTest {
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
         assertThat(tracker.findById(next.getId()).getId(), is(next.getId()));
-
     }
-
-
 }
 
