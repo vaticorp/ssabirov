@@ -136,13 +136,15 @@ public class StartUI {
     /**
      * Find item by name.
      */
-    private void findItemByName() {
+    private Item findItemByName() {
+        Item currentItem = null;
         System.out.println("------------ Поиск заявки по имени --------------");
         String name = this.input.ask("Введите имя заявки :");
         Item[] items = this.tracker.findByName(name);
         if (items.length != 0) {
-            for (Item currentItem:items) {
-                if (currentItem != null) {
+            for (Item current:items) {
+                if (current != null) {
+                    currentItem = current;
                     System.out.println("Заявка найдена: " + currentItem.toString());
                 }
             }
@@ -150,21 +152,26 @@ public class StartUI {
             System.out.println("Заявка не найдена!");
         }
         System.out.println("------------ Конец поиска по имени --------------");
+        return currentItem;
     }
 
     /**
      * Find item by id.
      */
-    private void findItemById() {
+    private Item findItemById() {
+        Item currentItem = null;
         System.out.println("------------ Поиск заявки по id --------------");
         String id = this.input.ask("Введите идентификатор заявки :");
         Item item = this.tracker.findById(id);
         if (item != null) {
-            System.out.println("Заявка найдена: " + item.toString());
+            currentItem = item;
+            System.out.println("Заявка найдена: " + currentItem.toString());
         } else {
             System.out.println("Заявка не найдена!");
         }
         System.out.println("------------ Конец поиска по id --------------");
+
+        return currentItem;
     }
 
     /**
