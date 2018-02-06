@@ -16,8 +16,4 @@ public class ConsoleInput implements Input {
         System.out.println(question);
         return sc.nextLine();
     }
-
-    protected void finalize() {
-        sc.close();
-    }
 }
