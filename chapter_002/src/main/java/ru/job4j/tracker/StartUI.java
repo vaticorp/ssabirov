@@ -60,10 +60,19 @@ public class StartUI {
      * Основой цикл программы.
      */
     public void init() {
-        boolean exit = false;
+
+       MenuTracker menu = new MenuTracker(this.input, this.tracker);
+       menu.createMenu();
+       boolean exit = false;
         while (!exit) {
-            this.showMenu();
+            menu.showMenu();
             String answer = this.input.ask("Введите пункт меню : ");
+            menu.select(Integer.parseInt(answer));
+            if (EXIT.equals(answer)) {
+                exit = true;
+            }
+
+            /*
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOWALL.equals(answer)) {
@@ -81,6 +90,7 @@ public class StartUI {
             } else {
                 System.out.println("invalid input!");
             }
+            */
         }
     }
 
