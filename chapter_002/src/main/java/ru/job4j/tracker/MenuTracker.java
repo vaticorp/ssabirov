@@ -27,6 +27,14 @@ public class MenuTracker {
         actions[6] = new ExitProgram();
     }
 
+    public int[] createRangeOfValues() {
+        int[] range = new int[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            range[i] = actions[i].key();
+        }
+        return range;
+    }
+
     public void select(int key) {
         this.actions[key].execute(this.input, this.tracker);
     }
@@ -192,7 +200,7 @@ class FindItemByName implements UserAction {
 
     @Override
     public String info() {
-        return String.format("%s. %s", this.key(), "Find item by Id");
+        return String.format("%s. %s", this.key(), "Find item by name");
     }
 
 }

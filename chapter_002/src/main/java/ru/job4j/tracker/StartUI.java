@@ -7,34 +7,6 @@ package ru.job4j.tracker;
  * @version 01.
  */
 public class StartUI {
-    /**
-     * Константа меню для добавления новой заявки.
-     */
-    private static final String ADD = "0";
-    /**
-     * Constant for output all items.
-     */
-    private static final String SHOWALL = "1";
-    /**
-     * Constant for edit item.
-     */
-    private static final String EDITITEM = "2";
-    /**
-     * Constant for delete item.
-     */
-    private static final String DELETEITEM = "3";
-    /**
-     * Constant for find item.
-     */
-    private static final String FINDITEM = "4";
-    /**
-     * Constant for find items.
-     */
-    private static final String FINDITEMS = "5";
-    /**
-     * Константа для выхода из цикла.
-     */
-    private static final String EXIT = "6";
 
     /**
      * Получение данных от пользователя.
@@ -45,6 +17,8 @@ public class StartUI {
      * Хранилище заявок.
      */
     private final Tracker tracker;
+
+    private int[] range;
 
     /**
      * Конструтор инициализирующий поля.
@@ -61,36 +35,18 @@ public class StartUI {
      */
     public void init() {
 
+       int exitvalue = new ExitProgram().key();
        MenuTracker menu = new MenuTracker(this.input, this.tracker);
        menu.createMenu();
+       range = menu.createRangeOfValues();
        boolean exit = false;
         while (!exit) {
             menu.showMenu();
-            String answer = this.input.ask("Введите пункт меню : ");
-            menu.select(Integer.parseInt(answer));
-            if (EXIT.equals(answer)) {
+            int answer = this.input.ask("Введите пункт меню : ", range);
+            menu.select(answer);
+            if (exitvalue == answer) {
                 exit = true;
             }
-
-            /*
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (SHOWALL.equals(answer)) {
-                this.showItems();
-            } else if (EDITITEM.equals(answer)) {
-                this.editItem();
-            } else if (DELETEITEM.equals(answer)) {
-                this.deleteItem();
-            } else if (FINDITEM.equals(answer)) {
-                this.findItemById();
-            } else if (FINDITEMS.equals(answer)) {
-                this.findItemByName();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            } else {
-                System.out.println("invalid input!");
-            }
-            */
         }
     }
 
@@ -204,6 +160,6 @@ public class StartUI {
      * @param args - default parameter.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
