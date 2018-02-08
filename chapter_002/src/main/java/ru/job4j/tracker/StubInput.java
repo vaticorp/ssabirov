@@ -23,7 +23,21 @@ public class StubInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        //throw new UnsupportedOperationException("Unsupported Exception");
-        return -1;
-    }
+
+        int key = Integer.parseInt(this.ask(question));
+        boolean exit = false;
+
+        for (int value:range) {
+            if (key == value) {
+                exit = true;
+                break;
+            }
+        }
+        if (exit) {
+            return key;
+        } else {
+            throw new MenuOutException("You must select a value from the menu range. Try again. ");
+        }
+     }
 }
+

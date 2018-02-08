@@ -6,7 +6,18 @@ package ru.job4j.tracker;
  * @since 08.02.2018.
  * @since $id$.
  */
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
+
+    private final Input input;
+
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
+
+    @Override
+    public String ask(String question) {
+        return this.input.ask(question);
+    }
 
     public int ask(String question, int[] range) {
 
@@ -15,12 +26,12 @@ public class ValidateInput extends ConsoleInput {
 
         do {
             try {
-                result = super.ask(question, range);
+                result = this.input.ask(question, range);
                 invalidate = false;
             } catch (MenuOutException exc) {
                 System.out.println("You must select a value from the menu range. Try again. ");
             } catch (NumberFormatException exc) {
-                System.out.println("Please enter validate date again. ");
+                System.out.println("Please enter validate date again.");
             }
         }
         while (invalidate);
