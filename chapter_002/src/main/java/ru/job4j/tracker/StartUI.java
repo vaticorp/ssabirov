@@ -35,7 +35,7 @@ public class StartUI {
      */
     public void init() {
 
-       int exitvalue = new ExitProgram().key();
+       int exitvalue = new ExitProgram(6, "Exit Program").key();
        MenuTracker menu = new MenuTracker(this.input, this.tracker);
        menu.createMenu();
        range = menu.createRangeOfValues();
