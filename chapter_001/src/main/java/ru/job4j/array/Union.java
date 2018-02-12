@@ -12,6 +12,7 @@ public class Union {
         int[] resultarray = new int[firstarray.length + secondarray.length];
         int firstindex  = 0;
         int secondindex = 0;
+        /*
         for (int curientindex = 0; curientindex < resultarray.length; curientindex++) {
             if (firstindex == firstarray.length) {
                 resultarray[curientindex] = secondarray[secondindex];
@@ -26,6 +27,26 @@ public class Union {
                 resultarray[curientindex] = secondarray[secondindex];
                 secondindex++;
             }
+        }*/
+        while (firstindex < firstarray.length && secondindex < secondarray.length) {
+
+            if (firstarray[firstindex] <= secondarray[secondindex]) {
+                resultarray[firstindex + secondindex] = firstarray[firstindex];
+                firstindex++;
+                resultarray[firstindex + secondindex] = secondarray[secondindex];
+            } else {
+                resultarray[firstindex + secondindex] = secondarray[secondindex];
+                secondindex++;
+                resultarray[firstindex + secondindex] = firstarray[firstindex];
+            }
+        }
+
+        if (firstindex < firstarray.length) {
+            System.arraycopy(firstarray, firstindex, resultarray, firstindex + secondindex, resultarray.length - (firstindex + secondindex));
+        }
+
+        if (secondindex < secondarray.length) {
+            System.arraycopy(secondarray, secondindex, resultarray, firstindex + secondindex, resultarray.length - (firstindex + secondindex));
         }
         return resultarray;
     }
