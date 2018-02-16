@@ -34,10 +34,12 @@ public class Union {
                 resultarray[firstindex + secondindex] = firstarray[firstindex];
                 firstindex++;
                 resultarray[firstindex + secondindex] = secondarray[secondindex];
+                //secondindex++;
             } else {
                 resultarray[firstindex + secondindex] = secondarray[secondindex];
                 secondindex++;
                 resultarray[firstindex + secondindex] = firstarray[firstindex];
+                //firstindex++;
             }
         }
 

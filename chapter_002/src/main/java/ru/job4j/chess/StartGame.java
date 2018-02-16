@@ -25,5 +25,8 @@ public class StartGame {
 
     public static void main(String[] args) {
         StartGame.init();
+        //Cell cell = new Cell(2, 6);
     }
 }
+
+
