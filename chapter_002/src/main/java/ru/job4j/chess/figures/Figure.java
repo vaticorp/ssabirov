@@ -20,6 +20,6 @@ public abstract class Figure {
         return (source.getX() == position.getX() && source.getY() == position.getY());
     }
 
-    abstract Cell[] way(Cell source, Cell dest) throws ImposibleMoveException;
-    abstract Figure copy(Cell dest);
+    public abstract Cell[] way(Cell source, Cell dest) throws ImposibleMoveException;
+    public abstract Figure copy(Cell dest);
 }
