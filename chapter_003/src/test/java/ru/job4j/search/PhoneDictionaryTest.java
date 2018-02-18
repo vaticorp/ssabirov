@@ -2,9 +2,11 @@ package ru.job4j.search;
 
 
 /**
- *
+ * This is test-class for PhoneDictionaryTest.
+ * @author Svyatoslav Sabirov.
+ * @version $id$.
+ * @since 18.02.2018
  */
-
 import org.junit.Test;
 import java.util.List;
 import static org.hamcrest.core.Is.is;
