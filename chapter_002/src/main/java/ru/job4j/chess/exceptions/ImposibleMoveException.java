@@ -6,7 +6,7 @@ package ru.job4j.chess.exceptions;
  * @version 10.02.2018.
  * @version $id$.
  */
-public class ImposibleMoveException extends RuntimeException{
+public class ImposibleMoveException extends RuntimeException {
 
     public ImposibleMoveException(String message) {
         super(message);

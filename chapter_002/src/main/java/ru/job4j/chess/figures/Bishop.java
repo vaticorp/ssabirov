@@ -25,7 +25,7 @@ public class Bishop extends Figure {
         //fill our way array.
         } else {
             for (int index = 0; index < difference; index++) {
-                allWay[index] = new Cell(sourcex < destx? sourcex + index + 1 : sourcex - index - 1, sourcey < desty? sourcey + index + 1 : sourcey - index - 1);
+                allWay[index] = new Cell(sourcex < destx ? sourcex + index + 1 : sourcex - index - 1, sourcey < desty ? sourcey + index + 1 : sourcey - index - 1);
             }
         }
         return allWay;

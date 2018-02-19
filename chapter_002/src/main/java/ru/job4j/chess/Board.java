@@ -10,7 +10,7 @@ import ru.job4j.chess.figures.Figure;
  * @since 10.02.2018.
  * @version $id$.
  */
-public class Board{
+public class Board {
     //Переменные класса
     private final int sizeX = 8;
     private final int sizeY = 8;
@@ -44,7 +44,7 @@ public class Board{
         add(blackBishop);
         return true;
     }
-    public void cellsAreFree(Cell[] cells) throws OccupiedWayException{
+    public void cellsAreFree(Cell[] cells) throws OccupiedWayException {
         for (Cell currentCell : cells) {
             for (Figure current: figures) {
                 if (current.figureInCell(currentCell)) {
@@ -53,7 +53,7 @@ public class Board{
             }
         }
     }
-    public Figure findFigure(Cell cell) throws FigureNotFoundException{
+    public Figure findFigure(Cell cell) throws FigureNotFoundException {
         Figure currentObject = null;
         for (Figure current: figures) {
             if (current.figureInCell(cell)) {
