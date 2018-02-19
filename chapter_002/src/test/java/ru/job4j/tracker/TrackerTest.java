@@ -21,7 +21,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TrackerTest {
         tracker.add(next);
         tracker.delete(previous.getId());
         // Проверяем, что 'элемент удален,а второй сместился на место первого
-        assertThat(tracker.findAll()[0], is(next));
+        assertThat(tracker.findAll().get(0), is(next));
 
     }
 
@@ -60,8 +60,8 @@ public class TrackerTest {
         tracker.add(item);
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
-        assertThat(tracker.findAll()[0], is(item));
-        assertThat(tracker.findAll()[1], is(next));
+        assertThat(tracker.findAll().get(0), is(item));
+        assertThat(tracker.findAll().get(1), is(next));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TrackerTest {
         tracker.add(previous);
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
-        assertThat(tracker.findByName("test1")[0].getName(), is("test1"));
+        assertThat(tracker.findByName("test1").get(0).getName(), is("test1"));
     }
 
     @Test

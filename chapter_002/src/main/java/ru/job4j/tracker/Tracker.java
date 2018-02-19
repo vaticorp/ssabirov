@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is using for storage items.
  * @author Svytoslav Sabirov.
@@ -10,12 +13,12 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    private final List<Item> items = new ArrayList<Item>();
 
     /**
      * Указатель ячейки для новой заявки.
      */
-    private int position = 0;
+    //private int position = 0;
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -23,7 +26,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -33,26 +36,22 @@ public class Tracker {
      * @param item - bid.
      */
     public void replace(String id, Item item) {
-        for (int index = 0; index < items.length; index++) {
-            if (items[index] != null && items[index].getId().equals(id)) {
-                item.setId(items[index].getId());
-                items[index] = item;
+        for (Item current : items) {
+            if (current.getId().equals(id)) {
+                item.setId(current.getId());
+                this.items.add(items.indexOf(current), item);
                 break;
             }
         }
     }
-
     /**
      * Delete by bid-id.
      * @param id - identifier.
      */
     public void delete(String id) {
-        for (int index = 0; index < items.length; index++) {
-            if (items[index] != null && items[index].getId().equals(id)) {
-                items[index] = null;
-                //Item[] updatedarray = new Item[items.length - 1];
-                //В одной строке не очень хорошо читается
-                System.arraycopy(items, index + 1, items, index, items.length - index - 1);
+        for (Item current : items) {
+            if (current.getId().equals(id)) {
+                items.remove(current);
                 break;
             }
         }
@@ -62,12 +61,8 @@ public class Tracker {
      * Get list of bid.
      * @return - list of bid.
      */
-    public Item[] findAll() {
-        Item[] currientitems = new Item[this.position];
-        for (int index = 0; index < this.position; index++) {
-            currientitems[index] = this.items[index];
-        }
-        return currientitems;
+    public List<Item> findAll() {
+        return items;
     }
 
     /**
@@ -75,15 +70,13 @@ public class Tracker {
      * @param key - bid-name;
      * @return bid-list.
      */
-    public Item[] findByName(String key) {
-        Item[] currientitems = new Item[this.position];
-        int overlap = 0;
-        for (Item item:items) {
-            if (item != null && item.getName().equals(key)) {
-                currientitems[overlap++] = item;
+    public List<Item> findByName(String key) {
+        List<Item> currientitems = new ArrayList<Item>();
+        for (Item item: items) {
+            if (item.getName().equals(key)) {
+                currientitems.add(item);
             }
         }
-        System.arraycopy(currientitems, 0, currientitems, 0, overlap);
         return currientitems;
     }
 
@@ -95,7 +88,7 @@ public class Tracker {
     public Item findById(String id) {
         Item found = null;
         for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
+            if (item.getId().equals(id)) {
                 found = item;
                 break;
             }

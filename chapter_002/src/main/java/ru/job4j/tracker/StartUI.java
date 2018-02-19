@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * This my enter-class.
  * @author Svyatoslav Sabirov.
@@ -67,7 +69,7 @@ public class StartUI {
      */
     private void showItems() {
         System.out.println("------------ Актуальный список заявок --------------");
-        Item[] currentitems = this.tracker.findAll();
+        List<Item> currentitems = this.tracker.findAll();
         for (Item item:currentitems) {
             if (item != null) {
                 System.out.println(item.toString());
@@ -106,8 +108,8 @@ public class StartUI {
         Item currentItem = null;
         System.out.println("------------ Поиск заявки по имени --------------");
         String name = this.input.ask("Введите имя заявки :");
-        Item[] items = this.tracker.findByName(name);
-        if (items.length != 0) {
+        List<Item> items = this.tracker.findByName(name);
+        if (items.size() != 0) {
             for (Item current:items) {
                 if (current != null) {
                     currentItem = current;

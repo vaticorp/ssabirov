@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Interface for menu.
  * @author Svyatoslav Sabirov.
@@ -92,7 +94,7 @@ class ShowAllItems extends BaseAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Актуальный список заявок --------------");
-        Item[] currentitems = tracker.findAll();
+        List<Item> currentitems = tracker.findAll();
         for (Item item:currentitems) {
             if (item != null) {
                 System.out.println(item.toString());
@@ -150,8 +152,8 @@ class FindItemByName extends BaseAction {
         Item currentItem = null;
         System.out.println("------------ Поиск заявки по имени --------------");
         String name = input.ask("Введите имя заявки :");
-        Item[] items = tracker.findByName(name);
-        if (items.length != 0) {
+        List<Item> items = tracker.findByName(name);
+        if (items.size() != 0) {
             for (Item current:items) {
                 if (current != null) {
                     //currentItem = current;
