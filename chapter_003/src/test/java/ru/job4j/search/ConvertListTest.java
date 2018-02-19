@@ -31,5 +31,14 @@ public class ConvertListTest {
         Collections.addAll(list, 1, 2, 3, 4, 5, 6, 7);
         assertThat(array, is(convertation.toArray(list, 3)));
     }
+    @Test
+    public void whenListOfArrayConvertToList() {
+        ConvertList convertation = new ConvertList();
+        List<int[]> listOfArrays = new ArrayList<int[]>();
+        Collections.addAll(listOfArrays, new int[]{1, 2}, new int[]{3, 4, 5, 6});
+        List<Integer> list = new ArrayList<Integer>();
+        Collections.addAll(list, 1, 2, 3, 4, 5, 6);
+        assertThat(list, is(convertation.convert(listOfArrays)));
+    }
 }
 
