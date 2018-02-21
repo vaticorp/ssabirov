@@ -36,6 +36,31 @@ public class User implements Comparable<User> {
         this.age = age;
     }
 
+    public List<User> sortNameLength(List<User> list) {
+        list.sort(
+                new Comparator<User>() {
+                    @Override
+                    public int compare(User o1, User o2) {
+                        return o1.getName().length() >= o2.getName().length() ? 1 : -1;
+                    }
+                }
+        );
+        return list;
+    }
+
+    public List<User> sortByAllFields(List<User> list) {
+        list.sort(
+                new Comparator<User>() {
+                    @Override
+                    public int compare(User o1, User o2) {
+                        int lexikon = o1.getName().compareTo(o2.getName());
+                        return lexikon == 0 ? (o1.getAge() >= o2.getAge() ? 1 : -1) : lexikon;
+                    }
+                }
+        );
+        return list;
+    }
+
     @Override
     public int compareTo(User o) {
         return this.age >= o.age ? 1 : -1;
