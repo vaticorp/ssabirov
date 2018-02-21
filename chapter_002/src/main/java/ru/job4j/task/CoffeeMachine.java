@@ -9,20 +9,20 @@ import java.util.Arrays;
  * @since 16.02.2018
  */
 public class CoffeeMachine {
+    //возможные номиналы
+    private final int[] coins = new int[]{10, 5, 2, 1};
+
     int[] changes(int value, int price) {
         int[] changes = new int[0];
         int change = value - price;
         while (change != 0) {
             int number = 0;
-            if ((change - 10) >= 0) {
-                number = 10;
-            } else if ((change - 5) >= 0) {
-                number = 5;
-            } else if ((change - 2) >= 0) {
-                number = 2;
-            } else {
-                number = 1;
-             }
+            for (int index = 0; index < coins.length; index++) {
+                number = coins[index];
+                if ((change - number) >= 0) {
+                    break;
+                }
+            }
             change -= number;
             int[] temp = Arrays.copyOf(changes, changes.length);
             changes = new int[temp.length + 1];
