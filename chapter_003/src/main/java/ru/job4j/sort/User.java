@@ -60,7 +60,6 @@ public class User implements Comparable<User> {
         );
         return list;
     }
-
     @Override
     public int compareTo(User o) {
         return this.age >= o.age ? 1 : -1;
