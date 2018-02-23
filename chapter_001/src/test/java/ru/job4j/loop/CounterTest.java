@@ -26,7 +26,7 @@ public class CounterTest {
 
         Counter counter = new Counter();
         int result = counter.add(-2, 12);
-        assertThat(result, is(6));
+        assertThat(result, is(28));
     }
 
 }

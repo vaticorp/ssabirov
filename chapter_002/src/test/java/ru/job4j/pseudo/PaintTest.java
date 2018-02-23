@@ -55,23 +55,4 @@ public class PaintTest {
                 )
         );
     }
-
-    @Test
-    public void whenDrawTriangle() {
-        new Paint().draw(new Triangle());
-        assertThat(
-                new String(this.out.toByteArray()),
-                is(
-                        new StringJoiner(
-                                System.lineSeparator(), "",
-                                System.lineSeparator())
-                                .add("    ^    ")
-                                .add("   ^ ^   ")
-                                .add("  ^   ^  ")
-                                .add(" ^     ^ ")
-                                .add("^^^^^^^^^")
-                                .toString()
-                )
-        );
-    }
 }
