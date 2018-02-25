@@ -41,7 +41,8 @@ public class User implements Comparable<User> {
                 new Comparator<User>() {
                     @Override
                     public int compare(User o1, User o2) {
-                        return o1.getName().length() >= o2.getName().length() ? 1 : -1;
+                        //return o1.getName().length() >= o2.getName().length() ? 1 : -1;
+                        return o1.getName().length() - o2.getName().length();
                     }
                 }
         );

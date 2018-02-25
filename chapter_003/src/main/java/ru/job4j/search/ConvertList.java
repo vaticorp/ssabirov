@@ -31,21 +31,17 @@ public class ConvertList {
      */
     public int[][] toArray(List<Integer> list, int rows) {
         int quotient = list.size() / rows;
+        Iterator<Integer> iterator = list.iterator();
         int number = (double) list.size() / rows > quotient ? quotient + 1 : quotient;
         int[][] array = new int[rows][number];
-        int row = 0;
-        int column = 0;
-        for (int a : list) {
-            array[row][column] = a;
-            column++;
-            if (column > number - 1) {
-                column = 0;
-                row++;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < number; j++) {
+                if (iterator.hasNext()) {
+                    array[i][j] = iterator.next();
+                } else {
+                    array[i][j] = 0;
+                }
             }
-        }
-        while (column <= number - 1) {
-            array[row][column] = 0;
-            column++;
         }
         return array;
     }
