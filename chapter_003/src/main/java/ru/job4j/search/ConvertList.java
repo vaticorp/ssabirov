@@ -39,7 +39,8 @@ public class ConvertList {
                 if (iterator.hasNext()) {
                     array[i][j] = iterator.next();
                 } else {
-                    array[i][j] = 0;
+                    break;
+                    //array[i][j] = 0;
                 }
             }
         }
