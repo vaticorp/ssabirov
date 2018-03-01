@@ -50,8 +50,8 @@ public class Department {
                         index++;
                     }
                     if (result == 0) {
-                        if (index != firstArray.length) { result = 1; }
-                        if (index != secondArray.length) { result = -1; }
+                        result = index != firstArray.length ? 1 : result;
+                        result = index != secondArray.length ? -1 : result;
                     }
                     return result;
                 }
