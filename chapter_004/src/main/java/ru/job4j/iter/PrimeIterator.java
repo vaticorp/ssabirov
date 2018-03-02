@@ -32,7 +32,7 @@ public class PrimeIterator implements Iterator {
             if (currentValue <= 1) {
                 continue;
             }
-            double sqrtCurrent = Math.sqrt((double)currentValue);
+            double sqrtCurrent = Math.sqrt((double) currentValue);
             boolean composite = false;
             for (int j = 2; j <= sqrtCurrent; j++) {
                 if (currentValue % j == 0) {
