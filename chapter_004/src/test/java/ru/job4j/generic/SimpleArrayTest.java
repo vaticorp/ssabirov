@@ -8,7 +8,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * This is test class for ListCompare.
+ * This is test class for SimpleArray.
  * @author Svatoslav Sabirov.
  * @version 11.
  * @since 03.03.2018.
