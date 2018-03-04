@@ -48,18 +48,28 @@ public class SimpleArray<T> implements Iterable<T> {
         this.objects[this.currentIndex++] = model;
     }
 
-    public void set(int index, T model) {
+    public boolean set(int index, T model) {
+        if (index > currentIndex) {
+            System.out.printf("Индекс %s превышает максимальный индекс в массиве %s", index, this.currentIndex - 1);
+            return false;
+        }
         this.objects[index] = model;
+        return true;
     }
 
     public T get(int index) {
         return (T) this.objects[index];
     }
 
-    public void delete(int index) {
+    public boolean delete(int index) {
+        if (index > currentIndex) {
+            System.out.printf("Индекс %s превышает максимальный индекс в массиве %s", index, this.currentIndex - 1);
+            return false;
+        }
         if (index < currentIndex - 1) {
             System.arraycopy(this.objects, index + 1, this.objects, index, currentIndex - index - 1);
         }
         this.objects[this.currentIndex--] = null;
+        return true;
     }
 }
