@@ -55,6 +55,17 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         return (E) this.container[index];
     }
 
+    public int indexOf(E value) {
+        int index = -1;
+        for (int i = 0; i < this.size; i++) {
+            if (((E) this.container[i]).equals(value)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     @Override
     public Iterator<E> iterator() {
 
