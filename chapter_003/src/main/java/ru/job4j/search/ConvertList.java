@@ -36,12 +36,10 @@ public class ConvertList {
         int[][] array = new int[rows][number];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < number; j++) {
-                if (iterator.hasNext()) {
-                    array[i][j] = iterator.next();
-                } else {
+                if (!iterator.hasNext()) {
                     break;
-                    //array[i][j] = 0;
                 }
+                array[i][j] = iterator.next();
             }
         }
         return array;
