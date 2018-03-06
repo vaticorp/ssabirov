@@ -15,11 +15,14 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     private int modCount;
 
     public ArrayContainer(int size) {
-        if (size >= 0) {
-            this.container = new Object[size];
-        } else {
+        if (size < 0) {
             throw new IllegalArgumentException("Указан неправильный размер массива!");
         }
+        this.container = new Object[size];
+    }
+
+    public ArrayContainer() {
+
     }
 
     public int getSize() {
