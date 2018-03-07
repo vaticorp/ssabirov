@@ -1,5 +1,6 @@
 package ru.job4j.collections;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -34,36 +35,16 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     }
 
     @Override
-    public void add(E value) {
-        if (size + 1 > container.length) {
-            increaseArray();
-        }
-        this.modCount++;
-        this.container[size++] = value;
-    }
-
-    public void increaseArray() {
-        this.modCount++;
-        this.container = Arrays.copyOf(this.container, this.container.length * 2);
-    }
-
-    @Override
     public E get(int index) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
-        }
+        checkIndex(index);
         return (E) this.container[index];
     }
 
-    public int indexOf(E value) {
-        int index = -1;
-        for (int i = 0; i < this.size; i++) {
-            if (((E) this.container[i]).equals(value)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+    @Override
+    public void add(E value) {
+        checkSize();
+        this.modCount++;
+        this.container[size++] = value;
     }
 
     @Override
@@ -100,5 +81,75 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
                 throw new UnsupportedOperationException();
             }
         };
+    }
+
+    public void checkSize() {
+        if (size + 1 > container.length) {
+            increaseArray();
+        }
+    }
+
+    public boolean set(int index, E value) {
+        checkLength(index);
+        if (this.container[index] == null) {
+            size++;
+        }
+        this.container[index] = value;
+        this.modCount++;
+        return true;
+    }
+
+    public void increaseArray() {
+        this.modCount++;
+        this.container = Arrays.copyOf(this.container, this.container.length * 2);
+    }
+
+    public boolean remove(E value) {
+        int length =  this.getLength();
+        for (int index = 0; index < length; index++) {
+            if (this.container[index] != null && ((E) this.container[index]).equals(value)) {
+                this.modCount++;
+                System.arraycopy(this.container, index + 1, this.container, index, length - index - 1);
+                this.container[--size] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void checkIndex(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
+        }
+    }
+
+    public void checkLength(int index) {
+        if (index >= this.getLength()) {
+            throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
+        }
+    }
+
+    public boolean contains(E value) {
+        boolean result = false;
+        int length =  this.getLength();
+        for (int index = 0; index < length; index++) {
+            if (this.container[index] != null && this.container[index].equals(value)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public int indexOf(E value) {
+        int index = -1;
+        int length =  this.getLength();
+        for (int i = 0; i < length; i++) {
+            if (((E) this.container[i]).equals(value)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }
