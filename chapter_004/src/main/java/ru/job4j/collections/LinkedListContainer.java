@@ -48,6 +48,19 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         modCount++;
     }
 
+    public boolean contains(E value) {
+        boolean result = false;
+        Node<E> currentNode = this.first;
+        while (currentNode != null) {
+            if (currentNode.value.equals(value)) {
+                result = true;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+        return result;
+    }
+
     @Override
     public E get(int index) {
         if (index >= size) {
