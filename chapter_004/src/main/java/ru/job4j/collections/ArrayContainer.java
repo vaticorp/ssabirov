@@ -145,7 +145,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         int index = -1;
         int length =  this.getLength();
         for (int i = 0; i < length; i++) {
-            if (((E) this.container[i]).equals(value)) {
+            if (this.container[i] != null && ((E) this.container[i]).equals(value)) {
                 index = i;
                 break;
             }
