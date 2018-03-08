@@ -22,9 +22,9 @@ public class UserTest {
     public void whenCreateTwoUsersAndCheck() {
         User petrIvanov    = new User("Petr", 1, new Calendar(11, 3, 1987));
         User petrArsentiev = new User("Petr", 1, new Calendar(11, 3, 1987));
-        Map<User, Object> testMap = new Hashtable<User, Object>();
-        testMap.put(petrIvanov, new Object());
-        testMap.put(petrArsentiev, new Object());
-        System.out.println(testMap);
+        Map<User, Object> testMaps = new Hashtable<User, Object>();
+        testMaps.put(petrIvanov, new Object());
+        testMaps.put(petrArsentiev, new Object());
+        System.out.println(testMaps);
      }
 }
