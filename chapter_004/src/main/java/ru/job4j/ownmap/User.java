@@ -1,5 +1,7 @@
 package ru.job4j.ownmap;
 
+import java.util.Objects;
+
 /**
  * This class represents User-model.
  * @author Svyatoslav Sabirov.
@@ -16,5 +18,10 @@ public class User {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 }

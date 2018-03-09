@@ -1,5 +1,7 @@
 package ru.job4j.ownmap;
 
+import java.util.Objects;
+
 /**
  * This class represents simple Calendar.
  * @author Svyatoslav Sabirov.
@@ -16,5 +18,10 @@ public class Calendar {
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, month, year);
     }
 }
