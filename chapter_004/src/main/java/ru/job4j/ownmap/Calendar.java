@@ -20,12 +20,10 @@ public class Calendar {
         this.year = year;
     }
 
-    /*
     @Override
     public int hashCode() {
         return Objects.hash(day, month, year);
     }
-    */
 
     @Override
     public boolean equals(Object obj) {
