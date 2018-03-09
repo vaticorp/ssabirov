@@ -22,6 +22,7 @@ public class UserTest {
     public void whenCreateTwoUsersAndCheck() {
         User petrIvanov    = new User("Petr", 1, new Calendar(11, 3, 1987));
         User petrArsentiev = new User("Petr", 1, new Calendar(11, 3, 1987));
+        System.out.println(petrArsentiev.equals(petrIvanov));
         Map<User, Object> testMaps = new Hashtable<User, Object>();
         testMaps.put(petrIvanov, new Object());
         testMaps.put(petrArsentiev, new Object());

@@ -21,7 +21,23 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        User currentUser = (User) obj;
+        return currentUser.name.equals(this.name)
+                && currentUser.children == this.children
+                && currentUser.birthday.equals(this.birthday);
+    }
+
+    /*
+    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
     }
+    */
 }

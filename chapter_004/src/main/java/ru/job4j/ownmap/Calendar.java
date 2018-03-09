@@ -20,8 +20,24 @@ public class Calendar {
         this.year = year;
     }
 
+    /*
     @Override
     public int hashCode() {
         return Objects.hash(day, month, year);
+    }
+    */
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Calendar)) {
+            return false;
+        }
+        Calendar currentCalendar = (Calendar) obj;
+        return currentCalendar.day == this.day
+                && currentCalendar.month == this.month
+                && currentCalendar.year == this.year;
     }
 }
