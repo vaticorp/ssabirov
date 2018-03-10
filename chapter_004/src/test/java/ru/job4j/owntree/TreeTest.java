@@ -50,4 +50,16 @@ public class TreeTest {
         testIterator.next();
         assertThat(testIterator.next(), is(2));
     }
+    @Test
+    public void whenWeCreateBinaryTreeAndCheck() {
+        Tree<Integer> tree = new Tree<Integer>(1);
+        tree.add(1, 2);
+        tree.add(1, 4);
+        tree.add(2, 7);
+        tree.add(2, 9);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        tree.add(5, 12);
+        assertThat(tree.isBinary(), is(true));
+    }
 }
