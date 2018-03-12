@@ -22,10 +22,9 @@ public class SimpleLinkedSet<E> implements Iterable<E> {
     }
 
     public void add(E value) {
-        if (this.innerContainer.contains(value)) {
-            return;
+        if (!this.innerContainer.contains(value)) {
+            this.innerContainer.add(value);
         }
-        this.innerContainer.add(value);
     }
 
     public int size() {
