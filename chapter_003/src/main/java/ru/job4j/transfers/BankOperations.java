@@ -20,32 +20,26 @@ public class BankOperations {
         this.usersAccount.putIfAbsent(currentUser, new ArrayList<Account>());
     }
 
-    public synchronized void deleteUser(User currentUser) {
+    public void deleteUser(User currentUser) {
         this.usersAccount.remove(currentUser);
     }
 
-    public synchronized void addAccountToUser(String passportData, Account accountUser) {
+    public void addAccountToUser(String passportData, Account accountUser) {
         User foundUser = getUserByPassport(passportData);
         if (foundUser != null) {
             List<Account> listAccounts = this.usersAccount.get(foundUser);
-            int index = listAccounts.indexOf(accountUser);
-            if (index != -1) {
-                listAccounts.set(index, accountUser);
-            } else {
+            if (!listAccounts.contains(accountUser)) {
                 listAccounts.add(accountUser);
             }
-            this.usersAccount.replace(foundUser, listAccounts);
         }
     }
 
-    public synchronized void deleteAccountFromUser(String passportData, Account accountUser) {
+    public void deleteAccountFromUser(String passportData, Account accountUser) {
         User foundUser = getUserByPassport(passportData);
         if (foundUser != null) {
             List<Account> listAccounts = this.usersAccount.get(foundUser);
-            int index = listAccounts.indexOf(accountUser);
-            if (index != -1) {
-                listAccounts.remove(index);
-                this.usersAccount.replace(foundUser, listAccounts);
+            if (listAccounts.contains(accountUser)) {
+                listAccounts.remove(accountUser);
             }
         }
     }
@@ -81,7 +75,7 @@ public class BankOperations {
         return findAccount;
     }
 
-    public synchronized boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         boolean result = false;
         List<Account>  sourceUserAccounts = getUserAccounts(srcPassport);
         List<Account>  destinationUserAccounts = getUserAccounts(destPassport);

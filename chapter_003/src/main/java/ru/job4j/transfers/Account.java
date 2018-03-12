@@ -30,7 +30,7 @@ public class Account {
         this.value = value;
     }
 
-    public synchronized boolean transferMoney(Account destination, double amount) {
+    public boolean transferMoney(Account destination, double amount) {
         boolean result = false;
         if (amount <= this.value) {
             this.value -= amount;
@@ -48,6 +48,12 @@ public class Account {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Account)) {
+            return false;
+        }
         Account verifiableAccount = (Account) obj;
         return super.equals(obj) || this.requisites.equals(verifiableAccount.requisites);
     }

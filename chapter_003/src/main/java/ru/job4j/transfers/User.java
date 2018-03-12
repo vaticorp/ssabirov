@@ -33,6 +33,12 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
         User verifiableUser = (User) obj;
         return super.equals(obj) || (this.name.equals(verifiableUser.name) && this.passport.equals(verifiableUser.passport));
     }
