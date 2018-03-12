@@ -22,8 +22,11 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         this.container = new Object[size];
     }
 
+    /**
+     * Конструктор без указания размера.
+     */
     public ArrayContainer() {
-
+        this(10);
     }
 
     public int getSize() {
