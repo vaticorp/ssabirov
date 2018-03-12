@@ -75,10 +75,11 @@ public class MapHash<K, V> implements Iterable<MapValue<K, V>> {
             if (map == null) {
                 continue;
             }
-            str.append(map.getKey() + " : " + map.getValue() + "\n");
+            str.append(map.getKey())
+                .append(" : ")
+                .append(map.getValue())
+                .append("\n");
         }
-
-
         return str.toString();
     }
 
