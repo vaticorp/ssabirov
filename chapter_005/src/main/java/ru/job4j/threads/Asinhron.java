@@ -9,7 +9,7 @@ package ru.job4j.threads;
 public class Asinhron {
 
     public void count(String phrase) {
-
+        System.out.println("Начали работу");
         Thread spaceTread = new Thread() {
             @Override
             public void run() {
@@ -20,7 +20,7 @@ public class Asinhron {
                         result++;
                     }
                 }
-                System.out.printf("\nThread 1: количество пробелов %d", result);
+                System.out.printf("\nThread 1: количество пробелов %d\n", result);
             }
         };
         Thread wordThread = new Thread() {
@@ -42,10 +42,17 @@ public class Asinhron {
                 if (word) {
                     result++;
                 }
-                System.out.printf("\nThread 2: количество слов %d", result);
+                System.out.printf("\nThread 2: количество слов %d\n", result);
             }
         };
-        spaceTread.start();
-        wordThread.start();
+        try {
+            spaceTread.start();
+            spaceTread.join();
+            wordThread.start();
+            wordThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("\nЗакончили работу");
     }
 }

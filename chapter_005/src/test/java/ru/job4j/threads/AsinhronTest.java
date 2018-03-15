@@ -18,17 +18,17 @@ import static org.junit.Assert.assertThat;
  */
 public class AsinhronTest {
 
-    private final PrintStream stdout = System.out;
-    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    //private final PrintStream stdout = System.out;
+    //private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Before
     public void loadOutput() {
-        System.setOut(new PrintStream(this.out));
+        //System.setOut(new PrintStream(this.out));
     }
 
     @After
     public void backOutput() {
-        System.setOut(this.stdout);
+        //System.setOut(this.stdout);
     }
 
     @Test
