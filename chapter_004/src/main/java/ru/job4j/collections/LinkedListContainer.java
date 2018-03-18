@@ -1,5 +1,8 @@
 package ru.job4j.collections;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,10 +14,14 @@ import java.util.NoSuchElementException;
  * @since 05.03.2018
  * @version 7.
  */
+@ThreadSafe
 public class LinkedListContainer<E> implements SimpleContainer<E> {
 
+    @GuardedBy("this")
     private Node<E> first;
+    @GuardedBy("this")
     private Node<E> last;
+    @GuardedBy("this")
     private int size;
     private int modCount;
 
@@ -30,12 +37,12 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         }
     }
 
-    public int getSize() {
+    public synchronized int getSize() {
         return size;
     }
 
     @Override
-    public void add(E value) {
+    public synchronized void add(E value) {
         Node<E> newNode = new Node<E>(value, null, this.last);
         if (this.last == null) {
             this.first = newNode;
@@ -48,7 +55,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         modCount++;
     }
 
-    public boolean contains(E value) {
+    public synchronized boolean contains(E value) {
         boolean result = false;
         Node<E> currentNode = this.first;
         while (currentNode != null) {
@@ -62,7 +69,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
     }
 
     @Override
-    public E get(int index) {
+    public synchronized E get(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
         }
@@ -79,7 +86,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         return currentNode.value;
     }
 
-    public E getLast(int index) {
+    public synchronized E getLast(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
         }
@@ -96,7 +103,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         return currentNode.value;
     }
 
-    public void removeFirst() {
+    public synchronized void removeFirst() {
         Node<E> firstNode = this.first;
         if (firstNode == null) {
             throw new NoSuchElementException();
@@ -114,7 +121,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
         modCount++;
     }
 
-    public void removeLast() {
+    public synchronized void removeLast() {
         Node<E> lastNode = this.last;
         if (lastNode == null) {
             throw new NoSuchElementException();
@@ -133,7 +140,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public synchronized Iterator<E> iterator() {
 
         int expectedModCount = this.modCount;
 
@@ -154,12 +161,14 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
-                checkArrayChanges();
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
+                synchronized (LinkedListContainer.this) {
+                    checkArrayChanges();
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
+                    this.innerIterator = this.innerIterator == null ? first : innerIterator.next;
+                    return this.innerIterator.value;
                 }
-                this.innerIterator = this.innerIterator == null ? first : innerIterator.next;
-                return this.innerIterator.value;
             }
 
             @Override

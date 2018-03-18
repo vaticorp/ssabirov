@@ -1,5 +1,8 @@
 package ru.job4j.collections;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -9,9 +12,11 @@ import java.util.*;
  * @since 05.03.2018
  * @version 10.
  */
+@ThreadSafe
 public class ArrayContainer<E> implements SimpleContainer<E> {
-
+    @GuardedBy("this")
     private Object[] container;
+    @GuardedBy("this")
     private int size;
     private int modCount;
 
@@ -29,7 +34,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         this(10);
     }
 
-    public int getSize() {
+    public synchronized int getSize() {
         return size;
     }
 
@@ -38,20 +43,20 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     }
 
     @Override
-    public E get(int index) {
+    public synchronized E get(int index) {
         checkIndex(index);
         return (E) this.container[index];
     }
 
     @Override
-    public void add(E value) {
+    public synchronized void add(E value) {
         checkSize();
         this.modCount++;
         this.container[size++] = value;
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public synchronized Iterator<E> iterator() {
 
         int expectedModCount = this.modCount;
 
@@ -72,11 +77,13 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
-                checkArrayChanges();
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
+                synchronized (ArrayContainer.this) {
+                    checkArrayChanges();
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
+                    return (E) container[innerIterator++];
                 }
-                return (E) container[innerIterator++];
             }
 
             @Override
@@ -120,7 +127,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         return false;
     }
 
-    public void checkIndex(int index) {
+    public synchronized void checkIndex(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException("Индес находится за границей размера коллекции");
         }
@@ -132,7 +139,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         }
     }
 
-    public boolean contains(E value) {
+    public synchronized boolean contains(E value) {
         boolean result = false;
         int length =  this.getLength();
         for (int index = 0; index < length; index++) {
