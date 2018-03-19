@@ -21,6 +21,7 @@ public class SimpleBlockingQueue<T> {
     public void offer(T value) throws InterruptedException {
         synchronized (this.queue) {
             this.queue.offer(value);
+
             this.condition = true;
             System.out.println("Нить " + Thread.currentThread().getName() + " добавила значение => будим остальные нити!");
             this.queue.notify();
