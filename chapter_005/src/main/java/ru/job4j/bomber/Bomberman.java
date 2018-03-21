@@ -30,7 +30,6 @@ public class Bomberman {
                 Pair newMove = calculateMove(positionX, positionY);
                 board[positionX][positionY] = new ReentrantLock();
                 duration = !board[positionX][positionY].tryLock()? 500 : 1000;
-                if (duration == 1000)
                 try {
                     Thread.sleep(duration);
                 } catch (InterruptedException e) {
