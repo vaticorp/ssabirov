@@ -21,16 +21,22 @@ public class Node<T> {
 
     public boolean hasCycle(Node<T> first) {
         boolean result = false;
-        Node<T> currentNode = first;
-        StringBuilder hashBuilder = new StringBuilder(String.valueOf(first.hashCode()));
-        while (currentNode.next != null) {
-            currentNode = currentNode.next;
-            String currentHash = String.valueOf(currentNode.hashCode());
-            if (hashBuilder.indexOf(currentHash) != -1) {
+        Node<T> rabbit = first;
+        Node<T> turtle = first;
+        while (true) {
+            turtle = turtle.next;
+            if (rabbit.next != null) {
+                rabbit = rabbit.next.next;
+            } else {
+                break;
+            }
+            if (rabbit == null || turtle == null) {
+                break;
+            }
+            if (rabbit == turtle) {
                 result = true;
                 break;
             }
-            hashBuilder.append(currentHash);
         }
         return result;
     }
