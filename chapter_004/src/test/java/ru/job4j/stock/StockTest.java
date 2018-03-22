@@ -59,7 +59,7 @@ public class StockTest {
     }
 
     @Test
-    public void whenAddBidsToStockAndGroupBy() {
+    public void whenAddBidsToStockAndGroupByThat() {
         Stock glass = new Stock();
         Proposal gazpromFirst = new Proposal("gazprom", Type.ADD, Action.ASK, 15, 20);
         Proposal gazpromSecond = new Proposal("gazprom", Type.ADD, Action.ASK, 25, 20);
