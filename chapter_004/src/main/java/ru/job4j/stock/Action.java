@@ -7,5 +7,5 @@ package ru.job4j.stock;
  * @version 7.
  */
 public enum Action {
-    bid, ask
+    BID, ASK
 }

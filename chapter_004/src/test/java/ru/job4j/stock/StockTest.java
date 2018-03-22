@@ -33,9 +33,9 @@ public class StockTest {
     @Test
     public void whenAddTwoBidsToStockAndDelete() {
         Stock glass = new Stock();
-        Proposal gazpromFirst = new Proposal("gazprom", Type.add, Action.ask, 15, 20);
-        Proposal deleteGazprom = new Proposal("gazprom", Type.delete, Action.ask, 15, 20);
-        Proposal lukoil = new Proposal("lukoil", Type.add, Action.ask, 25, 15);
+        Proposal gazpromFirst = new Proposal("gazprom", Type.ADD, Action.ASK, 15, 20);
+        Proposal deleteGazprom = new Proposal("gazprom", Type.DELETE, Action.ASK, 15, 20);
+        Proposal lukoil = new Proposal("lukoil", Type.ADD, Action.ASK, 25, 15);
         glass.addBid(gazpromFirst);
         glass.addBid(lukoil);
         glass.addBid(deleteGazprom);
@@ -56,21 +56,17 @@ public class StockTest {
                                 .toString()
                 )
         );
-        //System.out.println();
     }
 
     @Test
     public void whenAddBidsToStockAndGroupBy() {
         Stock glass = new Stock();
-        Proposal gazpromFirst = new Proposal("gazprom", Type.add, Action.ask, 15, 20);
-        Proposal gazpromSecond = new Proposal("gazprom", Type.add, Action.ask, 25, 20);
-        Proposal gazpromThird = new Proposal("gazprom", Type.add, Action.ask, 15, 40);
-        Proposal gazpromFours = new Proposal("gazprom", Type.add, Action.bid, 15, 13);
-        //Proposal deleteGazprom = new Proposal("gazprom", Type.delete, Action.ask, 15, 20);
-        Proposal lukoil = new Proposal("lukoil", Type.add, Action.ask, 25, 15);
+        Proposal gazpromFirst = new Proposal("gazprom", Type.ADD, Action.ASK, 15, 20);
+        Proposal gazpromSecond = new Proposal("gazprom", Type.ADD, Action.ASK, 25, 20);
+        Proposal gazpromFours = new Proposal("gazprom", Type.ADD, Action.BID, 15, 13);
+        Proposal lukoil = new Proposal("lukoil", Type.ADD, Action.ASK, 25, 15);
         glass.addBid(gazpromFirst);
         glass.addBid(gazpromSecond);
-        glass.addBid(gazpromThird);
         glass.addBid(gazpromFours);
         glass.addBid(lukoil);
         glass.printStock();
@@ -86,7 +82,7 @@ public class StockTest {
                                 .append("\n")
                                 .append("20      25")
                                 .append("\n")
-                                .append("47      15")
+                                .append("7      15")
                                 .append("\n")
                                 .append("Биржевой стакан для lukoil")
                                 .append("\n")
@@ -105,13 +101,11 @@ public class StockTest {
     @Test
     public void whenAddBidsToStockAndCheck() {
         Stock glass = new Stock();
-        Proposal gazpromFirst = new Proposal("gazprom", Type.add, Action.ask, 15, 20);
-        Proposal gazpromSecond = new Proposal("gazprom", Type.add, Action.ask, 25, 20);
-        Proposal gazpromThird = new Proposal("gazprom", Type.add, Action.ask, 15, 40);
-        Proposal gazpromFours = new Proposal("gazprom", Type.add, Action.bid, 15, 13);
+        Proposal gazpromFirst = new Proposal("gazprom", Type.ADD, Action.ASK, 15, 20);
+        Proposal gazpromSecond = new Proposal("gazprom", Type.ADD, Action.ASK, 25, 20);
+        Proposal gazpromFours = new Proposal("gazprom", Type.ADD, Action.BID, 15, 13);
         glass.addBid(gazpromFirst);
         glass.addBid(gazpromSecond);
-        glass.addBid(gazpromThird);
         glass.addBid(gazpromFours);
         glass.printStock();
         assertThat(
@@ -126,7 +120,7 @@ public class StockTest {
                                 .append("\n")
                                 .append("20      25")
                                 .append("\n")
-                                .append("47      15")
+                                .append("7      15")
                                 .append("\n")
                                 .append(System.lineSeparator())
                                 .toString()

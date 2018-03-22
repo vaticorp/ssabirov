@@ -7,5 +7,5 @@ package ru.job4j.stock;
  * @version 7.
  */
 public enum Type {
-    add, delete
+    ADD, DELETE
 }

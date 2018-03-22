@@ -10,7 +10,7 @@ import java.util.Objects;
  * @since 12.03.2018
  * @version 7.
  */
-public class Proposal {
+public class Proposal implements Comparable {
 
     private int id;
     private String book;
@@ -20,7 +20,7 @@ public class Proposal {
     private int volume;
 
     public Proposal(String book, Type type, Action action, int price, int volume) {
-        this.id = this.hashCode();
+        this.id = (int) Math.random() * 10000;
         this.book = book;
         this.type = type;
         this.action = action;
@@ -66,10 +66,14 @@ public class Proposal {
             return false;
         }
         Proposal currentProposal = (Proposal) obj;
-        return currentProposal.id == this.id
-                && currentProposal.book == this.book
+        return  currentProposal.book == this.book
                 && currentProposal.volume == this.volume
                 && currentProposal.action.equals(this.action)
                 && currentProposal.price == this.price;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((Proposal)o).price - this.price;
     }
 }
