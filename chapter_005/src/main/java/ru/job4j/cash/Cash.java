@@ -18,7 +18,7 @@ public class Cash {
 
     public void update(People model, String name) {
         innerCashContainer.computeIfPresent(model, (key, oldVal) -> {
-            if (key.getVersion() != oldVal) {
+            if (key.getVersion() != model.getVersion()) {
                 throw new OplimisticException("Раличаются версии объекта!");
             }
             key.setName(name);
