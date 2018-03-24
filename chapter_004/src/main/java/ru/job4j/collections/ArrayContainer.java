@@ -18,6 +18,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     private Object[] container;
     @GuardedBy("this")
     private int size;
+    @GuardedBy("this")
     private int modCount;
 
     public ArrayContainer(int size) {
@@ -65,11 +66,11 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
             private int innerIterator;
 
             @Override
-            public boolean hasNext() {
+            public synchronized boolean hasNext() {
                 return this.innerIterator < size - 1;
             }
 
-            public void checkArrayChanges() {
+            public synchronized void checkArrayChanges() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException("Произошла рассинхронизация итератора и контейнера коллекции!");
                 }
@@ -93,13 +94,13 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         };
     }
 
-    public void checkSize() {
+    public synchronized void checkSize() {
         if (size + 1 > container.length) {
             increaseArray();
         }
     }
 
-    public boolean set(int index, E value) {
+    public synchronized boolean set(int index, E value) {
         checkLength(index);
         if (this.container[index] == null) {
             size++;
@@ -109,12 +110,12 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         return true;
     }
 
-    public void increaseArray() {
+    public synchronized void increaseArray() {
         this.modCount++;
         this.container = Arrays.copyOf(this.container, this.container.length * 2);
     }
 
-    public boolean remove(E value) {
+    public synchronized boolean remove(E value) {
         int length =  this.getLength();
         for (int index = 0; index < length; index++) {
             if (this.container[index] != null && ((E) this.container[index]).equals(value)) {
@@ -151,7 +152,7 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
         return result;
     }
 
-    public int indexOf(E value) {
+    public synchronized int indexOf(E value) {
         int index = -1;
         int length =  this.getLength();
         for (int i = 0; i < length; i++) {

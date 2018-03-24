@@ -23,6 +23,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
     private Node<E> last;
     @GuardedBy("this")
     private int size;
+    @GuardedBy("this")
     private int modCount;
 
     public class Node<E> {
@@ -149,11 +150,11 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
             private Node<E> innerIterator;
 
             @Override
-            public boolean hasNext() {
+            public synchronized boolean hasNext() {
                 return (innerIterator == null && first != null) || (innerIterator != null && !innerIterator.equals(last));
             }
 
-            public void checkArrayChanges() {
+            public synchronized void checkArrayChanges() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException("Произошла рассинхронизация итератора и контейнера коллекции!");
                 }
@@ -172,7 +173,7 @@ public class LinkedListContainer<E> implements SimpleContainer<E> {
             }
 
             @Override
-            public void remove() {
+            public synchronized void remove() {
                 throw new UnsupportedOperationException();
             }
         };
