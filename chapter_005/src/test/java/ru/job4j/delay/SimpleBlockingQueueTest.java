@@ -15,12 +15,14 @@ public class SimpleBlockingQueueTest {
     @Test
     public void whenWeCreateToThreads() throws InterruptedException {
 
-        SimpleBlockingQueue<String> testQueue = new SimpleBlockingQueue<String>();
+        SimpleBlockingQueue<Integer> testQueue = new SimpleBlockingQueue<Integer>();
         Thread producer = new Thread() {
             @Override
             public void run() {
                 try {
-                    testQueue.offer("First");
+                    for (int index = 0; index < 50; index++) {
+                        testQueue.offer(index);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -30,16 +32,19 @@ public class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 try {
-                    System.out.println(testQueue.peek());
+                    for (int index = 0; index < 50; index++) {
+                        System.out.println(testQueue.peek());
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         };
         producer.start();
-        producer.join();
         user.start();
+        producer.join();
         user.join();
+        Thread.sleep(30000);
     }
 
 }
