@@ -1,6 +1,7 @@
 package ru.job4j.own;
 
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This class represents Lock.
@@ -15,17 +16,11 @@ public class OwnLock {
     public synchronized void lock() {
         if (currentThread == null) {
             currentThread = Thread.currentThread();
-            try {
-                currentThread.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public synchronized void unlock() {
         if (currentThread != null && currentThread == Thread.currentThread()) {
-            currentThread.notify();
             currentThread = null;
         }
     }
