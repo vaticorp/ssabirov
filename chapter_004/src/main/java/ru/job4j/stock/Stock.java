@@ -1,5 +1,7 @@
 package ru.job4j.stock;
 
+import org.omg.PortableServer.THREAD_POLICY_ID;
+
 import java.util.*;
 
 /**
@@ -81,6 +83,8 @@ public class Stock {
                 }
             }
         }
+        Thread t = new Thread();
+        t.setDaemon(true);
         return result;
     }
 

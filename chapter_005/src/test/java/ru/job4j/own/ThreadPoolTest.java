@@ -16,6 +16,7 @@ public class ThreadPoolTest {
     @Test
     public void whenAddWorksAndRun() throws InterruptedException {
         ThreadPool testPool = new ThreadPool();
+        testPool.activatePool();
         testPool.add(new Work("Мыть посуду"));
         testPool.add(new Work("Красить окна"));
         testPool.add(new Work("Завтракать"));

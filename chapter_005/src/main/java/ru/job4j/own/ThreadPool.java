@@ -17,22 +17,24 @@ import java.util.concurrent.Executors;
 public class ThreadPool {
 
     @GuardedBy("this")
-    private List<Work> works = new ArrayList<Work>();
+    private final List<Work> works = new ArrayList<Work>();
+    private final int processors = Runtime.getRuntime().availableProcessors();
 
-    public ThreadPool() {
-        int processors = Runtime.getRuntime().availableProcessors();
+    public void activatePool() {
         for (int index = 0; index < processors; index++) {
             new Thread() {
                 @Override
                 public void run() {
                     while (!Thread.currentThread().isInterrupted()) {
+                        Work work = null;
                         synchronized (works) {
                             if (works.size() > 0) {
                                 System.out.println("Работает поток: " + Thread.currentThread().getName());
-                                Work work = works.get(0);
-                                work.doWork();
-                                works.remove(work);
+                                work = works.remove(0);
                             }
+                        }
+                        if (work != null) {
+                            work.doWork();
                         }
                     }
                 }
