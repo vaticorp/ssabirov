@@ -1,7 +1,13 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.postgresql.Driver;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
+import java.util.*;
 
 /**
  * This class is using for storage items.
@@ -14,19 +20,94 @@ public class Tracker {
      * Массив для хранение заявок.
      */
     private final List<Item> items = new ArrayList<Item>();
+    private final Logger logger = LoggerFactory.getLogger(Tracker.class);
+    private final Map<String, String> scripts = new HashMap<>();
+    private String url;
+    private String user;
+    private String password;
 
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    //private int position = 0;
+    public Tracker() {
+
+        FileInputStream fis = null;
+        Properties property = new Properties();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");
+            property.load(fis);
+            url = property.getProperty("url");
+            user = property.getProperty("login");
+            password = property.getProperty("password");
+            scripts.put("add", property.getProperty("add"));
+            scripts.put("replace", property.getProperty("replace"));
+            scripts.put("delete", property.getProperty("delete"));
+            scripts.put("findAll", property.getProperty("findAll"));
+            scripts.put("findByName", property.getProperty("findByName"));
+            scripts.put("findById", property.getProperty("findById"));
+
+            Connection con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(property.getProperty("checkStructure"));
+            rs = stmt.executeQuery();
+            if (!rs.next()) {
+                con.prepareStatement(property.getProperty("createStructure"));
+                stmt.execute();
+            }
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException ioException) {
+                logger.error(ioException.getMessage(), ioException);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                rs.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+        }
+    }
+
 
     /**
      * Метод реализаущий добавление заявки в хранилище
      * @param item новая заявка
      */
     public Item add(Item item) {
-        item.setId(this.generateId());
-        this.items.add(item);
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("add");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, this.generateId());
+            stmt.setString(2, item.getName());
+            stmt.setString(3, item.getDescription());
+            stmt.setLong(4, item.getCreated());
+            stmt.execute();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+        }
         return item;
     }
 
@@ -36,11 +117,30 @@ public class Tracker {
      * @param item - bid.
      */
     public void replace(String id, Item item) {
-        for (Item current : items) {
-            if (current.getId().equals(id)) {
-                item.setId(current.getId());
-                this.items.add(items.indexOf(current), item);
-                break;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("replace");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, item.getName());
+            stmt.setString(2, item.getDescription());
+            stmt.setLong(3, item.getCreated());
+            stmt.setString(4, id);
+            stmt.execute();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
             }
         }
     }
@@ -49,10 +149,27 @@ public class Tracker {
      * @param id - identifier.
      */
     public void delete(String id) {
-        for (Item current : items) {
-            if (current.getId().equals(id)) {
-                items.remove(current);
-                break;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("delete");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, id);
+            stmt.execute();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
             }
         }
     }
@@ -62,7 +179,40 @@ public class Tracker {
      * @return - list of bid.
      */
     public List<Item> findAll() {
-        return items;
+        List<Item> list = new ArrayList<Item>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("findAll");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                item.setId(rs.getString(1));
+                list.add(item);
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                rs.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+        }
+        return list;
     }
 
     /**
@@ -72,9 +222,37 @@ public class Tracker {
      */
     public List<Item> findByName(String key) {
         List<Item> currientitems = new ArrayList<Item>();
-        for (Item item: items) {
-            if (item.getName().equals(key)) {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("findByName");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, key);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                item.setId(rs.getString(1));
                 currientitems.add(item);
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                rs.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
             }
         }
         return currientitems;
@@ -87,10 +265,36 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item found = null;
-        for (Item item : items) {
-            if (item.getId().equals(id)) {
-                found = item;
-                break;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = scripts.get("findByName");
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                found = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                found.setId(rs.getString(1));
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                stmt.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
+            }
+            try {
+                rs.close();
+            } catch (SQLException se) {
+                logger.error(se.getMessage(), se);
             }
         }
         return found;
