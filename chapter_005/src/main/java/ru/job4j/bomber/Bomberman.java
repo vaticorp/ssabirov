@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @ThreadSafe
 public class Bomberman {
 
-    @GuardedBy("this")
+    @GuardedBy("board")
     private final ReentrantLock[][] board;
     private final int numberOfMonsters;
     private final int sizeX;
@@ -37,7 +37,7 @@ public class Bomberman {
         }
         this.numberOfMonsters = monsters;
         this.obstacles = obstacles;
-        this.mario = new Hero("Mario", this);
+        this.mario = new Hero("Марио", this);
     }
 
     public Hero getMario() {
@@ -80,11 +80,13 @@ public class Bomberman {
 
     public static void main(String[] args) {
         ArrayList<Pair> barriers = new ArrayList<Pair>();
-        barriers.add(new Pair(8, 8, 0, 0));
-        barriers.add(new Pair(8, 8, 0, 3));
-        barriers.add(new Pair(8, 8, 3, 0));
-        barriers.add(new Pair(8, 8, 3, 3));
-        Bomberman newGame = new Bomberman(8, 8, 2, barriers);
+        barriers.add(new Pair(5, 5, 0, 0));
+        barriers.add(new Pair(5, 5, 0, 4));
+        barriers.add(new Pair(5, 5, 4, 0));
+        barriers.add(new Pair(5, 5, 1, 3));
+        barriers.add(new Pair(5, 5, 4, 2));
+        barriers.add(new Pair(5, 5, 1, 1));
+        Bomberman newGame = new Bomberman(5, 5, 5, barriers);
         newGame.startGame();
     }
 }

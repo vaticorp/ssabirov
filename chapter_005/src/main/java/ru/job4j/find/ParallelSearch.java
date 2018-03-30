@@ -70,7 +70,7 @@ public class ParallelSearch extends SimpleFileVisitor<Path> {
                             System.out.println("Поток сканирует новый файл: " + Thread.currentThread().getName());
                             try {
                                 List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
-                                for(String line: lines){
+                                for (String line : lines) {
                                     if (line.contains(text)) {
                                         paths.add(path);
                                     }
