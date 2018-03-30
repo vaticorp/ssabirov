@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
@@ -67,22 +68,13 @@ public class ParallelSearch extends SimpleFileVisitor<Path> {
                         if (files.size() > 0) {
                             String path = files.poll();
                             System.out.println("Поток сканирует новый файл: " + Thread.currentThread().getName());
-                            try (FileInputStream fis = new FileInputStream(new File(path));) {
-                                byte[] content = new byte[fis.available()];
-                                fis.read(content);
-                                fis.close();
-                                String[] lines = new String(content, "Cp1251").split("\n");
-                                for (String line : lines) {
-                                    String[] words = line.split(" ");
-                                    int j = 1;
-                                    for (String word : words) {
-                                        if (word.equals(text)) {
-                                            paths.add(path);
-                                        }
+                            try {
+                                List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+                                for(String line: lines){
+                                    if (line.contains(text)) {
+                                        paths.add(path);
                                     }
                                 }
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             } catch (Exception e) {

@@ -22,6 +22,7 @@ public class User {
         return amount;
     }
 
+
     public void setAmount(int amount) {
         this.amount = amount;
     }
@@ -31,3 +32,4 @@ public class User {
         return "id = " + this.getId() + " amount = " + this.getAmount();
     }
 }
+
