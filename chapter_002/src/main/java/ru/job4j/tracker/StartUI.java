@@ -36,7 +36,7 @@ public class StartUI {
      * Основой цикл программы.
      */
     public void init() {
-
+       tracker.readPropertyFile();
        int exitvalue = new ExitProgram(6, "Exit Program").key();
        MenuTracker menu = new MenuTracker(this.input, this.tracker);
        menu.createMenu();

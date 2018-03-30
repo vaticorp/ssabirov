@@ -26,15 +26,9 @@ public class Tracker {
     private String user;
     private String password;
 
-    public Tracker() {
-
-        FileInputStream fis = null;
+    public void readPropertyFile() {
         Properties property = new Properties();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");
+        try(FileInputStream fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");) {
             property.load(fis);
             url = property.getProperty("url");
             user = property.getProperty("login");
@@ -45,50 +39,29 @@ public class Tracker {
             scripts.put("findAll", property.getProperty("findAll"));
             scripts.put("findByName", property.getProperty("findByName"));
             scripts.put("findById", property.getProperty("findById"));
-
-            Connection con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(property.getProperty("checkStructure"));
-            rs = stmt.executeQuery();
-            if (!rs.next()) {
-                con.prepareStatement(property.getProperty("createStructure"));
-                stmt.execute();
+            try(Connection con = DriverManager.getConnection(url, user, password);
+                PreparedStatement stmt = con.prepareStatement(property.getProperty("checkStructure"));
+                ResultSet rs = stmt.executeQuery();) {
+                if (!rs.next()) {
+                    con.prepareStatement(property.getProperty("createStructure"));
+                    stmt.execute();
+                }
             }
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException ioException) {
-                logger.error(ioException.getMessage(), ioException);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                rs.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
     }
-
 
     /**
      * Метод реализаущий добавление заявки в хранилище
      * @param item новая заявка
      */
     public Item add(Item item) {
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String query = scripts.get("add");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, this.generateId());
             stmt.setString(2, item.getName());
             stmt.setString(3, item.getDescription());
@@ -96,17 +69,6 @@ public class Tracker {
             stmt.execute();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
         return item;
     }
@@ -117,13 +79,9 @@ public class Tracker {
      * @param item - bid.
      */
     public void replace(String id, Item item) {
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String query = scripts.get("replace");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, item.getName());
             stmt.setString(2, item.getDescription());
             stmt.setLong(3, item.getCreated());
@@ -131,46 +89,21 @@ public class Tracker {
             stmt.execute();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
     }
+
     /**
      * Delete by bid-id.
      * @param id - identifier.
      */
     public void delete(String id) {
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String query = scripts.get("delete");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, id);
             stmt.execute();
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
     }
 
@@ -180,14 +113,10 @@ public class Tracker {
      */
     public List<Item> findAll() {
         List<Item> list = new ArrayList<Item>();
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String query = scripts.get("findAll");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
-            rs = stmt.executeQuery();
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();) {
             while (rs.next()) {
                 Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
                 item.setId(rs.getString(1));
@@ -195,22 +124,6 @@ public class Tracker {
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                rs.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
         return list;
     }
@@ -222,15 +135,12 @@ public class Tracker {
      */
     public List<Item> findByName(String key) {
         List<Item> currientitems = new ArrayList<Item>();
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        String query = scripts.get("findByName");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
+           String query = scripts.get("findByName");
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = null;) {
             stmt.setString(1, key);
-            rs = stmt.executeQuery();
+            stmt.executeQuery();
             while (rs.next()) {
                 Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
                 item.setId(rs.getString(1));
@@ -238,22 +148,6 @@ public class Tracker {
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                rs.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
         return currientitems;
     }
@@ -265,37 +159,18 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item found = null;
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
         String query = scripts.get("findByName");
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.prepareStatement(query);
+        try(Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, id);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                found = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
-                found.setId(rs.getString(1));
+            try(ResultSet rs = stmt.executeQuery();) {
+                while (rs.next()) {
+                    found = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                    found.setId(rs.getString(1));
+                }
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                stmt.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
-            try {
-                rs.close();
-            } catch (SQLException se) {
-                logger.error(se.getMessage(), se);
-            }
         }
         return found;
     }
