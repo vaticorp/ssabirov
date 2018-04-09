@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class represents UserStorage-singleton.
@@ -14,21 +16,32 @@ import java.util.Locale;
  */
 public class UserStore {
 
-    private static UserStore instance;
-    private UserStore() {}
+    private volatile static UserStore instance;
+    private UserStore() {
+
+    }
     private final String url = "jdbc:postgresql://localhost:5432/user";
     private final String login = "postgres";
     private final String password = "1";
 
-    public static synchronized UserStore getInstance(){
-        if(instance == null){
-            instance = new UserStore();
+    public static UserStore getInstance() {
+        if (instance == null) {
+            synchronized (UserStore.class) {
+                if (instance == null) {
+                    instance = new UserStore();
+                }
+            }
         }
         return instance;
     }
 
     public User getUser(String userLogin) {
         User returnUser = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, login, password);
              PreparedStatement prpStat = connection.prepareStatement("SELECT name, login, email, createDate FROM users WHERE login = ?")) {
             prpStat.setString(1, userLogin);
@@ -45,6 +58,11 @@ public class UserStore {
 
     public boolean deleteUser(String userLogin) {
         boolean result = false;
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, login, password);
             PreparedStatement prpStat = connection.prepareStatement("DELETE FROM users WHERE login = ?")) {
             prpStat.setString(1, userLogin);
@@ -56,8 +74,13 @@ public class UserStore {
         return result;
     }
 
-    public boolean updateUser(String userLogin,String userMail) {
+    public boolean updateUser(String userLogin, String userMail) {
         boolean result = false;
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, login, password);
             PreparedStatement prpStat = connection.prepareStatement("UPDATE users SET email= ? WHERE login = ?")) {
             prpStat.setString(1, userMail);
@@ -72,6 +95,11 @@ public class UserStore {
 
     public boolean createUser(User newUser) {
         boolean result = false;
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, login, password);
              PreparedStatement prpStat = connection.prepareStatement("INSERT INTO users(login, name, email, createdate) VALUES (?, ?, ?, ?)")) {
             prpStat.setString(1, newUser.getLogin());

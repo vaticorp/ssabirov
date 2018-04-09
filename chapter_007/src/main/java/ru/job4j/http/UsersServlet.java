@@ -31,10 +31,13 @@ public class UsersServlet extends HttpServlet {
         String email = req.getParameter("email");
         String createDate = req.getParameter("createDate");
         User people = new User(name, login, email, createDate);
+        users.createUser(people);
+        /*
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        writer.append("POST complete ");
+        writer.append("POST complete " + email);
         writer.flush();
+        */
     }
 
     /**
@@ -46,21 +49,14 @@ public class UsersServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /* http://localhost:8080//items/start?login=corvin
-        String parametr = req.getParameter("name");
-        //System.out.println(parametr);
-        resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        writer.append("I'LL BE CRUD!" + parametr);
-        writer.flush();
-        //super.doGet(req, resp);
-        */
         String login = req.getParameter("login").trim();
         User user = users.getUser(login);
+        /*
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.append("I'LL"+ login  + "BE CRUD!" + user );
         writer.flush();
+        */
     }
 
     /**
