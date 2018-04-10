@@ -68,6 +68,7 @@ public class UsersServlet extends HttpServlet {
      */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //test commit
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         users.updateUser(login, email);
