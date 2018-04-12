@@ -8,13 +8,37 @@
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>-->
-    <servlet>
+    <!---servlet>
         <servlet-name>UsersServlet</servlet-name>
         <servlet-class>ru.job4j.http.UsersServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsersServlet</servlet-name>
         <url-pattern>/start</url-pattern>
+    </servlet-mapping-->
+    <servlet>
+        <servlet-name>CreateServlet</servlet-name>
+        <servlet-class>ru.job4j.servletpool.CreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateServlet</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>ru.job4j.servletpool.EditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetServlet</servlet-name>
+        <servlet-class>ru.job4j.servletpool.GetServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
 </web-app>
