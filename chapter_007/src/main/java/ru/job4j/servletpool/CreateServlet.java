@@ -17,6 +17,7 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /*
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.append("<!DOCTYPE html>" +
@@ -45,6 +46,7 @@ public class CreateServlet extends HttpServlet {
                 "</body>" +
                 "</html>");
         writer.flush();
+        */
     }
 
     @Override
@@ -54,6 +56,7 @@ public class CreateServlet extends HttpServlet {
         String email = req.getParameter("email");
         User people = new User(name, login, email);
         UserStore.INSTANCE.createUser(people);
-        doGet(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
+        //doGet(req, resp);
     }
 }

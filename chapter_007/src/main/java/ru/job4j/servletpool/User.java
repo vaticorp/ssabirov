@@ -1,7 +1,7 @@
 package ru.job4j.servletpool;
 
 /**
- * This class represents User.
+ * This class represents User-dao.
  * @author Svyatoslav Sabirov.
  * @since 06.04.2018
  * @version 7.

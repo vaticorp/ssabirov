@@ -19,6 +19,7 @@ public class GetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /*
         List<User> userList = UserStore.INSTANCE.getUsers();
         StringBuilder stringTabel = new StringBuilder("<table border = '2' bgcolor = '#efefef'>");
         for (User currentUser : userList) {
@@ -53,6 +54,7 @@ public class GetServlet extends HttpServlet {
                  "</body>" +
                 "</html>");
         writer.flush();
+        */
     }
 
     @Override
@@ -60,6 +62,6 @@ public class GetServlet extends HttpServlet {
         Enumeration<String> im = req.getParameterNames();
         String login = im.nextElement();
         UserStore.INSTANCE.deleteUser(login);
-        doGet(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
     }
 }

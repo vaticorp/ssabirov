@@ -17,16 +17,17 @@ public class EditServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //String id = req.
         String login = req.getParameter("id");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         UserStore.INSTANCE.updateUser(login, email, name);
-        doPost(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
+        //doPost(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /*
         String login = req.getParameter("id");
         User user = UserStore.INSTANCE.getUser(login);
         resp.setContentType("text/html");
@@ -51,5 +52,6 @@ public class EditServlet extends HttpServlet {
                 "</body>" +
                 "</html>");
         writer.flush();
+        */
     }
 }

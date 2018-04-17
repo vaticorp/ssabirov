@@ -51,12 +51,10 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login").trim();
         User user = users.getUser(login);
-        /*
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.append("I'LL"+ login  + "BE CRUD!" + user );
         writer.flush();
-        */
     }
 
     /**
