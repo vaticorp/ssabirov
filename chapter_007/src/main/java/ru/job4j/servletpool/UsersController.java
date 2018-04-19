@@ -15,10 +15,12 @@ import java.util.List;
  * @since 11.04.2018
  * @version 9.
  */
-public class GetServlet extends HttpServlet {
+public class UsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", UserStore.INSTANCE.getUsers());
+        req.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(req, resp);
         /*
         List<User> userList = UserStore.INSTANCE.getUsers();
         StringBuilder stringTabel = new StringBuilder("<table border = '2' bgcolor = '#efefef'>");
@@ -62,6 +64,6 @@ public class GetServlet extends HttpServlet {
         Enumeration<String> im = req.getParameterNames();
         String login = im.nextElement();
         UserStore.INSTANCE.deleteUser(login);
-        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/",req.getContextPath()));
     }
 }

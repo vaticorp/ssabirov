@@ -56,7 +56,7 @@ public class CreateServlet extends HttpServlet {
         String email = req.getParameter("email");
         User people = new User(name, login, email);
         UserStore.INSTANCE.createUser(people);
-        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/",req.getContextPath()));
         //doGet(req, resp);
     }
 }

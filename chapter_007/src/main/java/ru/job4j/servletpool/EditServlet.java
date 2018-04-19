@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents servlet for edit user.
@@ -21,12 +23,17 @@ public class EditServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         UserStore.INSTANCE.updateUser(login, email, name);
-        resp.sendRedirect(String.format("%s/index.jsp",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/",req.getContextPath()));
         //doPost(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+         String login = req.getParameter("id");
+         List<User> list = new ArrayList<>();
+         list.add(UserStore.INSTANCE.getUser(login));
+         req.setAttribute("users", list);
+         req.getRequestDispatcher("edit.jsp").forward(req, resp);
         /*
         String login = req.getParameter("id");
         User user = UserStore.INSTANCE.getUser(login);
