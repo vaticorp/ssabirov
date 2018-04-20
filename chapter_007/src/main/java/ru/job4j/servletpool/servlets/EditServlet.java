@@ -1,11 +1,13 @@
-package ru.job4j.servletpool;
+package ru.job4j.servletpool.servlets;
+
+import ru.job4j.servletpool.db.UserStore;
+import ru.job4j.servletpool.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 

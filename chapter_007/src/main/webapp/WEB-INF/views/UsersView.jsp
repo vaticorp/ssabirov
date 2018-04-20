@@ -1,12 +1,12 @@
-<%@ page import="ru.job4j.servletpool.User" %>
+<%@ page import="ru.job4j.servletpool.model.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="ru.job4j.servletpool.UserStore" %>
+<%@ page import="ru.job4j.servletpool.db.UserStore" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Users</title>
 </head>
 <body>
 <table border = '2' bgcolor = '#efefef'>

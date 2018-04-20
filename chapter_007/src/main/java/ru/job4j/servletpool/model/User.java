@@ -1,4 +1,4 @@
-package ru.job4j.servletpool;
+package ru.job4j.servletpool.model;
 
 /**
  * This class represents User-dao.
@@ -11,11 +11,23 @@ public class User {
     private String name;
     private String login;
     private String email;
+    private String password;
+    private Role role;
 
-    public User(String name, String login, String email) {
+    public User(String name, String login, String email,String password, Role role) {
         this.name = name;
         this.login = login;
         this.email = email;
+        this.role = role;
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {

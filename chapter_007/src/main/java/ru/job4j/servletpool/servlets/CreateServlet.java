@@ -1,11 +1,13 @@
-package ru.job4j.servletpool;
+package ru.job4j.servletpool.servlets;
+
+import ru.job4j.servletpool.db.UserStore;
+import ru.job4j.servletpool.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * This class represents servlet for create users.
@@ -54,7 +56,7 @@ public class CreateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
-        User people = new User(name, login, email);
+        User people = new User(name, login, email, null, null);
         UserStore.INSTANCE.createUser(people);
         resp.sendRedirect(String.format("%s/",req.getContextPath()));
         //doGet(req, resp);
