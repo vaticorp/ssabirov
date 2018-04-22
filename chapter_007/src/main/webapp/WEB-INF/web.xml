@@ -17,21 +17,37 @@
         <url-pattern>/start</url-pattern>
     </servlet-mapping-->
     <servlet>
-        <servlet-name>Users Controller Servlet</servlet-name>
-        <servlet-class>ru.job4j.servletpool.servlets.UsersController</servlet-class>
-        <!--load-on-startup>1</load-on-startup-->
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Users Controller Servlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>SignController</servlet-name>
         <servlet-class>ru.job4j.servletpool.servlets.SignController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SignController</servlet-name>
         <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RolesController</servlet-name>
+        <servlet-class>ru.job4j.servletpool.servlets.RolesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RolesController</servlet-name>
+        <url-pattern>/roles</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EditRolesServlet</servlet-name>
+        <servlet-class>ru.job4j.servletpool.servlets.EditRoleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditRolesServlet</servlet-name>
+        <url-pattern>/editrole</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UsersController</servlet-name>
+        <servlet-class>ru.job4j.servletpool.servlets.UsersController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersController</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>AuthFilter</filter-name>

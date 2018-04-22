@@ -28,8 +28,10 @@ public class AuthFilter implements Filter {
             synchronized (session) {
                 if (session.getAttribute("login") == null) {
                     ((HttpServletResponse) servletResponse).sendRedirect(String.format("%s/signin", request.getContextPath()));
+                    return;
                 }
             }
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 

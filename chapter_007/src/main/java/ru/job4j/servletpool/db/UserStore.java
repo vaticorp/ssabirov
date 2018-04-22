@@ -76,6 +76,21 @@ public enum UserStore {
         return userList;
     }
 
+    public List<Role> getRoles() {
+        List<Role> roleList = new ArrayList<Role>();
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement prpStat = connection.prepareStatement("SELECT name, description FROM roles")) {
+            try (ResultSet rs = prpStat.executeQuery();) {
+                while (rs.next()) {
+                    roleList.add(new Role(rs.getString(1), rs.getString(2)));
+                }
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return roleList;
+    }
+
     public boolean createUser(User newUser) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
@@ -93,7 +108,23 @@ public enum UserStore {
         return result;
     }
 
-        public boolean createRole(Role role) {
+    public Role getRole(String name) {
+        Role returnRole = null;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prpStat = connection.prepareStatement("SELECT name, description From roles WHERE name = ?")) {
+            prpStat.setString(1, name);
+            try (ResultSet rs = prpStat.executeQuery();) {
+                while (rs.next()) {
+                    returnRole = new Role(rs.getString(1), rs.getString(2));
+                }
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return returnRole;
+    }
+
+    public boolean createRole(Role role) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("INSERT INTO roles(name, description) VALUES (?, ?)")) {
@@ -120,10 +151,25 @@ public enum UserStore {
         return result;
     }
 
+    public boolean updateRole(String name, String description) {
+        boolean result = false;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prpStat = connection.prepareStatement("UPDATE roles SET description =? WHERE name = ?")) {
+            prpStat.setString(2, name);
+            prpStat.setString(1, description);
+            prpStat.execute();
+            result = true;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return result;
+    }
+
     public boolean updateUser(String userLogin, String userMail, String name) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("UPDATE users SET name=?, email= ? WHERE login = ?")) {
+            //PreparedStatement prpStat = connection.prepareStatement("UPDATE users SET name=?, email= ? WHERE login = ?")
             prpStat.setString(1, name);
             prpStat.setString(2, userMail);
             prpStat.setString(3, userLogin);

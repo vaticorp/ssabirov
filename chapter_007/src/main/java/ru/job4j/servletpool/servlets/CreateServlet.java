@@ -1,6 +1,7 @@
 package ru.job4j.servletpool.servlets;
 
 import ru.job4j.servletpool.db.UserStore;
+import ru.job4j.servletpool.model.Role;
 import ru.job4j.servletpool.model.User;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("roles", UserStore.INSTANCE.getRoles());
+        req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
         /*
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
@@ -56,9 +59,11 @@ public class CreateServlet extends HttpServlet {
         String login = req.getParameter("login");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
-        User people = new User(name, login, email, null, null);
+        String role = req.getParameter("role");
+        Role currentRole = UserStore.INSTANCE.getRole(role);
+        String password = req.getParameter("password");
+        User people = new User(name, login, email, password, currentRole);
         UserStore.INSTANCE.createUser(people);
         resp.sendRedirect(String.format("%s/",req.getContextPath()));
-        //doGet(req, resp);
     }
 }

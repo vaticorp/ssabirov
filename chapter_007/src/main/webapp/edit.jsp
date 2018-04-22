@@ -11,9 +11,12 @@
 Edit current user: <br/>
 <c:forEach items="${users}" var="currentUser">
 <form action="${pageContext.servletContext.contextPath}/edit" method="get">
-    <input type = "text" name = "id" value = "<c:out value="${currentUser.login}"></c:out> "> <br/>
-    <input type = "text" name = "name" value = "<c:out value="${currentUser.name}"></c:out>"> <br/>
-    <input type = "text" name = "email" value = "<c:out value="${currentUser.email}"></c:out>"> <br/>
+    Login: <input type = "text" name = "id" value = "<c:out value="${currentUser.login}"></c:out>"> <br/>
+    Name: <input type = "text" name = "name" value = "<c:out value="${currentUser.name}"></c:out>"> <br/>
+    E-mail: <input type = "text" name = "email" value = "<c:out value="${currentUser.email}"></c:out>"> <br/>
+    <c:if test="${login == 'admin'}">
+       Role: <input type = "text" name = "role" value = "<c:out value="${currentUser.role.name}"></c:out>"> <br/>
+    </c:if>
     <input type = "submit" value = "Save">
     </form>
 </c:forEach>
