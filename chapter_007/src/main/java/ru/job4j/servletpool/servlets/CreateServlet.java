@@ -22,36 +22,6 @@ public class CreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("roles", UserStore.INSTANCE.getRoles());
         req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
-        /*
-        resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        writer.append("<!DOCTYPE html>" +
-                "<html lang=\"en\">" +
-                "<head>" +
-                "    <meta charset=\"UTF-8\">" +
-                "    <title>User list</title>" +
-                "</head>" +
-                "<body>" +
-                "Create new user: <br/>" +
-                "<form action='"+req.getContextPath()+"/create' method='post'>" +
-                "<p>Login: " +
-                "<input type = 'text' name = 'login'> <br/>" +
-                "</p>" +
-                "<p>Name: " +
-                "<input type = 'text' name = 'name'> <br/>" +
-                "</p>" +
-                "<p>E-mail: " +
-                "<input type = 'text' name = 'email'> <br/>" +
-                "</p>" +
-                "<input type = 'submit' value = 'Save'>" +
-                "</form>" +
-                "<form action='"+req.getContextPath()+"/list' method='get'>" +
-                "<input type = 'submit' value = 'Back'>" +
-                "</form>" +
-                "</body>" +
-                "</html>");
-        writer.flush();
-        */
     }
 
     @Override
