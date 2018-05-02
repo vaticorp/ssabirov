@@ -21,8 +21,15 @@ public class UsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", UserStore.INSTANCE.getUsers());
-        req.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(req, resp);
+        //req.setAttribute("users", UserStore.INSTANCE.getUsers());
+        //req.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        if (session.getAttribute("login") != null) {
+            req.setAttribute("users", UserStore.INSTANCE.getUsers());
+            req.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("WEB-INF/views/Authorisation.jsp").forward(req, resp);
+        }
     }
 
     @Override

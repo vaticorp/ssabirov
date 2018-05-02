@@ -6,6 +6,31 @@
 <html>
 <head>
     <title>User list</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function refreshCity() {
+            var coun = document.getElementsByName("country")[0].value;
+            $.ajax({
+                method: 'post',
+                url: "./json",
+                data: {country: coun},
+                complete: function (msg) {
+                    json = JSON.parse(msg.responseText);
+                    var cities = document.getElementById("cit");
+                    var result = "<p>City: " +
+                        "<select name=\"city\">" +
+                        "<option disabled>Выберите город</option>";
+                    for (var i = 0; i!= json.cities.length; i++) {
+                        result += "<option>" + json.cities[i] + "</option>";
+                    }
+                    result += "</select>";
+                    result += "</p>";
+                    cities.innerHTML = result;
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 Edit current user: <br/>

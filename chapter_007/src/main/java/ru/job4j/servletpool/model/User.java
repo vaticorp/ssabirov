@@ -13,13 +13,25 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private String city;
+    private String country;
 
-    public User(String name, String login, String email,String password, Role role) {
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public User(String name, String login, String email, String password, Role role,String country, String city) {
         this.name = name;
         this.login = login;
         this.email = email;
         this.role = role;
         this.password = password;
+        this.city = city;
+        this.country = country;
     }
 
     public Role getRole() {

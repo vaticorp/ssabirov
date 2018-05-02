@@ -48,11 +48,11 @@ public enum UserStore {
     public User getUser(String userLogin) {
        User returnUser = null;
        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prpStat = connection.prepareStatement("SELECT us.name, us.login, us.email,us.password,us.role, rl.description FROM users as us left outer join roles as rl on us.role = rl.name WHERE login = ?")) {
+             PreparedStatement prpStat = connection.prepareStatement("SELECT us.name, us.login, us.email,us.password,us.role, rl.description,us.country,us.city FROM users as us left outer join roles as rl on us.role = rl.name WHERE login = ?")) {
             prpStat.setString(1, userLogin);
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    returnUser = new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6)));
+                    returnUser = new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6)),rs.getString(7),rs.getString(8));
                 }
             }
         } catch (SQLException sqlException) {
@@ -64,10 +64,10 @@ public enum UserStore {
     public List<User> getUsers() {
         List<User> userList = new ArrayList<User>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement prpStat = connection.prepareStatement("SELECT us.name, us.login, us.email,us.password,us.role, rl.description FROM users as us left outer join roles as rl on us.role = rl.name")) {
+             PreparedStatement prpStat = connection.prepareStatement("SELECT us.name, us.login, us.email,us.password,us.role, rl.description,us.country,us.city FROM users as us left outer join roles as rl on us.role = rl.name")) {
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    userList.add(new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6))));
+                    userList.add(new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6)),rs.getString(7),rs.getString(8)));
                 }
             }
         } catch (SQLException sqlException) {
@@ -179,6 +179,37 @@ public enum UserStore {
             sqlException.printStackTrace();
         }
         return result;
+    }
+
+    public List<String> getCountries() {
+        List<String> countriesList = new ArrayList<String>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prpStat = connection.prepareStatement("SELECT name FROM country")) {
+            try (ResultSet rs = prpStat.executeQuery();) {
+                while (rs.next()) {
+                    countriesList.add(rs.getString(1));
+                }
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return countriesList;
+    }
+
+    public List<String> getCities(String country) {
+        List<String> citiesList = new ArrayList<String>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prpStat = connection.prepareStatement("SELECT name FROM city where country_ref = ?")) {
+            prpStat.setString(1, country);
+            try (ResultSet rs = prpStat.executeQuery();) {
+                while (rs.next()) {
+                    citiesList.add(rs.getString(1));
+                }
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return citiesList;
     }
 
     public boolean userValid(String login, String password) {

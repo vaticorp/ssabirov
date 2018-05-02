@@ -20,6 +20,6 @@
 </table>
 <form action="${pageContext.servletContext.contextPath}/" method="get">
     <input type = "submit" value = "Back">
-</form>
+</form> 
 </body>
 </html>
