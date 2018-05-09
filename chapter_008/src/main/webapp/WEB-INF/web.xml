@@ -1,0 +1,26 @@
+<web-app>
+    <filter>
+        <filter-name>AuthFilt</filter-name>
+        <filter-class>ru.job4j.musicbox.BoxFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilt</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>Box</servlet-name>
+        <servlet-class>ru.job4j.musicbox.Box</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Box</servlet-name>
+        <url-pattern>/box</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Autorisation</servlet-name>
+        <servlet-class>ru.job4j.musicbox.AutorisationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Autorisation</servlet-name>
+        <url-pattern>/auto</url-pattern>
+    </servlet-mapping>
+</web-app>
