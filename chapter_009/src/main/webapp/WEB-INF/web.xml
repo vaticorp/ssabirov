@@ -1,0 +1,18 @@
+<web-app>
+    <servlet>
+        <servlet-name>Enter</servlet-name>
+        <servlet-class>ru.job4j.todolist.servlets.EnterController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Enter</servlet-name>
+        <url-pattern>/enter</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>View</servlet-name>
+        <servlet-class>ru.job4j.todolist.servlets.ViewController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>View</servlet-name>
+        <url-pattern>/view</url-pattern>
+    </servlet-mapping>
+</web-app>
