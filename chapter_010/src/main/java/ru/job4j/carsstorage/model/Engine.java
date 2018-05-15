@@ -1,0 +1,42 @@
+package ru.job4j.carsstorage.model;
+
+/**
+ * This class represents Engine-model.
+ * @author Svyatoslav Sabirov.
+ * @since 15.05.2018
+ * @version 7.
+ */
+public class Engine {
+
+    private long id;
+    private String capacity;
+
+    public Engine() {
+    }
+
+    public Engine(long id, String capacity) {
+        this.id = id;
+        this.capacity = capacity;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Engine: %s (%s)", id, capacity);
+    }
+}

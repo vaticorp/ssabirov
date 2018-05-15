@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/join</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">1</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
+        <mapping resource="ru/job4j/carsstorage/model/Engine.hbn.xml"/>
+        <mapping resource="ru/job4j/carsstorage/model/Gearbox.hbn.xml"/>
+        <mapping resource="ru/job4j/carsstorage/model/Transmission.hbn.xml"/>
+        <mapping resource="ru/job4j/carsstorage/model/Car.hbn.xml"/>
+    </session-factory>
+</hibernate-configuration>
