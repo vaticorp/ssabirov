@@ -9,6 +9,7 @@ import ru.job4j.todolist.model.Item;
 import javax.persistence.Query;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * This class represents dao for Items
@@ -35,17 +36,21 @@ public class ItemContext implements HibernateDao {
 
     @Override
     public List<Item> getListItemsByStatus(boolean status) {
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
+        return this.tx(
+                session -> session.createQuery(!status ? "select i from Item i where i.done = true" : "select i from Item i").getResultList()
+        );
+    }
+
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = factory.openSession();
+        final Transaction tx = session.beginTransaction();
         try {
-            String queryText = !status ? "select i from Item i where i.done = true" : "select i from Item i";
-            final Query query = session.createQuery(queryText);
-            return query.getResultList();
+            return command.apply(session);
         } catch (final Exception e) {
             session.getTransaction().rollback();
             throw e;
         } finally {
-            transaction.commit();
+            tx.commit();
             session.close();
         }
     }
