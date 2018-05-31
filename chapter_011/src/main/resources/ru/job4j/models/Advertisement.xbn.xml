@@ -5,7 +5,10 @@
         </id>
         <property name="cost" column="cost"/>
         <property name="soldOut" column="soldout"/>
+        <property name="publicationDate" column="public"/>
         <many-to-one name="car" column="car_id" class="ru.job4j.models.Car"></many-to-one>
         <many-to-one name="user" column="user_id" class="ru.job4j.models.User"></many-to-one>
     </class>
+
+    <filter-def name="stockRecordFilter"></filter-def>
 </hibernate-mapping>

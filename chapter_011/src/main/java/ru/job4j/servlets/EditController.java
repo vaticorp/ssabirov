@@ -33,6 +33,6 @@ public class EditController extends HttpServlet {
         Advertisement advertisement = AdvertisementRunner.INSTANCE.getEntryById(Integer.parseInt(id));
         advertisement.setSoldOut(true);
         AdvertisementRunner.INSTANCE.updateAdvertisement(advertisement);
-        resp.sendRedirect(String.format("%s/list", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/list",  req.getContextPath()));
     }
 }

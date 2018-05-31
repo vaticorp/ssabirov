@@ -55,6 +55,9 @@
             <input type="submit" name="save" value="Сохранить">
         </div>
     </form>
+    <form action="${pageContext.servletContext.contextPath}/list" method="get">
+        <input type="submit" class="sub" name="Back" value="Назад">
+    </form>
 </fieldset>
 </body>
 </body>

@@ -1,6 +1,8 @@
 package ru.job4j.servlets;
 
 import ru.job4j.hibernate.AdvertisementRunner;
+import ru.job4j.hibernate.BrandRunner;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ public class ViewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("advertisements", AdvertisementRunner.INSTANCE.getAllEntry());
+        req.setAttribute("brandies", BrandRunner.INSTANCE.getAllEntry());
         req.getRequestDispatcher("WEB-INF/views/main.jsp").forward(req, resp);
     }
 }

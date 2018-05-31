@@ -1,5 +1,7 @@
 package ru.job4j.models;
 
+import java.sql.Timestamp;
+
 /**
  * This class represents advertisement-model.
  * @author Svyatoslav Sabirov.
@@ -13,6 +15,7 @@ public class Advertisement {
     private int cost;
     private User user;
     private boolean soldOut = false;
+    private Timestamp publicationDate = new Timestamp(System.currentTimeMillis());
 
     public Advertisement(int id, Car car, int cost, User user) {
         this.id = id;
@@ -22,6 +25,14 @@ public class Advertisement {
     }
 
     public Advertisement() {
+    }
+
+    public Timestamp getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Timestamp publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public boolean getSoldOut() {

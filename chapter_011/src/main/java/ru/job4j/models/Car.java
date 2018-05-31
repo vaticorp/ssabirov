@@ -1,6 +1,7 @@
 package ru.job4j.models;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -108,6 +109,7 @@ public class Car {
                 + ", body=" + body
                 + ", mileage=" + mileage
                 + ", created=" + created
+                + ", imageArray=" + Arrays.toString(imageArray)
                 + '}';
     }
 }
