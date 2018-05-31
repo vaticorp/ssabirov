@@ -6,8 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import ru.job4j.todolist.model.Item;
 
-import javax.persistence.Query;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -53,5 +53,11 @@ public class ItemContext implements HibernateDao {
             tx.commit();
             session.close();
         }
+    }
+
+    public static void main(String[] args) {
+        List<String> as = new ArrayList<>();
+        Collections.addAll(as,"2","3","4","5");
+        as.forEach((s) -> System.out.println(s));
     }
 }

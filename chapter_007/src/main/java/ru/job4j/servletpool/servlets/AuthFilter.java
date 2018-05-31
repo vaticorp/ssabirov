@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 /**
  * This class represents class for simple authorisation.
  * @author Svyatoslav Sabirov.

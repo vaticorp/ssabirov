@@ -36,8 +36,6 @@
             if (!result) {
                 alert("Please, enter correct  login and password!");
             } else {
-                var lg = document.getElementById("lg");
-                var ps = document.getElementById("ps");
                 $.ajax({
                     method: 'get',
                     url: "./json",

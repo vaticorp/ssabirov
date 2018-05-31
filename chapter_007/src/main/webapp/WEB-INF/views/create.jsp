@@ -63,8 +63,7 @@
             <p>Country: <select name="country" onchange="refreshCity()">
                 <option disabled selected>Выберите страну</option>
                 <c:forEach items="${countries}" var="currentCountry">
-                    <option value="<c:out value="${currentCountry}"></c:out>"><c:out
-                            value="${currentCountry}"></c:out></option>
+                    <option value="<c:out value="${currentCountry}"></c:out>"><c:out value="${currentCountry}"></c:out></option>
                 </c:forEach>
             </select>
             </p>
