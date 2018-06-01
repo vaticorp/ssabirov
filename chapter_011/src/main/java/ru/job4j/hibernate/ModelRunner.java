@@ -15,6 +15,11 @@ public enum  ModelRunner implements CommonHibernate<Model> {
     INSTANCE;
 
     @Override
+    public void addEntry(Model newModel) {
+        Context.tx(session -> session.save(newModel));
+    }
+
+    @Override
     public List<Model> getAllEntry() {
         return Context.tx(
                 session -> session.createQuery("from Model").getResultList());

@@ -24,6 +24,11 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
     INSTANCE;
 
     @Override
+    public void addEntry(Advertisement newAdvertisement) {
+        Context.tx(session -> session.save(newAdvertisement));
+    }
+
+    @Override
     public List<Advertisement> getAllEntry() {
         return Context.tx(
                 session -> session.createQuery("from Advertisement").getResultList());

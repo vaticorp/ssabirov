@@ -14,6 +14,11 @@ public enum BodyRunner implements CommonHibernate<Body> {
     INSTANCE;
 
     @Override
+    public void addEntry(Body newBody) {
+        Context.tx(session -> session.save(newBody));
+    }
+
+    @Override
     public List<Body> getAllEntry() {
         return Context.tx(
                 session -> session.createQuery("from Body").getResultList());

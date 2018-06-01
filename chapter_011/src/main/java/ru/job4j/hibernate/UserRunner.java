@@ -48,4 +48,9 @@ public enum UserRunner implements CommonHibernate<User> {
                 session -> session.get(User.class, id)
         );
     }
+
+    @Override
+    public void addEntry(User newUser) {
+        Context.tx(session -> session.save(newUser));
+    }
 }

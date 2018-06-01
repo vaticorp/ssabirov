@@ -17,6 +17,11 @@ public enum BrandRunner implements CommonHibernate<Brand> {
     INSTANCE;
 
     @Override
+    public void addEntry(Brand newBrand) {
+        Context.tx(session -> session.save(newBrand));
+    }
+
+    @Override
     public List<Brand> getAllEntry() {
         return Context.tx(
                 session -> session.createQuery("from Brand").getResultList());

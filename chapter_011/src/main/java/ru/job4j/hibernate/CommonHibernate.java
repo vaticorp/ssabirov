@@ -11,4 +11,5 @@ import java.util.List;
 public interface CommonHibernate<T> {
     public List<T> getAllEntry();
     public T getEntryById(int id);
+    public void addEntry(T value);
 }

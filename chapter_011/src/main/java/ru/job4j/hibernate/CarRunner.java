@@ -20,7 +20,8 @@ public enum CarRunner implements CommonHibernate<Car> {
 
     INSTANCE;
 
-    public void addCar(Car newCar) {
+    @Override
+    public void addEntry(Car newCar) {
         Context.tx(session -> session.save(newCar));
     }
 

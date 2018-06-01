@@ -79,7 +79,7 @@ public class CreateController extends HttpServlet {
                     newCar.setImageArray(item.get());
                 }
             }
-            CarRunner.INSTANCE.addCar(newCar);
+            CarRunner.INSTANCE.addEntry(newCar);
             advertisement.setCar(newCar);
             AdvertisementRunner.INSTANCE.addAdvertisement(advertisement);
         } catch (Exception e) {
