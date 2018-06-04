@@ -2,7 +2,6 @@ package ru.job4j.repository.rolerep;
 
 import ru.job4j.models.Role;
 import ru.job4j.repository.CommonSpecification;
-import sun.dc.pr.PRError;
 
 /**
  * This class represents specification for Roles.
