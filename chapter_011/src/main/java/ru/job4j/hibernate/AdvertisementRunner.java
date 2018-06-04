@@ -25,32 +25,32 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
 
     @Override
     public void addEntry(Advertisement newAdvertisement) {
-        Context.tx(session -> session.save(newAdvertisement));
+        Context.INSTANCE.tx(session -> session.save(newAdvertisement));
     }
 
     @Override
     public List<Advertisement> getAllEntry() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.createQuery("from Advertisement").getResultList());
     }
 
     @Override
     public Advertisement getEntryById(int id) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.get(Advertisement.class, id)
         );
     }
 
     public void addAdvertisement(Advertisement advertisement) {
-        Context.tx(session -> session.save(advertisement));
+        Context.INSTANCE.tx(session -> session.save(advertisement));
     }
 
     public void updateAdvertisement(Advertisement advertisement) {
-        Context.tx(session -> session.merge(advertisement));
+        Context.INSTANCE.tx(session -> session.merge(advertisement));
     }
 
     public List<Advertisement> getAdvertisementByActualDay() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> {
                     Timestamp currentDay = new Timestamp(System.currentTimeMillis());
                     LocalDateTime endOfDay = currentDay.toLocalDateTime().with(LocalTime.MAX);
@@ -64,7 +64,7 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
     }
 
     public List<Advertisement> getAdvertisementByImage() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> {
                     Timestamp currentDay = new Timestamp(System.currentTimeMillis());
                     LocalDateTime endOfDay = currentDay.toLocalDateTime().with(LocalTime.MAX);
@@ -77,7 +77,7 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
     }
 
     public List<Advertisement> getAdvertisementByBrandId(String id) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> {
                     Timestamp currentDay = new Timestamp(System.currentTimeMillis());
                     LocalDateTime endOfDay = currentDay.toLocalDateTime().with(LocalTime.MAX);

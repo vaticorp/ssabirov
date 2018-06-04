@@ -22,18 +22,18 @@ public enum CarRunner implements CommonHibernate<Car> {
 
     @Override
     public void addEntry(Car newCar) {
-        Context.tx(session -> session.save(newCar));
+        Context.INSTANCE.tx(session -> session.save(newCar));
     }
 
     @Override
     public List<Car> getAllEntry() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.createQuery("from Car").getResultList());
     }
 
     @Override
     public Car getEntryById(int id) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.get(Car.class, id)
         );
     }

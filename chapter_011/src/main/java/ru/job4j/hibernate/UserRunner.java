@@ -15,7 +15,7 @@ public enum UserRunner implements CommonHibernate<User> {
     INSTANCE;
 
     public int getUserId(String login, String password) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> {
                     int id = 0;
                     Query query = session.createQuery("from User i where i.login =:login and i.password =:password");
@@ -32,19 +32,19 @@ public enum UserRunner implements CommonHibernate<User> {
 
     @Override
     public List<User> getAllEntry() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.createQuery("from User").getResultList());
     }
 
     @Override
     public User getEntryById(int id) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.get(User.class, id)
         );
     }
 
     @Override
     public void addEntry(User newUser) {
-        Context.tx(session -> session.save(newUser));
+        Context.INSTANCE.tx(session -> session.save(newUser));
     }
 }

@@ -23,7 +23,7 @@ public enum Context {
 
     private final static SessionFactory FABRIC = new Configuration().configure().buildSessionFactory();
 
-    public static <T> T tx(final Function<Session, T> command) {
+    public <T> T tx(final Function<Session, T> command) {
         final Session session = FABRIC.openSession();
         final Transaction tx = session.beginTransaction();
         try {

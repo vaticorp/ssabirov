@@ -16,18 +16,18 @@ public enum CategoryRunner implements CommonHibernate<Category> {
 
     @Override
     public void addEntry(Category newCategory) {
-        Context.tx(session -> session.save(newCategory));
+        Context.INSTANCE.tx(session -> session.save(newCategory));
     }
 
     @Override
     public List<Category> getAllEntry() {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.createQuery("from Category").getResultList());
     }
 
     @Override
     public Category getEntryById(int id) {
-        return Context.tx(
+        return Context.INSTANCE.tx(
                 session -> session.get(Category.class, id)
         );
     }
