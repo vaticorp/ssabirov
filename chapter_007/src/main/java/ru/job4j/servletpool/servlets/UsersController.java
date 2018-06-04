@@ -37,6 +37,6 @@ public class UsersController extends HttpServlet {
         Enumeration<String> im = req.getParameterNames();
         String login = im.nextElement();
         UserStore.INSTANCE.deleteUser(login);
-        resp.sendRedirect(String.format("%s/",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

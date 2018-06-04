@@ -74,6 +74,6 @@ public class Proposal implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return ((Proposal)o).price - this.price;
+        return ((Proposal) o).price - this.price;
     }
 }

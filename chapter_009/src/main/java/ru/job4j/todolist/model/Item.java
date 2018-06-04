@@ -16,7 +16,6 @@ public class Item {
     private boolean done;
 
     public Item() {
-
     }
 
     public Item(String desc) {

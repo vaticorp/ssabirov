@@ -28,7 +28,7 @@ public class Tracker {
 
     public void readPropertyFile() {
         Properties property = new Properties();
-        try(FileInputStream fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");) {
+        try (FileInputStream fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");) {
             property.load(fis);
             url = property.getProperty("url");
             user = property.getProperty("login");
@@ -39,7 +39,7 @@ public class Tracker {
             scripts.put("findAll", property.getProperty("findAll"));
             scripts.put("findByName", property.getProperty("findByName"));
             scripts.put("findById", property.getProperty("findById"));
-            try(Connection con = DriverManager.getConnection(url, user, password);
+            try (Connection con = DriverManager.getConnection(url, user, password);
                 PreparedStatement stmt = con.prepareStatement(property.getProperty("checkStructure"));
                 ResultSet rs = stmt.executeQuery();) {
                 if (!rs.next()) {
@@ -60,7 +60,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         String query = scripts.get("add");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, this.generateId());
             stmt.setString(2, item.getName());
@@ -80,7 +80,7 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         String query = scripts.get("replace");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, item.getName());
             stmt.setString(2, item.getDescription());
@@ -98,7 +98,7 @@ public class Tracker {
      */
     public void delete(String id) {
         String query = scripts.get("delete");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, id);
             stmt.execute();
@@ -114,7 +114,7 @@ public class Tracker {
     public List<Item> findAll() {
         List<Item> list = new ArrayList<Item>();
         String query = scripts.get("findAll");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();) {
             while (rs.next()) {
@@ -136,7 +136,7 @@ public class Tracker {
     public List<Item> findByName(String key) {
         List<Item> currientitems = new ArrayList<Item>();
            String query = scripts.get("findByName");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);
             ResultSet rs = null;) {
             stmt.setString(1, key);
@@ -160,10 +160,10 @@ public class Tracker {
     public Item findById(String id) {
         Item found = null;
         String query = scripts.get("findByName");
-        try(Connection con = DriverManager.getConnection(url, user, password);
+        try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, id);
-            try(ResultSet rs = stmt.executeQuery();) {
+            try (ResultSet rs = stmt.executeQuery();) {
                 while (rs.next()) {
                     found = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
                     found.setId(rs.getString(1));

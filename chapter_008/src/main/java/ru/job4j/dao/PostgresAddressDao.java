@@ -21,7 +21,7 @@ public class PostgresAddressDao implements CommonDao<Address> {
     @Override
     public boolean create(Address value) {
         boolean result = false;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("INSERT INTO address(id, city, street, flat) VALUES (?,?,?,?)")) {
             prpStat.setString(1, value.getId());
             prpStat.setString(2, value.getCity());
@@ -38,11 +38,11 @@ public class PostgresAddressDao implements CommonDao<Address> {
     @Override
     public List<Address> selectAll() {
         List<Address> addressList = new ArrayList<Address>();
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("SELECT id, city, street, flat FROM address")) {
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    addressList.add(new Address(rs.getString("id"), rs.getString("city"),rs.getString("street"), rs.getInt("flat")));
+                    addressList.add(new Address(rs.getString("id"), rs.getString("city"), rs.getString("street"), rs.getInt("flat")));
                 }
             }
         } catch (SQLException sqlException) {
@@ -54,12 +54,12 @@ public class PostgresAddressDao implements CommonDao<Address> {
     @Override
     public Address select(String id) {
         Address returnAddress = null;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("SELECT id, city, street, flat FROM address WHERE id = ?")) {
             prpStat.setString(1, id);
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    returnAddress = new Address(rs.getString("id"), rs.getString("city"),rs.getString("street"), rs.getInt("flat"));
+                    returnAddress = new Address(rs.getString("id"), rs.getString("city"), rs.getString("street"), rs.getInt("flat"));
                 }
             }
         } catch (SQLException sqlException) {
@@ -73,7 +73,7 @@ public class PostgresAddressDao implements CommonDao<Address> {
         boolean result = false;
         String id = value.getId();
         String street = value.getStreet();
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("UPDATE address SET street =? WHERE id = ?")) {
             prpStat.setString(2, id);
             prpStat.setString(1, street);
@@ -88,7 +88,7 @@ public class PostgresAddressDao implements CommonDao<Address> {
     @Override
     public boolean remove(String id) {
         boolean result = false;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("DELETE FROM address WHERE id = ?")) {
             prpStat.setString(1, id);
             prpStat.execute();

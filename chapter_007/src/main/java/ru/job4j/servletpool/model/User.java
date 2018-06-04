@@ -24,7 +24,7 @@ public class User {
         return country;
     }
 
-    public User(String name, String login, String email, String password, Role role,String country, String city) {
+    public User(String name, String login, String email, String password, Role role, String country, String city) {
         this.name = name;
         this.login = login;
         this.email = email;

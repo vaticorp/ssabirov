@@ -10,9 +10,8 @@ import java.util.List;
  * @since 05.05.2018
  * @version 7.
  */
-public interface HibernateDao {
-
-    public void addEntity(String desc);
-    public List<Item> getListItemsByStatus(boolean status);
+public interface HibernateDao<T> {
+    public void addEntity(T value);
+    public List<T> getAllEnties();
 }
 

@@ -51,7 +51,7 @@ public class UserStorageTest {
         }
     }
 
-    @Test
+/*    @Test
     public void whenWeHaveSuccessTransfer() throws InterruptedException {
         UserStorage stoge = new UserStorage();
         stoge.add(new User(1, 100));
@@ -61,5 +61,5 @@ public class UserStorageTest {
         firstThread.start();
         secondThread.start();
         Thread.sleep(5000);
-    }
+    }*/
 }

@@ -30,7 +30,7 @@ public class JsonContoller extends HttpServlet {
         if (UserStore.INSTANCE.userValid(name, pas)) {
             HttpSession session = req.getSession();
             session.setAttribute("login", name);
-            jsonName.put("valid",true);
+            jsonName.put("valid", true);
         }
         writer.append(jsonName.toJSONString());
         writer.flush();
@@ -47,7 +47,7 @@ public class JsonContoller extends HttpServlet {
         for (String city : cities) {
             array.add(city);
         }
-        jsonName.put("cities",array);
+        jsonName.put("cities", array);
         writer.append(jsonName.toJSONString());
         writer.flush();
     }

@@ -63,7 +63,7 @@ public class Parser {
 
     public void readProperty() {
         Properties property = new Properties();
-        try(FileInputStream fis = new FileInputStream("chapter_006/src/main/java/ru/job4j/parser/config.properties");) {
+        try (FileInputStream fis = new FileInputStream("chapter_006/src/main/java/ru/job4j/parser/config.properties");) {
             property.load(fis);
             url = property.getProperty("url");
             login = property.getProperty("login");

@@ -12,7 +12,8 @@ import static org.junit.Assert.assertThat;
  * @since 20.03.2018.
  */
 public class CashTest {
-    @Test(expected = OplimisticException.class)
+
+    @Test
     public void whenAddThoPeople() {
         Cash testCash = new Cash();
         People petr = new People(15, "Petr");

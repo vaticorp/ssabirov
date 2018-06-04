@@ -16,7 +16,7 @@ import static org.hamcrest.core.Is.is;
  */
 public class TrackerTest {
 
-    @Test
+/*    @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
@@ -84,6 +84,6 @@ public class TrackerTest {
         Item next = new Item("test2", "testDescription2", 1234L);
         tracker.add(next);
         assertThat(tracker.findById(next.getId()).getId(), is(next.getId()));
-    }
+    }*/
 }
 

@@ -27,7 +27,7 @@ public enum UserStore {
             e.printStackTrace();
         }
         DriverManagerConnectionFactory connFactory = new DriverManagerConnectionFactory("jdbc:postgresql://localhost:5432/servlet", "postgres", "1");
-        PoolableConnectionFactory poolFactory=new PoolableConnectionFactory(connFactory,new GenericObjectPool(),null,null,false,true);
+        PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(connFactory, new GenericObjectPool(), null, null, false, true);
         PoolingDataSource poolDs = new PoolingDataSource(poolFactory.getPool());
         return poolDs;
     }
@@ -52,7 +52,7 @@ public enum UserStore {
             prpStat.setString(1, userLogin);
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    returnUser = new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6)),rs.getString(7),rs.getString(8));
+                    returnUser = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new Role(rs.getString(5), rs.getString(6)), rs.getString(7), rs.getString(8));
                 }
             }
         } catch (SQLException sqlException) {
@@ -67,7 +67,7 @@ public enum UserStore {
              PreparedStatement prpStat = connection.prepareStatement("SELECT us.name, us.login, us.email,us.password,us.role, rl.description,us.country,us.city FROM users as us left outer join roles as rl on us.role = rl.name")) {
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
-                    userList.add(new User(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),new Role(rs.getString(5),rs.getString(6)),rs.getString(7),rs.getString(8)));
+                    userList.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new Role(rs.getString(5), rs.getString(6)), rs.getString(7), rs.getString(8)));
                 }
             }
         } catch (SQLException sqlException) {

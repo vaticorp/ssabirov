@@ -22,7 +22,7 @@ public class UserSpecification implements CommonSpecification {
     }
 
     public void setWhere(String where) {
-        this.where = String.format(" WHERE %s",where);
+        this.where = String.format(" WHERE %s", where);
     }
 
     public String getWhere() {
@@ -41,6 +41,6 @@ public class UserSpecification implements CommonSpecification {
 
     @Override
     public String toSqlClauses() {
-        return String.format("%s %s",getScript(),getWhere());
+        return String.format("%s %s", getScript(), getWhere());
     }
 }

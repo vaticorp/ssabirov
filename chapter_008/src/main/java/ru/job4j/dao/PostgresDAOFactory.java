@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class PostgresDAOFactory extends DAOFactory {
 
-    public static final PoolingDataSource dataSource = initPoolingDataSource();
+    public static final PoolingDataSource DATASOURCE = initPoolingDataSource();
 
     private static PoolingDataSource initPoolingDataSource() {
         try {
@@ -29,7 +29,7 @@ public class PostgresDAOFactory extends DAOFactory {
             e.printStackTrace();
         }
         DriverManagerConnectionFactory connFactory = new DriverManagerConnectionFactory("jdbc:postgresql://localhost:5432/musicbox", "postgres", "1");
-        PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(connFactory,new GenericObjectPool(),null,null,false,true);
+        PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(connFactory, new GenericObjectPool(), null, null, false, true);
         PoolingDataSource poolDs = new PoolingDataSource(poolFactory.getPool());
         return poolDs;
     }

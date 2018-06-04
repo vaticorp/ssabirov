@@ -24,7 +24,7 @@ public class EditRoleServlet extends HttpServlet {
         String description = req.getParameter("description");
         String name = req.getParameter("name");
         UserStore.INSTANCE.updateRole(name, description);
-        resp.sendRedirect(String.format("%s/",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 
     @Override

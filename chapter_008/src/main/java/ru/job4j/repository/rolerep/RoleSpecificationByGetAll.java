@@ -25,6 +25,6 @@ public class RoleSpecificationByGetAll implements CommonSpecification<Role> {
 
     @Override
     public String toSqlClauses() {
-        return String.format("Select role from roles where title = %s",title);
+        return String.format("Select role from roles where title = %s", title);
     }
 }

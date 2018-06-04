@@ -21,7 +21,7 @@ public class Car {
     private Timestamp created;
     byte[] imageArray;
 
-    public Car(int id, Brand brand, Category category, Model model, Body body, int mileage, Timestamp date, byte[] imageArray) {
+    public Car(int id, Brand brand, Category category, Model model, Body body, int mileage, Timestamp date) {
         this.id = id;
         this.brand = brand;
         this.category = category;
@@ -29,7 +29,7 @@ public class Car {
         this.body = body;
         this.mileage = mileage;
         this.created = date;
-        this.imageArray = imageArray;
+        //this.imageArray = imageArray;
     }
 
     public Car() {

@@ -53,7 +53,7 @@ public class UsersServlet extends HttpServlet {
         User user = users.getUser(login);
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        writer.append("I'LL"+ login  + "BE CRUD!" + user );
+        writer.append("I'LL" + login  + "BE CRUD!" + user);
         writer.flush();
     }
 

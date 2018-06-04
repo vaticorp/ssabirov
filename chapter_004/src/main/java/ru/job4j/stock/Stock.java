@@ -143,7 +143,7 @@ public class Stock {
                 } else {
                     boolean printSurplus = !hasNext && currentPrice != bid.getPrice();
                     if (action.equals(Action.BID)) {
-                        result += String.format("        %d    %d \n", currentPrice, (!hasNext && !printSurplus) ? currentVolume + bid.getVolume(): currentVolume);
+                        result += String.format("        %d    %d \n", currentPrice, (!hasNext && !printSurplus) ? currentVolume + bid.getVolume() : currentVolume);
                         if (printSurplus) {
                             result += String.format("        %d    %d \n", bid.getPrice(), bid.getVolume());
                         }

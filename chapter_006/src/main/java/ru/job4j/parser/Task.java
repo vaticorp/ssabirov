@@ -67,7 +67,7 @@ public class Task extends Thread {
     }
 
     public void insertNewVacancy(String author, String description, Timestamp create) {
-        try(Connection con = DriverManager.getConnection(entry.getUrl(), entry.getLogin(), entry.getPassword());
+        try (Connection con = DriverManager.getConnection(entry.getUrl(), entry.getLogin(), entry.getPassword());
             PreparedStatement stmt = con.prepareStatement(entry.getJobQuery());) {
             stmt.setString(1, description);
             stmt.setString(2, author);
@@ -105,7 +105,7 @@ public class Task extends Thread {
     }
 
     public void startLoadJobs() {
-        try(Connection con = DriverManager.getConnection(entry.getUrl(), entry.getLogin(), entry.getPassword());
+        try (Connection con = DriverManager.getConnection(entry.getUrl(), entry.getLogin(), entry.getPassword());
             PreparedStatement stmt = con.prepareStatement(entry.getCheckQuery());
             ResultSet rs = stmt.executeQuery();) {
             while (rs.next()) {

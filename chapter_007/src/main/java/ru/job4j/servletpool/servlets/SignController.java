@@ -32,7 +32,7 @@ public class SignController extends HttpServlet {
             synchronized (session) {
                 session.setAttribute("login", login);
             }
-            resp.sendRedirect(String.format("%s/",req.getContextPath()));
+            resp.sendRedirect(String.format("%s/", req.getContextPath()));
         } else {
             req.setAttribute("error", "User not found!");
             doGet(req, resp);

@@ -29,7 +29,7 @@ public class AutorisationController extends HttpServlet {
             synchronized (session) {
                 session.setAttribute("login", login);
             }
-            resp.sendRedirect(String.format("%s/box",req.getContextPath()));
+            resp.sendRedirect(String.format("%s/box", req.getContextPath()));
         } else {
             req.setAttribute("error", "User not found!");
             doGet(req, resp);

@@ -37,6 +37,6 @@ public class CreateServlet extends HttpServlet {
         String password = req.getParameter("password");
         User people = new User(name, login, email, password, currentRole, country, city);
         UserStore.INSTANCE.createUser(people);
-        resp.sendRedirect(String.format("%s/",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

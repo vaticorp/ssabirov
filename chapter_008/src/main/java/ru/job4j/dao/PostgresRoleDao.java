@@ -21,7 +21,7 @@ public class PostgresRoleDao implements CommonDao<Role> {
     @Override
     public boolean create(Role value) {
         boolean result = false;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("INSERT INTO roles(title, description) VALUES (?,?)")) {
             prpStat.setString(1, value.getTitle());
             prpStat.setString(2, value.getDescription());
@@ -36,7 +36,7 @@ public class PostgresRoleDao implements CommonDao<Role> {
     @Override
     public List<Role> selectAll() {
         List<Role> roleList = new ArrayList<Role>();
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("SELECT title, description FROM roles")) {
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
@@ -52,7 +52,7 @@ public class PostgresRoleDao implements CommonDao<Role> {
     @Override
     public Role select(String id) {
         Role returnRole = null;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("SELECT title, description FROM roles WHERE title = ?")) {
             prpStat.setString(1, id);
             try (ResultSet rs = prpStat.executeQuery();) {
@@ -71,7 +71,7 @@ public class PostgresRoleDao implements CommonDao<Role> {
         boolean result = false;
         String title = value.getTitle();
         String description = value.getDescription();
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("UPDATE roles SET description =? WHERE title = ?")) {
             prpStat.setString(2, title);
             prpStat.setString(1, description);
@@ -86,7 +86,7 @@ public class PostgresRoleDao implements CommonDao<Role> {
     @Override
     public boolean remove(String id) {
         boolean result = false;
-        try (Connection connection = PostgresDAOFactory.dataSource.getConnection();
+        try (Connection connection = PostgresDAOFactory.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("DELETE FROM roles WHERE title = ?")) {
             prpStat.setString(1, id);
             prpStat.execute();

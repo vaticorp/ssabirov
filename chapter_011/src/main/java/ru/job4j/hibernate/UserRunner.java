@@ -1,12 +1,6 @@
 package ru.job4j.hibernate;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import ru.job4j.models.Model;
 import ru.job4j.models.User;
-
 import javax.persistence.Query;
 import java.util.List;
 

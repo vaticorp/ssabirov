@@ -33,7 +33,7 @@ public class PostgresUserDao implements CommonDao<User> {
         Address currentAddress = value.getResidence();
         postgresDAO.getRoleDAO().create(currentRole);
         postgresDAO.getAddressDAO().create(currentAddress);
-        try (Connection connection = postgresDAO.dataSource.getConnection();
+        try (Connection connection = postgresDAO.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("INSERT INTO users(name, age, role, address_id) VALUES (?,?,?,?)")) {
             prpStat.setString(1, value.getName());
             prpStat.setInt(2, value.getAge());
@@ -50,14 +50,14 @@ public class PostgresUserDao implements CommonDao<User> {
     @Override
     public List<User> selectAll() {
        List<User> usersList = new ArrayList<User>();
-       try (Connection connection = postgresDAO.dataSource.getConnection();
+       try (Connection connection = postgresDAO.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("SELECT name, age, role, address_id FROM users")) {
             try (ResultSet rs = prpStat.executeQuery();) {
                 while (rs.next()) {
                     Address address =  postgresDAO.getAddressDAO().select(rs.getString("address_id"));
                     Role role = postgresDAO.getRoleDAO().select(rs.getString("role"));
                     List<MusicType> list = PostgresMusicTypeDao.selectAllByUserID(rs.getString("name"));
-                    usersList.add(new User(rs.getString("name"), rs.getInt("age"),role, address, list));
+                    usersList.add(new User(rs.getString("name"), rs.getInt("age"), role, address, list));
                 }
             }
         } catch (SQLException sqlException) {
@@ -69,7 +69,7 @@ public class PostgresUserDao implements CommonDao<User> {
     @Override
     public User select(String id) {
         User currentUser = null;
-        try (Connection connection = postgresDAO.dataSource.getConnection();
+        try (Connection connection = postgresDAO.DATASOURCE.getConnection();
             PreparedStatement prpStat = connection.prepareStatement("SELECT name, age, role, address_id FROM users WHERE name = ?")) {
             prpStat.setString(1, id);
             try (ResultSet rs = prpStat.executeQuery();) {
@@ -77,7 +77,7 @@ public class PostgresUserDao implements CommonDao<User> {
                     Address address =  postgresDAO.getAddressDAO().select(rs.getString("address_id"));
                     Role role = postgresDAO.getRoleDAO().select(rs.getString("role"));
                     List<MusicType> list = PostgresMusicTypeDao.selectAllByUserID(rs.getString("name"));
-                    currentUser = new User(rs.getString("name"), rs.getInt("age"),role, address, list);
+                    currentUser = new User(rs.getString("name"), rs.getInt("age"), role, address, list);
                 }
             }
         } catch (SQLException sqlException) {
@@ -91,7 +91,7 @@ public class PostgresUserDao implements CommonDao<User> {
         boolean result = false;
         String name = value.getName();
         int age = value.getAge();
-        try (Connection connection = postgresDAO.dataSource.getConnection();
+        try (Connection connection = postgresDAO.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("UPDATE users SET age =? WHERE name = ?")) {
             prpStat.setString(2, name);
             prpStat.setInt(1, age);
@@ -106,7 +106,7 @@ public class PostgresUserDao implements CommonDao<User> {
     @Override
     public boolean remove(String id) {
         boolean result = false;
-        try (Connection connection = postgresDAO.dataSource.getConnection();
+        try (Connection connection = postgresDAO.DATASOURCE.getConnection();
              PreparedStatement prpStat = connection.prepareStatement("DELETE FROM users WHERE name = ?")) {
             prpStat.setString(1, id);
             prpStat.execute();

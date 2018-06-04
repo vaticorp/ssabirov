@@ -17,31 +17,13 @@ import java.util.function.Function;
  * @since 14.05.2018
  * @version 15.
  */
-public class ItemContext implements HibernateDao {
+public enum ItemContext {
+
+    INSTANCE;
 
     private final SessionFactory factory = new Configuration().configure().buildSessionFactory();
 
-    @Override
-    public void addEntity(String desc) {
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            Item item = new Item(desc);
-            session.save(item);
-        } finally {
-            transaction.commit();
-            session.close();
-        }
-    }
-
-    @Override
-    public List<Item> getListItemsByStatus(boolean status) {
-        return this.tx(
-                session -> session.createQuery(!status ? "select i from Item i where i.done = true" : "select i from Item i").getResultList()
-        );
-    }
-
-    private <T> T tx(final Function<Session, T> command) {
+    public  <T> T tx(final Function<Session, T> command) {
         final Session session = factory.openSession();
         final Transaction tx = session.beginTransaction();
         try {
@@ -55,9 +37,7 @@ public class ItemContext implements HibernateDao {
         }
     }
 
-    public static void main(String[] args) {
-        List<String> as = new ArrayList<>();
-        Collections.addAll(as,"2","3","4","5");
-        as.forEach((s) -> System.out.println(s));
+    public SessionFactory getFactory() {
+        return factory;
     }
 }

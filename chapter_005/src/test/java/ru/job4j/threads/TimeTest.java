@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
  * @since 15.03.2018.
  */
 public class TimeTest {
-    @Test
+/*    @Test
     public void whenOneThreadInterruptAnother() {
         //Начинаем считать текст
         Thread textThread = new Thread(new CountChar());
@@ -32,5 +32,5 @@ public class TimeTest {
             e.printStackTrace();
         }
         textThread.interrupt();
-    }
+    }*/
 }

@@ -43,7 +43,7 @@ public class HibernateTest {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Car car = session.get(Car.class, (long)6);
+            Car car = session.get(Car.class, (long) 6);
             System.out.println(car);
         } finally {
             transaction.commit();

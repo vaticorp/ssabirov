@@ -25,7 +25,7 @@ public class EditServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         UserStore.INSTANCE.updateUser(login, email, name);
-        resp.sendRedirect(String.format("%s/",req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
         //doPost(req, resp);
     }
 

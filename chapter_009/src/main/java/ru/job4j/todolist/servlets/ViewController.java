@@ -3,6 +3,7 @@ package ru.job4j.todolist.servlets;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.job4j.todolist.hibernate.ItemContext;
+import ru.job4j.todolist.hibernate.ItemRunner;
 import ru.job4j.todolist.model.Item;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,13 @@ public class ViewController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String description = req.getParameter("description");
-        new ItemContext().addEntity(description);
+        String idTask = req.getParameter("idTask");
+        if (idTask != null) {
+            ItemRunner.INSTANCE.updateEntity(Long.parseLong(idTask));
+        } else {
+            Item item = new Item(description);
+            ItemRunner.INSTANCE.addEntity(item);
+        }
         resp.setContentType("text/json");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.flush();
@@ -33,7 +40,7 @@ public class ViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean status = Boolean.parseBoolean(req.getParameter("flag"));
-        List<Item> itemList = new ItemContext().getListItemsByStatus(status);
+        List<Item> itemList = ItemRunner.INSTANCE.getListItemsByStatus(status);
         resp.setContentType("text/json");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         JSONObject main = new JSONObject();
