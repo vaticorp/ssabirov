@@ -1,14 +1,26 @@
 package ru.job4j.carsstorage.model;
 
+import com.sun.istack.internal.NotNull;
+import sun.security.pkcs11.wrapper.Constants;
+
+import javax.persistence.*;
+
 /**
  * This class represents Engine-model.
  * @author Svyatoslav Sabirov.
  * @since 15.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "engine")
 public class Engine {
 
+    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "capacity")
     private String capacity;
 
     public Engine() {

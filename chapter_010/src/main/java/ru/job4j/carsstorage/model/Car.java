@@ -1,17 +1,37 @@
 package ru.job4j.carsstorage.model;
 
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.*;
+
 /**
  * This class represents car-models.
  * @author Svyatoslav Sabirov.
  * @since 15.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "car")
 public class Car {
 
+    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "model")
     private String model;
+
+    @ManyToOne(cascade= {CascadeType.REFRESH}, fetch=FetchType.LAZY)
+    @JoinColumn(name="engine_id")
     private Engine engine;
+
+    @ManyToOne(cascade= {CascadeType.REFRESH}, fetch=FetchType.LAZY)
+    @JoinColumn(name="transmission_id")
     private Transmission transmission;
+
+    @ManyToOne(cascade= {CascadeType.REFRESH}, fetch=FetchType.LAZY)
+    @JoinColumn(name="gearbox_id")
     private Gearbox gearbox;
 
     public Car() {

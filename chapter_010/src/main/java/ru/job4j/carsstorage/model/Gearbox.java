@@ -1,14 +1,25 @@
 package ru.job4j.carsstorage.model;
 
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.*;
+
 /**
  * This class represents Gearbox-model.
  * @author Svyatoslav Sabirov.
  * @since 15.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "gearbox")
 public class Gearbox {
 
+    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "type")
     private String type;
 
     public Gearbox() {
