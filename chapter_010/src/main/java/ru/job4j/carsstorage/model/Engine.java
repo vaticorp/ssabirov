@@ -1,8 +1,5 @@
 package ru.job4j.carsstorage.model;
 
-import com.sun.istack.internal.NotNull;
-import sun.security.pkcs11.wrapper.Constants;
-
 import javax.persistence.*;
 
 /**
@@ -15,7 +12,6 @@ import javax.persistence.*;
 @Table(name = "engine")
 public class Engine {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

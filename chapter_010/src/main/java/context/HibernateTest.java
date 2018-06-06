@@ -17,16 +17,16 @@ public class HibernateTest {
         Transaction transaction = session.beginTransaction();
         try {
             Engine engine = new Engine();
-            engine.setCapacity("1.6v");
+            engine.setCapacity("1.4v");
             session.save(engine);
             Transmission transmission = new Transmission();
-            transmission.setDescription("CVT");
+            transmission.setDescription("MT");
             session.save(transmission);
             Gearbox gearbox = new Gearbox();
-            gearbox.setType("gidravlic");
+            gearbox.setType("MECH");
             session.save(gearbox);
             Car car = new Car();
-            car.setModel("VESTA");
+            car.setModel("granta");
             car.setEngine(engine);
             car.setGearbox(gearbox);
             car.setTransmission(transmission);
@@ -43,7 +43,7 @@ public class HibernateTest {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Car car = session.get(Car.class, (long) 6);
+            Car car = session.get(Car.class, (long) 7);
             System.out.println(car);
         } finally {
             transaction.commit();

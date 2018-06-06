@@ -1,7 +1,5 @@
 package ru.job4j.carsstorage.model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
 
 /**
@@ -14,7 +12,6 @@ import javax.persistence.*;
 @Table(name = "transmission")
 public class Transmission {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
