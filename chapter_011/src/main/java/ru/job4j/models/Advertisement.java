@@ -17,11 +17,17 @@ public class Advertisement {
     private boolean soldOut = false;
     private Timestamp publicationDate = new Timestamp(System.currentTimeMillis());
 
-    public Advertisement(int id, Car car, int cost, User user) {
+    public Advertisement(int id, Car car, int cost, User user, boolean soldOut, Timestamp publicationDate) {
         this.id = id;
         this.car = car;
         this.cost = cost;
         this.user = user;
+        this.soldOut = soldOut;
+        this.publicationDate = publicationDate;
+    }
+
+    public boolean isSoldOut() {
+        return soldOut;
     }
 
     public Advertisement() {

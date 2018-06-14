@@ -5,7 +5,7 @@
 <head>
     <title>Актуально</title>
     <style>
-        <%@include file="/WEB-INF/css/main.css"%>
+        <%@include file="/WEB-INF/css/mainTable.css"%>
     </style>
     <script type="text/javascript">
         <%@include file="/WEB-INF/js/main.js"%>
@@ -17,6 +17,7 @@
 <%--<input type="checkbox" id="last" name="last" /> за последний день
 <input type="checkbox" id="photo" name="photo" /> с фото
 <input type="checkbox" id="chbrand" name="chbrand" /> по производителю--%>
+<body onload="handleFilters()">
 <h2>Фильтры: </h2> <select name="filters" onchange="handleFilters()" <%--hidden="false"--%>>
     <option selected>no filter</option>
     <option>last day</option>
@@ -71,6 +72,8 @@
 </div>
 
 <br/>
+<img src="<c:url value="/resources/vykup-avto.jpg"/>" width="600" height="340" align="right"/>
+<%--<img src="/resources/Logo-Avito.png" />--%>
 <form action="${pageContext.servletContext.contextPath}/create" method="get">
     <input type="submit" class="sub" name="Edit" value="Добавить новое объявление"></form>
 </body>

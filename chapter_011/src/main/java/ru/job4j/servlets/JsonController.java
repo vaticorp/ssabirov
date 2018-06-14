@@ -51,7 +51,7 @@ public class JsonController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String filter = req.getParameter("filter");
+/*        String filter = req.getParameter("filter");
         String idBrand = req.getParameter("brand");
         resp.setContentType("text/json");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
@@ -92,6 +92,6 @@ public class JsonController extends HttpServlet {
         }
         jsonName.put("list", array);
         writer.append(jsonName.toJSONString());
-        writer.flush();
+        writer.flush();*/
     }
 }

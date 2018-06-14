@@ -25,13 +25,11 @@
                             value="${currentBrand.name}"></c:out></option>
                 </c:forEach>
             </select>
-
             <div id="mod">
                 Модель: <select name="models">
                     <option disabled>Выберите модель</option>
                 </select>
             </div>
-
             Категория: <select name="category">
                 <option disabled selected>Выберите категорию</option>
                 <c:forEach items="${categories}" var="currentCategory">
@@ -39,7 +37,6 @@
                             value="${currentCategory.name}"></c:out></option>
                 </c:forEach>
             </select>
-
             Кузов: <select name="body">
                 <option disabled selected>Выберите кузов</option>
                 <c:forEach items="${bodies}" var="currentBody">
@@ -47,7 +44,6 @@
                             value="${currentBody.name}"></c:out></option>
                 </c:forEach>
             </select>
-
             <p>Пробег: <input type="text" required pattern="^[ 0-9]+$" name="mileage"> <br/></p>
             <p>Дата выпуска: <input type="date" required name="release"> <br/></p>
             <p>Стоимость: <input type="text" required pattern="^[ 0-9]+$" name="cost"> <br/></p>

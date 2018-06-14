@@ -1,13 +1,13 @@
-$(document).ready ( function(){
+/*$(document).ready ( function(){
     handleFilters();
-});
+});*/
 function handleFilters() {
     var val = document.getElementsByName("filters")[0].value;
     var brandValue = document.getElementsByName("brand")[0].value;
     document.getElementsByName("brand")[0].hidden = (val != 'by producer');
     $.ajax({
         method: 'post',
-        url: "./json",
+        url: "${pageContext.servletContext.contextPath}/json",
         data: {filter: val,brand: brandValue},
         complete: function (msg) {
             console.log(msg);
