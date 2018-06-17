@@ -1,5 +1,6 @@
 package ru.job4j.models;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -9,11 +10,22 @@ import java.util.Set;
  * @since 16.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "brand")
 public class Brand {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "modelattachment",
+            joinColumns = @JoinColumn(name = "brand_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id")
+    )
     Set<Model> models;
 
     public Brand(int id, String name, String description, Set<Model> models) {
@@ -64,6 +76,7 @@ public class Brand {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
+                + "{models} = " + models + '\''
                 + '}';
     }
 }

@@ -1,5 +1,8 @@
 package ru.job4j.models;
 
+import ru.job4j.hibernate.AdvertisementRunner;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -8,14 +11,24 @@ import java.sql.Timestamp;
  * @since 16.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "advertisement")
 public class Advertisement {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "car_id")
     private Car car;
+    @Column(name = "cost")
     private int cost;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
+    @Column(name = "soldout")
     private boolean soldOut = false;
-    private Timestamp publicationDate = new Timestamp(System.currentTimeMillis());
+    @Column(name = "public")
+    private Timestamp publicationDate = AdvertisementRunner.INSTANCE.getStartDay();
 
     public Advertisement(int id, Car car, int cost, User user, boolean soldOut, Timestamp publicationDate) {
         this.id = id;

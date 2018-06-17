@@ -1,16 +1,25 @@
 package ru.job4j.models;
 
+import javax.persistence.*;
+
 /**
  * This class represents user-model.
  * @author Svyatoslav Sabirov.
  * @since 16.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
+    @Column(name = "fullname")
     private String fullName;
 
     public User() {

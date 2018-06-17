@@ -66,11 +66,7 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
     public List<Advertisement> getAdvertisementByImage() {
         return Context.INSTANCE.tx(
                 session -> {
-                    Timestamp currentDay = new Timestamp(System.currentTimeMillis());
-                    LocalDateTime endOfDay = currentDay.toLocalDateTime().with(LocalTime.MAX);
-                    LocalDateTime startOfDay = currentDay.toLocalDateTime().with(LocalTime.MIN);
                     Query query = session.createQuery("from Advertisement adv where bit_length(adv.car.imageArray) > 0");
-                    //query.setParameter("mil",Null);
                     return query.getResultList();
                 }
         );
@@ -79,13 +75,16 @@ public enum AdvertisementRunner implements CommonHibernate<Advertisement> {
     public List<Advertisement> getAdvertisementByBrandId(String id) {
         return Context.INSTANCE.tx(
                 session -> {
-                    Timestamp currentDay = new Timestamp(System.currentTimeMillis());
-                    LocalDateTime endOfDay = currentDay.toLocalDateTime().with(LocalTime.MAX);
-                    LocalDateTime startOfDay = currentDay.toLocalDateTime().with(LocalTime.MIN);
                     Query query = session.createQuery("from Advertisement adv where adv.car.brand.id =:id");
                     query.setParameter("id", Integer.parseInt(id));
                     return query.getResultList();
                 }
         );
+    }
+
+    public static Timestamp getStartDay() {
+        Timestamp currentDay = new Timestamp(System.currentTimeMillis());
+        LocalDateTime startOfDay = currentDay.toLocalDateTime().with(LocalTime.MIN);
+        return Timestamp.valueOf(startOfDay);
     }
 }

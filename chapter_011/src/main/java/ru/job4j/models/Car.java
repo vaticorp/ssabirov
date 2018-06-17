@@ -1,5 +1,6 @@
 package ru.job4j.models;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
@@ -10,15 +11,30 @@ import java.util.Date;
  * @since 16.05.2018
  * @version 7.
  */
+@Entity
+@Table(name = "car")
 public class Car {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id")
     private Brand brand;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
     private Category category;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "model_id")
     private Model model;
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "body_id")
     private Body body;
+    @Column(name = "mileage")
     private int mileage;
+    @Column(name = "created")
     private Timestamp created;
+    @Column(name = "image")
     byte[] imageArray;
 
     public Car(int id, Brand brand, Category category, Model model, Body body, int mileage, Timestamp date) {
