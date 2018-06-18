@@ -17,17 +17,16 @@
 </head>
 <body>
 
-<c:if test="${error != ''}">
+<c:if test="${logout != ''}">
     <div id="section" style="background-color: red">
-        <c:out value="${error}"></c:out>
+        <c:out value="${logout}"></c:out>
     </div>
 </c:if>
-
-<form id="slick-login" action="${pageContext.servletContext.contextPath}/auto" method="post" onsubmit="return validate();">
+<form id="slick-login" action="${pageContext.servletContext.contextPath}/j_spring_security_check" method="post" onsubmit="return validate();">
     <%--@declare id="login"--%>
     <%--@declare id="password"--%>
-    <label for='login'>Логин:</label><input type="text" id="lg" name="login" class="placeholder" placeholder="admin@example.com">
-    <label for='password'>Пароль:</label><input type="password" id="ps" name="password" class="placeholder" placeholder="Сложный пароль...">
+    <label for='login'>Логин:</label><input type="text" id="lg" name="login" class="placeholder" placeholder="example@example.com">
+    <label for='password'>Пароль:</label><input type="password" id="ps" name="password" class="placeholder" placeholder="Надежный пароль">
     <input type="submit" value="ВОЙТИ">
 </form>
 </body>
