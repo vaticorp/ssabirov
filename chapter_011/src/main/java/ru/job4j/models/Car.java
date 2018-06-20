@@ -45,7 +45,6 @@ public class Car {
         this.body = body;
         this.mileage = mileage;
         this.created = date;
-        //this.imageArray = imageArray;
     }
 
     public Car() {

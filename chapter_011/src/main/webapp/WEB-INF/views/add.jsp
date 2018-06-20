@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 <html>
 <head>
@@ -16,7 +17,8 @@
 <body>
 <fieldset>
     <legend><b>Добавить новое объявление</b></legend>
-    <form enctype="multipart/form-data" action="${pageContext.servletContext.contextPath}/create" method="post">
+    <%--@elvariable id="car" type=""--%>
+    <sf:form enctype="multipart/form-data" action="${pageContext.servletContext.contextPath}/create" method="post" modelAttribute="car">
         <div class="rovno" style="margin: 0px auto; text-align: left;">
             <select name="brand" onchange="refreshModels()">
                 <option disabled selected>Выберите производителя</option>
@@ -44,13 +46,13 @@
                             value="${currentBody.name}"></c:out></option>
                 </c:forEach>
             </select>
-            <p>Пробег: <input type="text" required pattern="^[ 0-9]+$" name="mileage"> <br/></p>
-            <p>Дата выпуска: <input type="date" required name="release"> <br/></p>
+            <p>Пробег: <sf:input path="mileage" type="text" name="mileage" /> <br/></p>
+            <p>Дата выпуска: <sf:input path="created" type="date" name="created"/> <br/></p>
             <p>Стоимость: <input type="text" required pattern="^[ 0-9]+$" name="cost"> <br/></p>
             <p>Загрузите изображение: <input type="file" name="image"> <br/></p>
             <input type="submit" name="save" value="Сохранить">
         </div>
-    </form>
+    </sf:form>
     <form action="${pageContext.servletContext.contextPath}/list" method="get">
         <input type="submit" class="sub" name="Back" value="Назад">
     </form>

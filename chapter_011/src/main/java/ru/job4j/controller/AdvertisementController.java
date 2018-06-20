@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import ru.job4j.hibernate.*;
@@ -30,6 +32,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.validation.Valid;
 
 /**
  * This class represents controller for Advertisement.
@@ -71,14 +74,18 @@ public class AdvertisementController implements ServletContextAware {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String addAdvertisementsView(ModelMap model) {
+        Car car = new Car();
+        car.setMileage(12345);
+        model.addAttribute("car", car);
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("bodies", bodyService.getAll());
         model.addAttribute("brandies", brandService.getAll());
+        model.addAttribute("bodies", bodyService.getAll());
         return "add";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String saveNewAdvertisements(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/create", method = RequestMethod.POST) //@ModelAttribute("car")
+    public String saveNewAdvertisements(HttpServletRequest req, HttpServletResponse resp, @Valid Car newCar, BindingResult result, ModelMap model) throws ServletException, IOException {
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
         if (!isMultipart) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -92,7 +99,7 @@ public class AdvertisementController implements ServletContextAware {
         try {
             List<FileItem> items = upload.parseRequest(req);
             Iterator iter = items.iterator();
-            Car newCar = new Car();
+            //Car newCar = new Car();
             HttpSession session = req.getSession();
             User user = userService.getUserByID(1);
             Advertisement advertisement = new Advertisement();
@@ -113,7 +120,7 @@ public class AdvertisementController implements ServletContextAware {
                         newCar.setMileage(Integer.parseInt(item.getString()));
                     }  else if (fieldName.equals("cost")) {
                         advertisement.setCost(Integer.parseInt(item.getString()));
-                    } else if (fieldName.equals("release")) {
+                    } else if (fieldName.equals("created")) {
                         newCar.setCreated(Timestamp.valueOf(String.format("%s %s", item.getString(), "00:00:00")));
                     }
                 } else {
@@ -127,6 +134,7 @@ public class AdvertisementController implements ServletContextAware {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return "redirect:/list";
+        //return "test";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -138,7 +146,7 @@ public class AdvertisementController implements ServletContextAware {
 
     @RequestMapping(value = "/json", produces = "application/json", method = RequestMethod.POST)
     @ResponseBody
-    public String registration(@RequestParam String filter, @RequestParam String brand) {
+    public String getInformationByFilter(@RequestParam String filter, @RequestParam String brand) {
         JSONObject jsonName = new JSONObject();
         JSONArray array = new JSONArray();
         List<Advertisement> list = null;
@@ -198,7 +206,6 @@ public class AdvertisementController implements ServletContextAware {
     public String setSoldToAdvertisement(ModelMap model, @RequestParam String id) {
         Advertisement advertisement = advertisementService.getAdvertisementByID(Integer.parseInt(id));
         advertisement.setSoldOut(true);
-        //AdvertisementRunner.INSTANCE.updateAdvertisement(advertisement);
         advertisementService.addAdvertisement(advertisement);
         return "redirect:/list";
     }
