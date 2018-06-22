@@ -32,7 +32,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.validation.Valid;
+
 
 /**
  * This class represents controller for Advertisement.
@@ -84,8 +84,8 @@ public class AdvertisementController implements ServletContextAware {
         return "add";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST) //@ModelAttribute("car")
-    public String saveNewAdvertisements(HttpServletRequest req, HttpServletResponse resp, @Valid Car newCar, BindingResult result, ModelMap model) throws ServletException, IOException {
+    @RequestMapping(value = "/create", method = RequestMethod.POST) //@ModelAttribute("car") @Valid
+    public String saveNewAdvertisements(HttpServletRequest req, HttpServletResponse resp, @ModelAttribute("car") Car newCar, BindingResult result, ModelMap model) throws ServletException, IOException {
         boolean isMultipart = ServletFileUpload.isMultipartContent(req);
         if (!isMultipart) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);

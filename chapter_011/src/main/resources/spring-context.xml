@@ -14,7 +14,6 @@
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="spring-security-jdbc.xml"/>
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/WEB-INF/views/</value>
@@ -23,39 +22,26 @@
             <value>.jsp</value>
         </property>
     </bean>
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/carsales"/>
         <property name="username" value="postgres"/>
         <property name="password" value="1"/>
     </bean>
-
     <bean id ="passwordEncoder" class = "org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method = "getInstance" />
-
     <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="showSql" value="true"/>
         <property name="generateDdl" value="true"/>
         <property name="database" value="POSTGRESQL"/>
     </bean>
-
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <property name="packagesToScan" value="ru.job4j"/>
     </bean>
-
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-
     <jpa:repositories base-package="ru.job4j.template"/>
-
     <context:component-scan base-package="ru.job4j" />
-
-<!--    <mvc:resources mapping="/resources/**" location="/resources/"
-                   cache-period="31556926"/>
-
-    <mvc:annotation-driven />-->
-
 </beans>
