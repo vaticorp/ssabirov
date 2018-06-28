@@ -3,53 +3,53 @@
     <version>2.0</version>
     <artifactId>chapter_011</artifactId>
     <packaging>war</packaging>
-<!--    <parent>
+    <parent>
         <artifactId>junior</artifactId>
         <groupId>ru.job4j</groupId>
         <version>2.0</version>
-    </parent>-->
-    <parent>
+    </parent>
+<!--    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.3.RELEASE</version>
-    </parent>
+    </parent>-->
     <dependencies>
     <!--    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-parent</artifactId>
             <version>2.0.3.RELEASE</version>
         </dependency>-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <!--<version>2.0.3.RELEASE</version>-->
+            &lt;!&ndash;<version>2.0.3.RELEASE</version>&ndash;&gt;
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-           <!-- <version>2.0.3.RELEASE</version>-->
+           &lt;!&ndash; <version>2.0.3.RELEASE</version>&ndash;&gt;
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <!--<version>2.0.3.RELEASE</version>-->
+            &lt;!&ndash;<version>2.0.3.RELEASE</version>&ndash;&gt;
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--<version>2.0.3.RELEASE</version>-->
+            &lt;!&ndash;<version>2.0.3.RELEASE</version>&ndash;&gt;
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <!--<version>2.0.3.RELEASE</version>-->
+            &lt;!&ndash;<version>2.0.3.RELEASE</version>&ndash;&gt;
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
@@ -124,15 +124,21 @@
             <version>5.0.6.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.10.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+<!--        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -144,11 +150,7 @@
             <version>5.0.6.RELEASE</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>2.0.8.RELEASE</version>
-        </dependency>-->
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -185,19 +187,48 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.0.6.RELEASE</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.8.1</version>
         </dependency>
 
+        &lt;!&ndash; Need this to compile JSP &ndash;&gt;
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        &lt;!&ndash; Need this to compile JSP,
+            tomcat-embed-jasper version is not working, no idea why &ndash;&gt;
+        <dependency>
+            <groupId>org.eclipse.jdt.core.compiler</groupId>
+            <artifactId>ecj</artifactId>
+            <version>4.6.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        &lt;!&ndash; Optional, test for static content, bootstrap CSS&ndash;&gt;
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.0.8.RELEASE</version>
+        </dependency>
+
     </dependencies>
-    <build>
+<!--    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 </project>

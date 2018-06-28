@@ -1,7 +1,10 @@
 package ru.job4j.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -33,11 +36,12 @@ public class Car {
     @Column(name = "mileage")
     private int mileage;
     @Column(name = "created")
-    private Timestamp created;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     @Column(name = "image")
     byte[] imageArray;
 
-    public Car(int id, Brand brand, Category category, Model model, Body body, int mileage, Timestamp date) {
+    public Car(int id, Brand brand, Category category, Model model, Body body, int mileage, Date date) {
         this.id = id;
         this.brand = brand;
         this.category = category;
@@ -62,7 +66,7 @@ public class Car {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

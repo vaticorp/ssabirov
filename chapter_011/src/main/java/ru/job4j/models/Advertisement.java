@@ -17,11 +17,11 @@ public class Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private Car car;
     @Column(name = "cost")
-    private int cost;
+    private Integer cost;
     @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -78,11 +78,11 @@ public class Advertisement {
         this.car = car;
     }
 
-    public int getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
 

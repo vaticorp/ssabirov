@@ -6,12 +6,15 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.hibernate.*;
 import ru.job4j.models.*;
 import ru.job4j.template.advertisement.AdvertisementService;
@@ -31,6 +34,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -66,6 +70,13 @@ public class AdvertisementController implements ServletContextAware {
         this.context = servletContext;
     }
 
+    @InitBinder("advertisement")
+    public void dataBinding(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CustomDateEditor dateEditor = new CustomDateEditor(dateFormat, true);
+        binder.registerCustomEditor(Date.class, "car.created",  dateEditor);
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAdvertisementsTable(ModelMap model) {
         model.addAttribute("brandies", brandService.getAll());
@@ -74,67 +85,18 @@ public class AdvertisementController implements ServletContextAware {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String addAdvertisementsView(ModelMap model) {
-        Car car = new Car();
-        car.setMileage(12345);
-        model.addAttribute("car", car);
+        model.addAttribute("advertisement", new Advertisement());
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("bodies", bodyService.getAll());
         model.addAttribute("brandies", brandService.getAll());
-        model.addAttribute("bodies", bodyService.getAll());
+        model.addAttribute("models", modelService.getAll());
         return "add";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST) //@ModelAttribute("car") @Valid
-    public String saveNewAdvertisements(HttpServletRequest req, HttpServletResponse resp, @ModelAttribute("car") Car newCar, BindingResult result, ModelMap model) throws ServletException, IOException {
-        boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-        if (!isMultipart) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(1024 * 1024);
-        File tempDir = (File) context.getAttribute("javax.servlet.context.tempdir");
-        factory.setRepository(tempDir);
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        upload.setSizeMax(1024 * 1024 * 10);
-        try {
-            List<FileItem> items = upload.parseRequest(req);
-            Iterator iter = items.iterator();
-            //Car newCar = new Car();
-            HttpSession session = req.getSession();
-            User user = userService.getUserByID(1);
-            Advertisement advertisement = new Advertisement();
-            advertisement.setUser(user);
-            while (iter.hasNext()) {
-                FileItem item = (FileItem) iter.next();
-                if (item.isFormField()) {
-                    String fieldName = item.getFieldName();
-                    if (fieldName.equals("brand")) {
-                        newCar.setBrand(brandService.getBrandByID(Integer.parseInt(item.getString())));
-                    } else if (fieldName.equals("models")) {
-                        newCar.setModel(modelService.getModelByID(Integer.parseInt(item.getString())));
-                    } else if (fieldName.equals("category")) {
-                        newCar.setCategory(categoryService.getCategoryByID(Integer.parseInt(item.getString())));
-                    } else if (fieldName.equals("body")) {
-                        newCar.setBody(bodyService.getUserByID(Integer.parseInt(item.getString())));
-                    } else if (fieldName.equals("mileage")) {
-                        newCar.setMileage(Integer.parseInt(item.getString()));
-                    }  else if (fieldName.equals("cost")) {
-                        advertisement.setCost(Integer.parseInt(item.getString()));
-                    } else if (fieldName.equals("created")) {
-                        newCar.setCreated(Timestamp.valueOf(String.format("%s %s", item.getString(), "00:00:00")));
-                    }
-                } else {
-                    newCar.setImageArray(item.get());
-                }
-            }
-            carService.addCar(newCar);
-            advertisement.setCar(newCar);
-            advertisementService.addAdvertisement(advertisement);
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
+    @RequestMapping(value = "/create", method = RequestMethod.POST) //@ModelAttribute("car") @Valid  @RequestParam LocalDateTime created HttpServletRequest req, HttpServletResponse resp,
+    public String saveNewAdvertisements(@ModelAttribute Advertisement advertisement, BindingResult result, Model model) throws ServletException, IOException {
+        advertisementService.addAdvertisement(advertisement);
         return "redirect:/list";
-        //return "test";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -185,9 +147,10 @@ public class AdvertisementController implements ServletContextAware {
         jsonName.put("list", array);
         return jsonName.toString();
     }
+
     @RequestMapping(value = "/json", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
-    public String getModelList(@RequestParam String brand) {
+    public String getModelList(@RequestParam String brand, @ModelAttribute Advertisement advertisement) {
         JSONObject jsonName = new JSONObject();
         JSONArray array = new JSONArray();
         Brand currentBrand = brandService.getBrandByID(Integer.parseInt(brand));
@@ -202,6 +165,7 @@ public class AdvertisementController implements ServletContextAware {
         jsonName.put("list", array);
         return jsonName.toString();
     }
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String setSoldToAdvertisement(ModelMap model, @RequestParam String id) {
         Advertisement advertisement = advertisementService.getAdvertisementByID(Integer.parseInt(id));
@@ -209,6 +173,7 @@ public class AdvertisementController implements ServletContextAware {
         advertisementService.addAdvertisement(advertisement);
         return "redirect:/list";
     }
+
     @RequestMapping(value = "/image", produces = "image/gif", method = RequestMethod.GET)
     @ResponseBody
     public void viewImage(@RequestParam String id, HttpServletResponse resp) throws ServletException, IOException  {

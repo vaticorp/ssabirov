@@ -72,9 +72,9 @@ public class CreateController extends HttpServlet {
                         newCar.setMileage(Integer.parseInt(item.getString()));
                     }  else if (fieldName.equals("cost")) {
                         advertisement.setCost(Integer.parseInt(item.getString()));
-                    } else if (fieldName.equals("release")) {
+                    } /*else if (fieldName.equals("release")) {
                         newCar.setCreated(Timestamp.valueOf(String.format("%s %s", item.getString(), "00:00:00")));
-                    }
+                    }*/
                 } else {
                     newCar.setImageArray(item.get());
                 }

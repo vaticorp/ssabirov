@@ -1,3 +1,4 @@
+/*
 package ru.job4j.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+*/
 /**
  * This class represents class for spring-security.
  * @author Svyatoslav Sabirov.
  * @since 21.06.2018
  * @version 7.
- */
+ *//*
+
 
 @Configuration
 @EnableTransactionManagement
@@ -41,7 +44,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/list*").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/list*").permitAll()
-                /*.anyRequest().permitAll()*/
+                */
+/*.anyRequest().permitAll()*//*
+
                 .and()
                 .formLogin().loginPage("/auto.do")
                 .usernameParameter("login").passwordParameter("password").failureForwardUrl("/fail")
@@ -53,3 +58,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf();
     }
 }
+*/
