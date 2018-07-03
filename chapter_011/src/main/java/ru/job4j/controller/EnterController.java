@@ -1,3 +1,4 @@
+/*
 package ru.job4j.controller;
 
 import org.springframework.stereotype.Controller;
@@ -6,12 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+*/
 /**
  * This class represents controller for auth.
  * @author Svyatoslav Sabirov.
  * @since 17.06.2018
  * @version 9.
- */ 
+ *//*
+
 @Controller
 public class EnterController {
 
@@ -34,3 +37,4 @@ public class EnterController {
         return "fail";
     }
 }
+*/

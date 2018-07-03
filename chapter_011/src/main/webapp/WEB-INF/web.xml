@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-    <display-name>Advertisement</display-name>
+<!--    <display-name>Advertisement</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -26,11 +26,11 @@
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-     </servlet>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>appServlet</servlet-name>
-        <!--<url-pattern>*.do</url-pattern>-->
+        &lt;!&ndash;<url-pattern>*.do</url-pattern>&ndash;&gt;
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
@@ -59,62 +59,67 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
-  <!--  <servlet>
-        <servlet-name>Auto</servlet-name>
-        <servlet-class>ru.job4j.servlets.AutorisationController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Auto</servlet-name>
-        <url-pattern>/auto</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>View</servlet-name>
-        <servlet-class>ru.job4j.servlets.ViewController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>View</servlet-name>
-        <url-pattern>/list</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>New</servlet-name>
-        <servlet-class>ru.job4j.servlets.CreateController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>New</servlet-name>
-        <url-pattern>/create</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>JsonController</servlet-name>
-        <servlet-class>ru.job4j.servlets.JsonController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>JsonController</servlet-name>
-        <url-pattern>/json</url-pattern>
-    </servlet-mapping>
-    <filter>
-        <filter-name>CarFilter</filter-name>
-        <filter-class>ru.job4j.servlets.AutoFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CarFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
-    <servlet>
-        <servlet-name>ImageController</servlet-name>
-        <servlet-class>ru.job4j.servlets.ImageController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ImageController</servlet-name>
-        <url-pattern>/image</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>EditController</servlet-name>
-        <servlet-class>ru.job4j.servlets.EditController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditController</servlet-name>
-        <url-pattern>/edit</url-pattern>
-    </servlet-mapping>-->
+
+    <!--отделить старое!!-->
+
+
+
+    <!--  <servlet>
+          <servlet-name>Auto</servlet-name>
+          <servlet-class>ru.job4j.servlets.AutorisationController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>Auto</servlet-name>
+          <url-pattern>/auto</url-pattern>
+      </servlet-mapping>
+      <servlet>
+          <servlet-name>View</servlet-name>
+          <servlet-class>ru.job4j.servlets.ViewController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>View</servlet-name>
+          <url-pattern>/list</url-pattern>
+      </servlet-mapping>
+      <servlet>
+          <servlet-name>New</servlet-name>
+          <servlet-class>ru.job4j.servlets.CreateController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>New</servlet-name>
+          <url-pattern>/create</url-pattern>
+      </servlet-mapping>
+      <servlet>
+          <servlet-name>JsonController</servlet-name>
+          <servlet-class>ru.job4j.servlets.JsonController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>JsonController</servlet-name>
+          <url-pattern>/json</url-pattern>
+      </servlet-mapping>
+      <filter>
+          <filter-name>CarFilter</filter-name>
+          <filter-class>ru.job4j.servlets.AutoFilter</filter-class>
+      </filter>
+      <filter-mapping>
+          <filter-name>CarFilter</filter-name>
+          <url-pattern>*</url-pattern>
+      </filter-mapping>
+      <servlet>
+          <servlet-name>ImageController</servlet-name>
+          <servlet-class>ru.job4j.servlets.ImageController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>ImageController</servlet-name>
+          <url-pattern>/image</url-pattern>
+      </servlet-mapping>
+      <servlet>
+          <servlet-name>EditController</servlet-name>
+          <servlet-class>ru.job4j.servlets.EditController</servlet-class>
+      </servlet>
+      <servlet-mapping>
+          <servlet-name>EditController</servlet-name>
+          <url-pattern>/edit</url-pattern>
+      </servlet-mapping>-->
 </web-app>

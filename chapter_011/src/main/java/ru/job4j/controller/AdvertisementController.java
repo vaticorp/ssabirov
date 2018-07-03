@@ -1,3 +1,4 @@
+/*
 package ru.job4j.controller;
 
 import org.apache.commons.fileupload.FileItem;
@@ -38,12 +39,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
+*/
 /**
  * This class represents controller for Advertisement.
  * @author Svyatoslav Sabirov.
  * @since 08.06.2018
  * @version 7.
- */
+ *//*
+
 
 @Controller
 public class AdvertisementController implements ServletContextAware {
@@ -74,7 +77,7 @@ public class AdvertisementController implements ServletContextAware {
     public void dataBinding(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         CustomDateEditor dateEditor = new CustomDateEditor(dateFormat, true);
-        binder.registerCustomEditor(Date.class, "car.created",  dateEditor);
+        binder.registerCustomEditor(Date.class,"car.created",  dateEditor);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -185,3 +188,4 @@ public class AdvertisementController implements ServletContextAware {
     }
 }
 
+*/

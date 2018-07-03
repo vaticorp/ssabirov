@@ -8,7 +8,7 @@
                            http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true">
+    <!--<http auto-config="true">
         <intercept-url pattern="/list*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/auto.do" access="permitAll()"/>
         <form-login login-page="/auto.do"
@@ -27,7 +27,7 @@
                                authorities-by-username-query="select login, 'ROLE_ADMIN' from users where login =?"/>
             <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
-    </authentication-manager>
+    </authentication-manager>-->
 
 </beans:beans>
 

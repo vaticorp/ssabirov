@@ -7,9 +7,9 @@
     <title>Title</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
         <%@include file="/WEB-INF/js/create.js"%>
-    </script>
+    </script>--%>
     <style>
         <%@include file="/WEB-INF/css/add.css"%>
     </style>
@@ -18,38 +18,34 @@
 <fieldset>
     <legend><b>Добавить новое объявление</b></legend>
     <%--@elvariable id="car" type=""--%>
-    <sf:form enctype="multipart/form-data" action="${pageContext.servletContext.contextPath}/create" method="post" modelAttribute="car">
-        <div class="rovno" style="margin: 0px auto; text-align: left;">
-            <select name="brand" onchange="refreshModels()">
-                <option disabled selected>Выберите производителя</option>
-                <c:forEach items="${brandies}" var="currentBrand">
-                    <option value="<c:out value="${currentBrand.id}"></c:out>"><c:out
-                            value="${currentBrand.name}"></c:out></option>
-                </c:forEach>
-            </select>
-            <div id="mod">
-                Модель: <select name="models">
-                    <option disabled>Выберите модель</option>
-                </select>
-            </div>
-            Категория: <select name="category">
-                <option disabled selected>Выберите категорию</option>
-                <c:forEach items="${categories}" var="currentCategory">
-                    <option value="<c:out value="${currentCategory.id}"></c:out>"><c:out
-                            value="${currentCategory.name}"></c:out></option>
-                </c:forEach>
-            </select>
-            Кузов: <select name="body">
-                <option disabled selected>Выберите кузов</option>
-                <c:forEach items="${bodies}" var="currentBody">
-                    <option value="<c:out value="${currentBody.id}"></c:out>"><c:out
-                            value="${currentBody.name}"></c:out></option>
-                </c:forEach>
-            </select>
-            <p>Пробег: <sf:input path="mileage" type="text" name="mileage" /> <br/></p>
-            <p>Дата выпуска: <sf:input path="created" type="date" name="created"/> <br/></p>
-            <p>Стоимость: <input type="text" required pattern="^[ 0-9]+$" name="cost"> <br/></p>
-            <p>Загрузите изображение: <input type="file" name="image"> <br/></p>
+    <%--enctype="multipart/form-data"--%>
+    <sf:form  action="${pageContext.servletContext.contextPath}/create" method="post"  modelAttribute="advertisement">
+        <div class="rovno" style="margin: 0px auto; text-align: left;"> <%--onchange="refreshModels()"--%>
+               Производитель <sf:select path="car.brand.id" id="brand_name" >
+            <sf:option value="-" label="--Select body"/>
+            <sf:options items="${brandies}" itemValue="id" itemLabel="name"/>
+            </sf:select><br/>
+            Модель <sf:select path="car.model.id" >
+                <sf:option value="-" label="--Select model"/>
+                <sf:options items="${models}" itemValue="id" itemLabel="name"/>
+            </sf:select><br/>
+            <%--<div id="mod">
+            </div>--%>
+                <%--placeholder="YYYY-MM-DD hh:mm:ss"--%>
+            <p>Дата выпуска: <sf:input path="car.created" type="date" name="created"/> <br/></p>
+            <%--<p>Дата выпуска1: <input type="text" placeholder="YYYY-MM-DD hh:mm:ss" name="created"/> <br/></p>--%>
+            Кузов: <sf:select  path="car.body.id">
+               <sf:option value="-" label="--Select body"/>
+               <sf:options items="${bodies}" itemValue="id" itemLabel="name"/>
+            </sf:select> <br/><br/>
+            Категория: <sf:select path="car.category.id">
+               <sf:option value="-" label="--Select category"/>
+               <sf:options items="${categories}" itemValue="id" itemLabel="name"/>
+            </sf:select> <br/>
+            <p>Стоимость: <sf:input type="text" path="cost" name="cost"/> <br/></p>
+            <p>Пробег: <sf:input path="car.mileage" type="number" name="mileage" /> <br/></p>
+            <sf:input path="user.id" type="test" name="user" hidden="true" value="1"/>
+            <p>Загрузите изображение: <sf:input path="car.imageArray" type="file" name="image"/> <br/></p>
             <input type="submit" name="save" value="Сохранить">
         </div>
     </sf:form>

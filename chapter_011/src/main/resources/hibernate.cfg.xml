@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="utf-8"?>
 <hibernate-configuration>
     <session-factory>
@@ -15,4 +16,4 @@
         <mapping resource="ru/job4j/models/Car.xbn.xml"/>
         <mapping resource="ru/job4j/models/Advertisement.xbn.xml"/>
     </session-factory>
-</hibernate-configuration>
+</hibernate-configuration>-->

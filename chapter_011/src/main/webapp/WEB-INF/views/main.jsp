@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -32,49 +34,15 @@
                 value="${currentBrand.name}"></c:out></option>
     </c:forEach>
 </select>
-
 <h1>Активные объявления:</h1><br/>
-
-<%--<table class="table_advertisements">
-    <tr>
-        <th>Производитель</th>
-        <th>Модель</th>
-        <th>Категория</th>
-        <th>Кузов</th>
-        <th>Пробег</th>
-        <th>Дата выпуска</th>
-        <th>Стоимость(руб.)</th>
-        <th>Продано</th>
-        <th>Дата публикации</th>
-        <th>Действие</th>
-    </tr>
-    <c:forEach items="${advertisements}" var="advertisement">
-        <tr>
-            <td><c:out value="${advertisement.car.brand.name}"></c:out></td>
-            <td><c:out value="${advertisement.car.model.name}"></c:out></td>
-            <td><c:out value="${advertisement.car.category.name}"></c:out></td>
-            <td><c:out value="${advertisement.car.body.name}"></c:out></td>
-            <td><c:out value="${advertisement.car.mileage}"></c:out></td>
-            <td><c:out value="${advertisement.car.created}"></c:out></td>
-            <td><c:out value="${advertisement.cost}"></c:out></td>
-            <td><c:out value="${advertisement.soldOut}"></c:out></td>
-            <td><c:out value="${advertisement.publicationDate}"></c:out></td>
-            <td>
-                <form action="${pageContext.servletContext.contextPath}/edit" method="get">
-                    <input type="hidden" name="id" value=<c:out value="${advertisement.id}"></c:out>>
-                    <input type="submit" class="sub" name="Edit" value="Просмотр"></form>
-            </td>
-        </tr>
-    </c:forEach>
-</table>--%>
-
 <div id="mod">
 </div>
-
 <br/>
-<img src="<c:url value="/resources/vykup-avto.jpg"/>" width="600" height="340" align="right"/>
+<%--<img src="<c:url value="/templates/image_import/vykup-avto.jpg"/>" width="600" height="340" align="right"/>--%>
 <%--<img src="/resources/Logo-Avito.png" />--%>
-<form action="${pageContext.servletContext.contextPath}/create" method="get">
-    <input type="submit" class="sub" name="Edit" value="Добавить новое объявление"></form>
+<sf:form action="${pageContext.servletContext.contextPath}/create" method="get">
+<%--    <sf:input path="id" type="text" name="id"/>--%>
+    <input type="submit" class="sub" name="Edit" value="Добавить новое объявление">
+</sf:form>
 </body>
 </html>
