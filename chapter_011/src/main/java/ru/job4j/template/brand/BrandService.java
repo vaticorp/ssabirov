@@ -1,6 +1,7 @@
 package ru.job4j.template.brand;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -34,8 +35,4 @@ public class BrandService implements BrandRepository {
     public Brand getBrandByID(int id) {
         return brandCrud.findById(id).get();
     }
-    /*    public static void main(String[] args) {
-        BrandService brandService = new BrandService();
-        brandService.getAll().forEach(s -> System.out.println(s));
-    }*/
 }
