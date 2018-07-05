@@ -1,0 +1,9 @@
+body {
+    background-image: url(/avto-sale.jpg);
+    background-position: right bottom;
+    background-size: 500px 150px;
+    background-repeat: no-repeat;
+}
+.field {
+    clear:both; text-align:left; line-height:25px;
+}

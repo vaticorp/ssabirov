@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://wwww.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" href="css/add.css" content-type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/create.js"></script>
+</head>
+<body>
+<fieldset>
+    <legend><b>Добавить новое объявление</b></legend>
+
+        <form action="#" th:action="@{/create}" th:object="${advertisement}" method="POST">
+            <div class="rovno" style="margin: 0px auto; text-align: left;">
+
+                Производитель: <select th:field="*{car.brand.id}">
+                <option th:each="brand : ${brandies}" th:value="${brand.id}" th:text="${brand.name}">Выберите</option>
+            </select> <br/><br/>
+
+                Модель: <select th:field="*{car.model.id}">
+                <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}">Выберите</option>
+            </select> <br/><br/>
+
+                <p>Дата выпуска: <input type="date" th:field="*{car.created}"/> <br/></p>
+                Кузов: <select th:field="*{car.body.id}">
+                <option th:each="body : ${bodies}" th:value="${body.id}" th:text="${body.name}">Выберите</option>
+            </select> <br/><br/>
+
+                Категория: <select th:field="*{car.category.id}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Выберите
+                </option>
+            </select> <br/><br/>
+
+                <p>Стоимость: <input type="text" th:field="*{cost}"/> <br/></p>
+                <p>Пробег: <input type="number" th:field="*{car.mileage}"/> <br/></p>
+                <p>Пользователь:<input type="text" th:field="*{user.id}"/></p>
+                <p>Загрузите изображение: <input type="file" th:field="*{car.imageArray}"/> <br/></p>
+                <input type="submit" name="save" value="Сохранить">
+            </div>
+            <form><br/>
+</fieldset>
+
+<form action="/list" method="get">
+    <input type="submit" class="sub" name="Back" value="Назад">
+</form>
+
+</body>
+</html>
+

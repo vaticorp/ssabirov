@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://wwww.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Актуальный список</title>
+    <link rel="stylesheet" href="css/main.css" content-type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/main_js.js"></script>
+</head>
+<body onload="handleFilters()">
+<h2>Фильтры: </h2> <select name="filters" onchange="handleFilters()">
+<option selected>no filter</option>
+<option>last day</option>
+<option>with image</option>
+<option>by producer</option>
+</select>
+
+<select name="brand" hidden onchange="handleFilters()">
+<option th:each="brand : ${brandies}" th:value="${brand.id}" th:text="${brand.name}">Выберите</option>
+</select>
+<h1>Активные объявления:</h1><br/>
+<div id="mod">
+</div>
+<br/>
+<img src="vykup-avto.jpg" width="600" height="340" align="right"/>
+<form action="/create" method="get">
+    <input type="submit" class="sub" name="Edit" value="Добавить новое объявление">
+</form>
+</body>
+</html>

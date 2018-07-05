@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://wwww.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Объявление</title>
+    <link rel="stylesheet" href="css/edit.css" content-type="text/css"/>
+</head>
+<body>
+<h1>Информация по объявлению</h1>
+<!--<div th:with="path=${advertisement.car.id}">-->
+<!--<c:set var="userID"><c:out value="${userID}"/></c:set>-->
+Производитель <input class="out" type="text" name="brand" readonly th:value="${advertisement.car.brand.name}"> <br/>
+Модель <input class="out" type="text" name="model" readonly th:value="${advertisement.car.model.name}"> <br/>
+Категория <input class="out" type="text" name="category" readonly th:value="${advertisement.car.category.name}"> <br/>
+Кузов <input class="out" type="text" name="body" readonly th:value="${advertisement.car.body.name}"> <br/>
+Пробег <input class="out" type="text" name="mileage" readonly th:value="${advertisement.car.mileage}"> <br/>
+Дата выпуска <input class="out" type="text" name="created" readonly th:value="${advertisement.car.created}"> <br/>
+Стоимость <input class="out" type="text" name="cost" readonly th:value="${advertisement.cost}"> <br/>
+Продано <input class="out" type="text" name="sold" readonly th:value="${advertisement.soldOut}"> <br/>
+<img class="out" th:src="${path}"/>
+<!--</div>-->
+<!--th:text=${advertisement.car.id}-->
+<!--<c:if test="${advertisement.user.id == userID}">
+    <form action="${pageContext.servletContext.contextPath}/edit" method="post">
+        <input type="hidden" name="id" value=<c:out value="${advertisement.id}"></c:out>>
+        <input type="submit" class="sub" name="Change" value="Изменить статус"><br/>
+    </form>
+</c:if>-->
+<form action="/list" method="get">
+    <input type="submit" class="sub" name="Back" value="Назад">
+</form>
+
+</body>
+</html>
