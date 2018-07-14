@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Retrival of statistic</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/redirect.js"></script>
+</head>
+<body>
+<br> URL <input type="text" name="ref"/>
+Redirect type <select name="redirect">
+    <option selected>302</option>
+    <option>301</option>
+</select>
+<input type="button" value="Registration of URL" onclick="registrationReference()"/>
+<br><br><form th:action="@{transition}" method="post">
+    URL <input type="text" name="reflect"/>
+    <input type="submit" name="red" value="redirecting">
+</form>
+</body>
+</html>
