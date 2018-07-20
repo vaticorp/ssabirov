@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -104,7 +105,7 @@ public class StartUI {
     /**
      * Find item by name.
      */
-    private Item findItemByName() {
+    private Item findItemByName() throws SQLException {
         Item currentItem = null;
         System.out.println("------------ Поиск заявки по имени --------------");
         String name = this.input.ask("Введите имя заявки :");
@@ -126,10 +127,11 @@ public class StartUI {
     /**
      * Find item by id.
      */
-    private Item findItemById() {
+    private Item findItemById() throws SQLException {
         Item currentItem = null;
         System.out.println("------------ Поиск заявки по id --------------");
         String id = this.input.ask("Введите идентификатор заявки :");
+        //System.out.println(id);
         Item item = this.tracker.findById(id);
         if (item != null) {
             currentItem = item;

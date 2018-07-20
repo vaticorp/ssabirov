@@ -130,6 +130,7 @@ class FindItemById extends BaseAction {
         Item currentItem = null;
         System.out.println("------------ Поиск заявки по id --------------");
         String id = input.ask("Введите идентификатор заявки :");
+        //System.out.println(id);
         Item item = tracker.findById(id);
         if (item != null) {
             currentItem = item;
@@ -156,8 +157,7 @@ class FindItemByName extends BaseAction {
         if (items.size() != 0) {
             for (Item current:items) {
                 if (current != null) {
-                    //currentItem = current;
-                    System.out.println("Заявка найдена: " + currentItem.toString());
+                    System.out.println("Заявка найдена: " + current.toString());
                 }
             }
         } else {

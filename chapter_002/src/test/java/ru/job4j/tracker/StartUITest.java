@@ -21,24 +21,25 @@ public class StartUITest {
     private final PrintStream stout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-/*    @Test
+    @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
+        tracker.readPropertyFile();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll().get(0).getName(), is("test name"));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Первая заявка", "Описание первой заявки"));
         Input input = new StubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name"));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void whenDeleteOneItemThenTrackerHasAnotherValue() {
         Tracker tracker = new Tracker();
         Item firstitem = tracker.add(new Item("Первая заявка", "Описание первой заявки"));
@@ -46,9 +47,9 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"3", firstitem.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll().get(0).getName(), is("Вторая заявка"));
-    }*/
+    }
 
-/*    @Test
+    @Test
     public void whenFindItemByIdThenItemWithSameName() {
         // создаём Tracker
         Tracker tracker = new Tracker();
@@ -56,9 +57,8 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
          new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("Первая"));
-    }*/
+    }
 
-    /*
     @Test
     public void whenShowAllItemThenCompareWithItems() {
         Tracker container = new Tracker();
@@ -91,9 +91,8 @@ public class StartUITest {
                         .add("6 : Exit Program")
                         .add("Exit........").toString()
                            ));
-    }*/
+    }
 
-    /*
     @Test
     public void whenFindItemByNameThenItemWithSameName() {
         Tracker container = new Tracker();
@@ -126,7 +125,7 @@ public class StartUITest {
                         .add("6. Exit Program")
                         .add("Select:").toString()
                 ));
-    }*/
+    }
 
     @Before
     public void streamToByteArray() {

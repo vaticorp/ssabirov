@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * This class is using for storage items.
@@ -27,8 +28,9 @@ public class Tracker {
     private String password;
 
     public void readPropertyFile() {
-        Properties property = new Properties();
-        try (FileInputStream fis = new FileInputStream("chapter_002/src/main/java/ru/job4j/tracker/config.properties");) {
+        Properties property = new Properties(); //chapter_002/src/main/java/ru/job4j/tracker/config.properties
+        //String s = Tracker.class.getResource("config.properties").toString();
+        try (FileInputStream fis = new FileInputStream("C:/projects/ssabirov/chapter_002/target/classes/ru/job4j/tracker/config.properties");) {
             property.load(fis);
             url = property.getProperty("url");
             user = property.getProperty("login");
@@ -134,22 +136,32 @@ public class Tracker {
      * @return bid-list.
      */
     public List<Item> findByName(String key) {
-        List<Item> currientitems = new ArrayList<Item>();
-           String query = scripts.get("findByName");
+        return selectLambda(scripts.get("findByName"), key, statement -> {
+                    List<Item> currentItems = new ArrayList<Item>();
+                    try (ResultSet rs = statement.executeQuery();) {
+                        while (rs.next()) {
+                            Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                            item.setId(rs.getString(1));
+                            currentItems.add(item);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return currentItems;
+                }
+        );
+    }
+
+    public <T> T selectLambda(String script, String value, final Function<PreparedStatement, T> command)  {
         try (Connection con = DriverManager.getConnection(url, user, password);
-            PreparedStatement stmt = con.prepareStatement(query);
-            ResultSet rs = null;) {
-            stmt.setString(1, key);
-            stmt.executeQuery();
-            while (rs.next()) {
-                Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
-                item.setId(rs.getString(1));
-                currientitems.add(item);
-            }
-        } catch (SQLException sqlEx) {
-            sqlEx.printStackTrace();
+            PreparedStatement statement = con.prepareStatement( script );) {
+            statement.setString(1, value);
+            return command.apply(statement);
         }
-        return currientitems;
+        catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -157,9 +169,26 @@ public class Tracker {
      * @param id
      * @return bid.
      */
-    public Item findById(String id) {
+    public Item findById(String id){
+        return selectLambda(scripts.get("findById"), id, statement -> {
+                    Item found = null;
+                    try (ResultSet rs = statement.executeQuery();) {
+                        while (rs.next()) {
+                            found = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                            found.setId(rs.getString(1));
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return found;
+                }
+        );
+    }
+
+
+    /*public Item findById(String id) {
         Item found = null;
-        String query = scripts.get("findByName");
+        String query = scripts.get("findById");
         try (Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = con.prepareStatement(query);) {
             stmt.setString(1, id);
@@ -173,7 +202,27 @@ public class Tracker {
             sqlEx.printStackTrace();
         }
         return found;
-    }
+    }*/
+
+    /*public List<Item> findByName(String key) {
+        List<Item> currientitems = new ArrayList<Item>();
+        String query = scripts.get("findByName");
+        try (Connection con = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = con.prepareStatement(query);) {
+            stmt.setString(1, key);
+            try (ResultSet rs = stmt.executeQuery();) {
+                while (rs.next()) {
+                    Item item = new Item(rs.getString(2), rs.getString(3), rs.getLong(4));
+                    System.out.println(item.toString());
+                    item.setId(rs.getString(1));
+                    currientitems.add(item);
+                }
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+        return currientitems;
+    }*/
 
     /**
      * Метод генерирует уникальный ключ для заявки.
