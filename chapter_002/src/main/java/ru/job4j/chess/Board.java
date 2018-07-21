@@ -4,6 +4,8 @@ import ru.job4j.chess.exceptions.*;
 import ru.job4j.chess.figures.Bishop;
 import ru.job4j.chess.figures.Figure;
 
+import java.util.Arrays;
+
 /**
  * This is class for chess-board.
  * @author Svyatoslav Sabirov.
@@ -44,15 +46,17 @@ public class Board {
         add(blackBishop);
         return true;
     }
+
     public void cellsAreFree(Cell[] cells) throws OccupiedWayException {
-        for (Cell currentCell : cells) {
-            for (Figure current: figures) {
+        Arrays.stream(cells).forEach(currentCell -> {
+            Arrays.stream(figures).forEach(current -> {
                 if (current.figureInCell(currentCell)) {
                     throw new OccupiedWayException("The path is busy!");
                 }
-            }
-        }
+            });
+        });
     }
+
     public Figure findFigure(Cell cell) throws FigureNotFoundException {
         Figure currentObject = null;
         for (Figure current: figures) {
@@ -65,9 +69,11 @@ public class Board {
         }
         return currentObject;
     }
+
     public int getSizeX() {
         return sizeX;
     }
+
     public int getSizeY() {
         return sizeY;
     }
