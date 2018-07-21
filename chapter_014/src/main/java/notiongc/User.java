@@ -47,16 +47,21 @@ public class User {
         System.out.println("Start program!");
         ArrayList<User> users = new ArrayList<User>();
         info();
-        for (int index = 0; index < 29239; index++) {
-            //User currentUser = new User(String.format("Petr %s", index), 28);
-            //System.out.println(String.format("Create new object %s", currentUser));
-            users.add(new User(String.format("Petr %s", index), 28));
-            System.out.println(String.format("Добавлен объект номер %s", index));
-            //currentUser = null;
+        for (int index = 0; index < 300; index++) {
+            User currentUser = new User(String.format("Petr %s", index), 28);
+            System.out.println(String.format("Create new object %s", currentUser));
+            //users.add(new User(String.format("Petr %s", index), 28));
+            //System.out.println(String.format("Добавлен объект номер %s", index));
+            currentUser = null;
             //System.gc();
         }
         info();
-        //System.gc();
+        System.gc();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Finish program!");
     }
 }
