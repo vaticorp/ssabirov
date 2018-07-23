@@ -18,15 +18,13 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int position = 0;
-        for (int index = 0; index < tasks.size(); index++) {
-            position = index;
-            Task currentTask = tasks.get(index);
-            if (currentTask.getPriority() >= task.getPriority()) {
-                break;
+        Task current = tasks.stream().filter(currentTask -> currentTask.getPriority() >= task.getPriority()).max(new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getPriority() - o2.getPriority() > 0 ? 1 : -1;
             }
-        }
-        tasks.add(position, task);
+        }).orElseGet(()-> new Task("",0));
+        tasks.add(tasks.indexOf(current) == -1 ? 0 : tasks.indexOf(current), task);
     }
 
     public Task take() {

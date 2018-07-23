@@ -1,6 +1,8 @@
 package ru.job4j.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This is simple class for ConvertList.
@@ -15,13 +17,9 @@ public class ConvertList {
      * @return list of result.
      */
     public List<Integer> toList(int[][] array) {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int[] outherArray:array) {
-            for (int number : outherArray) {
-                list.add(number);
-            }
-        }
-        return list;
+        List<Integer> result = Arrays.stream(array)
+                .flatMapToInt(i -> Arrays.stream(i)).boxed().collect(Collectors.toList());
+        return result;
     }
     /**
      * This convert list to array.
@@ -47,16 +45,12 @@ public class ConvertList {
 
     /**
      * This is method for converting list of arrays.
-     * @param list - list of integer arrrays.
+     * @param values - list of integer arrrays.
      * @return - list of integer.
      */
-    public List<Integer> convert(List<int[]> list) {
+    public List<Integer> convert(List<int[]> values) {
         List<Integer> convertArray = new ArrayList<Integer>();
-        for (int[] current:list) {
-            for (int value:current) {
-                convertArray.add(value);
-            }
-        }
+        values.stream().forEach(current -> {convertArray.addAll(Arrays.stream(current).boxed().collect(Collectors.toList()));});
         return convertArray;
     }
 }

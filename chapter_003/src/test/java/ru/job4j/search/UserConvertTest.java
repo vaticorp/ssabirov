@@ -21,7 +21,7 @@ public class UserConvertTest {
         List<User> list = new ArrayList<User>();
         Collections.addAll(list, new User(1, "Petr", "Bryansk"), new User(2, "Svyatoslav", "St Peterburg"));
         UserConvert testUser = new UserConvert();
-        HashMap<Integer, User> testMap = testUser.process(list);
+        Map<Integer, User> testMap = testUser.process(list);
         assertThat(true, is(testMap.containsKey(1)));
     }
 }

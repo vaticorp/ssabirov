@@ -45,13 +45,7 @@ public class BankOperations {
     }
 
     public User getUserByPassport(String passportData) {
-        User foundUser = null;
-        for (Map.Entry<User, List<Account>> entryUser : this.usersAccount.entrySet()) {
-            if (entryUser.getKey().getPassport().equals(passportData)) {
-                foundUser = entryUser.getKey();
-                break;
-            }
-        }
+        User foundUser = this.usersAccount.entrySet().stream().filter(s -> s.getKey().getPassport().equals(passportData)).findAny().orElseGet(null).getKey();
         return foundUser;
     }
 
@@ -65,14 +59,7 @@ public class BankOperations {
     }
 
     public Account getUserAccountByRequisite(List<Account> accounts, String requisite) {
-        Account findAccount = null;
-        for (Account current : accounts) {
-            if (current.getRequisites().equals(requisite)) {
-                findAccount = current;
-                break;
-            }
-        }
-        return findAccount;
+        return accounts.stream().filter(s -> s.getRequisites().equals(requisite)).findAny().orElseGet(null);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
