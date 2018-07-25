@@ -10,9 +10,9 @@ import java.util.*;
  */
 public class InteractCalc {
 
-    private final Calculator calculator;
+    protected final Calculator calculator;
     private final Scanner sc = new Scanner(System.in);
-    private final ArrayList<String> validOperations = new ArrayList<String>();
+    protected final ArrayList<String> validOperations = new ArrayList<String>();
 
     public InteractCalc(Calculator calculator) {
         this.calculator = calculator;
@@ -29,7 +29,12 @@ public class InteractCalc {
             System.out.println("Необходимо выбирать корректное действие!");
             return;
         }
-        int secondValue = Integer.parseInt(action("Введите число: "));
+        double secondValue = Double.parseDouble(action("Введите число: "));
+        execute(query,secondValue);
+        System.out.println(String.format("Текущее значение: %s", calculator.getResult()));
+    }
+
+    public void execute(String query,double secondValue) {
         if (query.equals("+")){
             calculator.add(calculator.getResult(), secondValue);
         } else if (query.equals("-")) {
@@ -39,7 +44,6 @@ public class InteractCalc {
         } else if (query.equals("/")) {
             calculator.div(calculator.getResult(), secondValue);
         }
-        System.out.println(String.format("Текущее значение: %s", calculator.getResult()));
     }
 
     public void start() {

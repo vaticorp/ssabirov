@@ -27,8 +27,16 @@ public class Calculator {
 	public void subtract(double first, double second) {
         this.result = first - second;
     }
-	
-    /**
+
+	/**
+	 * Method setting result.
+	 * @param result
+	 */
+	public void setResult(double result) {
+		this.result = result;
+	}
+
+	/**
 	 *Method divides two numbers.
 	 *@param first number.
 	 *@param second number.
