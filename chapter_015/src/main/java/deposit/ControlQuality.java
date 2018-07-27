@@ -1,10 +1,7 @@
 package deposit;
 
 import deposit.foods.Food;
-import deposit.storages.Shop;
-import deposit.storages.Storage;
-import deposit.storages.Trash;
-import deposit.storages.Warehouse;
+import deposit.storages.*;
 
 /**
  * This class represents class for food-control.
@@ -31,14 +28,19 @@ public class ControlQuality {
         this.storage = storage;
     }
 
+    /**
+     * Метод распределяет товары по складам. Определенная логика в условии не определена,
+     * поэтому оставлена упрощенная реализация.
+     * @param food - товар.
+     */
     public void checkStorageByFood(Food food) {
         double surplus = food.percentExpaireDate();
         if (surplus >= 75.0) {
-            setStorage(new Warehouse());
+            setStorage(new FreezeWarehouse(new Warehouse()));
         } else if (surplus < 75 && surplus > 0) {
             setStorage(new Shop());
         } else if (surplus <= 0) {
-            setStorage(new Trash());
+            setStorage(new ProcessingWarehouse(new Trash()));
         }
     }
 

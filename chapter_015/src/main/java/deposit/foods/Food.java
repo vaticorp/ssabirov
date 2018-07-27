@@ -13,16 +13,26 @@ public class Food {
     private long createDate;
     private double price;
     private int discount;
+    private boolean canReproduct;
 
-    public Food(String name, long expaireDate, long createDate, double price, int discount) {
+    public Food(String name, long expaireDate, long createDate, double price, int discount, boolean canReproduct) {
         this.name = name;
         this.expaireDate = expaireDate;
         this.createDate = createDate;
         this.price = price;
         this.discount = discount;
+        this.canReproduct = canReproduct;
     }
 
     public Food() {
+    }
+
+    public boolean isCanReproduct() {
+        return canReproduct;
+    }
+
+    public void setCanReproduct(boolean canReproduct) {
+        this.canReproduct = canReproduct;
     }
 
     public String getName() {
@@ -77,6 +87,7 @@ public class Food {
                 ", createDate=" + createDate +
                 ", price=" + price +
                 ", discount=" + discount +
+                ", canReproduct=" + canReproduct +
                 '}';
     }
 }
