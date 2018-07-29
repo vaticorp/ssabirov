@@ -2,6 +2,8 @@ package deposit.storages;
 
 import deposit.foods.Food;
 
+import java.util.List;
+
 /**
  * This class represents class for processing foods.
  * @author Svyatoslav Sabirov.
@@ -23,5 +25,10 @@ public class ProcessingWarehouse implements Storage {
             listFood.add(food);
             System.out.println("Какая-то логика для переработки!");
         }
+    }
+
+    @Override
+    public List<Food> getFoods() {
+        return listFood;
     }
 }

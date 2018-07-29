@@ -3,6 +3,8 @@ package deposit;
 import deposit.foods.Food;
 import deposit.storages.*;
 
+import java.util.List;
+
 /**
  * This class represents class for food-control.
  * @author Svyatoslav Sabirov.
@@ -48,4 +50,5 @@ public class ControlQuality {
         checkStorageByFood(food);
         storage.process(food);
     }
+
 }

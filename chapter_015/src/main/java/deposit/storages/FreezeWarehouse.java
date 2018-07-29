@@ -2,6 +2,8 @@ package deposit.storages;
 
 import deposit.foods.Food;
 
+import java.util.List;
+
 /**
  * This class represents warehouse for vegetables.
  * @author Svyatoslav Sabirov.
@@ -27,5 +29,10 @@ public class FreezeWarehouse implements Storage {
             return;
         }
         warehouse.process(food);
+    }
+
+    @Override
+    public List<Food> getFoods() {
+        return listFood;
     }
 }

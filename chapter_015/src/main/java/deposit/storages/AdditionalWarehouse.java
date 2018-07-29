@@ -2,6 +2,8 @@ package deposit.storages;
 
 import deposit.foods.Food;
 
+import java.util.List;
+
 /**
  * This class represents advance storage for warehouse
  * @author Svyatoslav Sabirov.
@@ -25,5 +27,10 @@ public class AdditionalWarehouse implements Storage {
         this.warehouse.process(food);
         System.out.println("Специфические действия для склада!");
         listFood.add(food);
+    }
+
+    @Override
+    public List<Food> getFoods() {
+        return listFood;
     }
 }

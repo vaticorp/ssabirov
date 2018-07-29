@@ -1,6 +1,7 @@
 package deposit.storages;
 
 import deposit.foods.Food;
+import java.util.List;
 
 public class Shop implements Storage {
 
@@ -11,5 +12,10 @@ public class Shop implements Storage {
            food.setDiscount(15);
         }
         listFood.add(food);
+    }
+
+    @Override
+    public List<Food> getFoods() {
+        return listFood;
     }
 }
