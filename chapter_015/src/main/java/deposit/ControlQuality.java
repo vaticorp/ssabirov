@@ -4,6 +4,9 @@ import deposit.foods.Food;
 import deposit.storages.*;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class represents class for food-control.
@@ -14,6 +17,7 @@ import java.util.List;
 public class ControlQuality {
 
     private Storage storage;
+    private final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 
     public ControlQuality(Storage storage) {
         this.storage = storage;
@@ -51,4 +55,20 @@ public class ControlQuality {
         storage.process(food);
     }
 
+    public void startResort() {
+        Runnable task = new Runnable() {
+            public void run() {
+                resort();
+            }
+        };
+        service.scheduleWithFixedDelay(task, 0, 1, TimeUnit.DAYS);
+        service.execute(task);
+    }
+
+    private void resort() {
+        List<Food> list = storage.getFoods();
+        list.forEach(food -> redistribute(food));
+    }
+
+    //private
 }
