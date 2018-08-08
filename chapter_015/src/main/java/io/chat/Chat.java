@@ -46,8 +46,7 @@ public class Chat {
         boolean flag = true;
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter logWriter = new BufferedWriter(new FileWriter(this.pathLog));
-            RandomAccessFile f = new RandomAccessFile(this.botCommand, "r");
-            Stream<String> lines = Files.lines(Paths.get(this.botCommand))) {
+            RandomAccessFile f = new RandomAccessFile(this.botCommand, "r");) {
             while (!command.equals("закончить")) {
                 command = reader.readLine();
                 logWriter.write(String.format("%s\r\n", command));
