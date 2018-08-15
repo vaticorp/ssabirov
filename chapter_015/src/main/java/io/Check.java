@@ -36,7 +36,7 @@ public class Check {
 
     public static void main(String[] args) {
         Check check = new Check();
-        //System.out.println(check.isNumber(System.in));
+        System.out.println(check.isNumber(System.in));
         //check.dropAbuses(System.in, System.o);
     }
 }

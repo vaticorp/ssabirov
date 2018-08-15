@@ -3,6 +3,8 @@ package io.chat;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -14,11 +16,15 @@ import java.util.stream.Stream;
 public class Chat {
 
     private String pathLog;
-    private String botCommand;
+    private List<String> botList = new ArrayList<>();
 
     public Chat(String pathLog, String botCommand) {
         this.pathLog = pathLog;
-        this.botCommand = botCommand;
+        try {
+           botList = Files.readAllLines(Paths.get(botCommand));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getPathLog() {
@@ -29,14 +35,6 @@ public class Chat {
         this.pathLog = pathLog;
     }
 
-    public String getBotCommand() {
-        return botCommand;
-    }
-
-    public void setBotCommand(String botCommand) {
-        this.botCommand = botCommand;
-    }
-
     /**
      * This method for chart with computer.
      */
@@ -45,14 +43,13 @@ public class Chat {
         String answer = "";
         boolean flag = true;
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            BufferedWriter logWriter = new BufferedWriter(new FileWriter(this.pathLog));
-            RandomAccessFile f = new RandomAccessFile(this.botCommand, "r");) {
+            BufferedWriter logWriter = new BufferedWriter(new FileWriter(this.pathLog));) {
             while (!command.equals("закончить")) {
                 command = reader.readLine();
                 logWriter.write(String.format("%s\r\n", command));
                 flag = checkFlag(flag, command);
                 if (flag) {
-                    logWriter.write(String.format("%s\r\n", getStringFromFile(f)));
+                    logWriter.write(String.format("%s\r\n", getRandomStringFromFile()));
                 }
             }
         } catch (IOException ex) {
@@ -69,7 +66,14 @@ public class Chat {
         return flag;
     }
 
-    private String getStringFromFile(RandomAccessFile f) throws IOException {
+    private String getRandomStringFromFile() {
+        int random_number = 1 + (int) (Math.random() * botList.size());
+        String result = botList.get(random_number);
+        System.out.println(result);
+        return result;
+    }
+
+/*    private String getStringFromFile(RandomAccessFile f) throws IOException {
         String answer = "";
         long randomLocation = (long) (Math.random() * f.length());
         f.seek(randomLocation);
@@ -93,13 +97,12 @@ public class Chat {
         }
         System.out.println(String.format("%s%s%s", s_L, answer, s_R));
         return String.format("%s%s%s", s_L, answer, s_R);
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Chat{" +
                 "pathLog='" + pathLog + '\'' +
-                ", botCommand='" + botCommand + '\'' +
                 '}';
     }
 
