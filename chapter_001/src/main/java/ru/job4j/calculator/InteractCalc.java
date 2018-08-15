@@ -1,5 +1,7 @@
 package ru.job4j.calculator;
 
+import ru.job4j.calculator.operations.*;
+
 import java.util.*;
 
 /**
@@ -12,11 +14,14 @@ public class InteractCalc {
 
     protected final Calculator calculator;
     private final Scanner sc = new Scanner(System.in);
-    protected final ArrayList<String> validOperations = new ArrayList<String>();
+    protected final HashMap<String, Operation> validOperations = new HashMap<>();
 
     public InteractCalc(Calculator calculator) {
         this.calculator = calculator;
-        Collections.addAll(validOperations, "+", "-", "*", "/");
+    }
+
+    void addOperation(Operation operation) {
+        validOperations.put(operation.getName(), operation);
     }
 
     public String action(String question) {
@@ -25,25 +30,15 @@ public class InteractCalc {
     }
 
     public void select(String query) {
-        if (!validOperations.contains(query)) {
+        Operation operation = validOperations.get(query);
+        if (operation == null) {
             System.out.println("Необходимо выбирать корректное действие!");
             return;
         }
         double secondValue = Double.parseDouble(action("Введите число: "));
-        execute(query,secondValue);
+        operation.execute(calculator.getResult(), secondValue);
+        //execute(query,secondValue);
         System.out.println(String.format("Текущее значение: %s", calculator.getResult()));
-    }
-
-    public void execute(String query,double secondValue) {
-        if (query.equals("+")){
-            calculator.add(calculator.getResult(), secondValue);
-        } else if (query.equals("-")) {
-            calculator.subtract(calculator.getResult(), secondValue);
-        } else if (query.equals("*")) {
-            calculator.multiple(calculator.getResult(), secondValue);
-        } else if (query.equals("/")) {
-            calculator.div(calculator.getResult(), secondValue);
-        }
     }
 
     public void start() {
@@ -59,6 +54,10 @@ public class InteractCalc {
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         InteractCalc interactCalc = new InteractCalc(calculator);
+        interactCalc.addOperation(new Add(calculator));
+        interactCalc.addOperation(new Subtract(calculator));
+        interactCalc.addOperation(new Multiple(calculator));
+        interactCalc.addOperation(new Div(calculator));
         interactCalc.start();
     }
 }

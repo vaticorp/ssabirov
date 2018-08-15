@@ -1,6 +1,7 @@
 package ru.job4j.calculator;
-
-import java.util.Collections;
+import ru.job4j.calculator.operations.Cosinus;
+import ru.job4j.calculator.operations.Sinus;
+import ru.job4j.calculator.operations.Tangens;
 
 /**
  * This class represents class for engineering calculator.
@@ -12,19 +13,9 @@ public class EngineeringCalc extends InteractCalc {
 
     public EngineeringCalc(Calculator calculator) {
         super(calculator);
-        Collections.addAll(validOperations, "cos","sin","tg");
-    }
-
-    @Override
-    public void execute(String query, double secondValue) {
-        super.execute(query, secondValue);
-        if (query.equals("cos")) {
-            calculator.setResult(Math.cos(calculator.getResult()));
-        } else if (query.equals("sin")) {
-            calculator.setResult(Math.sin(calculator.getResult()));
-        } else if (query.equals("tg")) {
-            calculator.setResult(Math.tan(calculator.getResult()));
-        }
+        addOperation(new Cosinus(calculator));
+        addOperation(new Sinus(calculator));
+        addOperation(new Tangens(calculator));
     }
 
     public static void main(String[] args) {
@@ -32,3 +23,4 @@ public class EngineeringCalc extends InteractCalc {
         interactCalc.start();
     }
 }
+
