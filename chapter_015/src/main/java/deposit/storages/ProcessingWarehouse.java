@@ -3,6 +3,7 @@ package deposit.storages;
 import deposit.foods.Food;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents class for processing foods.

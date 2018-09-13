@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
  * @version $id$.
  */
 public class UserTest {
+
     @Test
     public void whenSortingWithComparatorThen() {
         User people = new User();
@@ -25,6 +26,7 @@ public class UserTest {
         list.add(new User("Marina", 35));
         assertThat(roman, is(people.sort(list).toArray()[0]));
     }
+
     @Test
     public void whenSortingWithComparatorNameLength() {
         User people = new User();
@@ -36,6 +38,7 @@ public class UserTest {
         list.add(new User("Marina", 35));
         assertThat(petr, is(people.sortNameLength(list).toArray()[0]));
     }
+
     @Test
     public void whenSortingWithComparatorByAllFields() {
         User people = new User();
@@ -47,4 +50,5 @@ public class UserTest {
         list.add(new User("Иван", 25));
         assertThat(sergey, is(people.sortByAllFields(list).toArray()[2]));
     }
+
 }

@@ -40,7 +40,6 @@
             <version>5.0.6.RELEASE</version>
             <scope>test</scope>
         </dependency>-->
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -52,6 +51,4 @@
             <version>2.2.8</version>
         </dependency>-->
     </dependencies>
-
-
 </project>

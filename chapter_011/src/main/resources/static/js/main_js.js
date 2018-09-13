@@ -38,9 +38,9 @@ function handleFilters() {
                 result += "<td>" + json.list[i].sold + "</td>";
                 result += "<td>" + json.list[i].public + "</td>";
                 result += "<td>";
-                result += "<form action=\"/edit\" method=\"get\">";
+                result += "<form action=\"/files\" method=\"get\">";
                 result += "<input type=\"hidden\" name=\"id\" value=\"" + json.list[i].id + "\">";
-                result += "<input type=\"submit\" class=\"sub\" name=\"Edit\" value=\"Open\"></form>";
+                result += "<input type=\"submit\" class=\"sub\" name=\"Edit\" value=\"Файлы\"></form>";
                 result += "</td></tr>";
             }
             result += "</table>";
