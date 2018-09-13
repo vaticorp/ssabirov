@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Файлы и директории</title>
+    <link rel="stylesheet" href="css/main.css" content-type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body onload="addNewFolder()">
+<h1>Директории и файлы</h1>
+<!--<form class="form-horizontal" th:action="@{/register}" method="get">
+</form>-->
+<b>Новая директория:</b>
+<input type="text" required name="folder" placeholder="D:\java"/>
+<button name="add" onclick="addNewFolder()">Добавить в список</button>
+<h2>Список директорий и файлов</h2>
+<div id="auto_table">
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Файлы и директории</title>
+    <link rel="stylesheet" href="css/main.css" content-type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/files.js"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Файл</th>
+        <th>Размер, кб</th>
+    </tr>
+    <th:block th:each="file : ${files}">
+        <tr>
+            <td th:text="${file.name}"></td>
+            <td th:text="${file.size}"></td>
+            <!--<td th:text="${file.isFolder}"></td>-->
+        </tr>
+    </th:block>
+</table>
+<button name="exit" onclick="closeWindow()">Закрыть</button>
+</body>
+</html>
