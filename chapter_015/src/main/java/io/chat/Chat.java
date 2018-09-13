@@ -15,24 +15,18 @@ import java.util.stream.Stream;
  */
 public class Chat {
 
-    private String pathLog;
-    private List<String> botList = new ArrayList<>();
+    private final String pathLog;
+    private final String botCommand;
+    private final List<String> botList;
 
-    public Chat(String pathLog, String botCommand) {
+    public Chat(String pathLog, String botCommand) throws IOException {
+        this.botCommand = botCommand;
         this.pathLog = pathLog;
-        try {
-           botList = Files.readAllLines(Paths.get(botCommand));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.botList = Files.readAllLines(Paths.get(botCommand));
     }
 
     public String getPathLog() {
         return pathLog;
-    }
-
-    public void setPathLog(String pathLog) {
-        this.pathLog = pathLog;
     }
 
     /**
@@ -58,7 +52,7 @@ public class Chat {
     }
 
     private boolean checkFlag(boolean flag, String word) {
-        if (flag == true) {
+        if (flag) {
             flag = (!word.equals("стоп"));
         } else  {
             flag = word.equals("продолжить");
@@ -73,32 +67,6 @@ public class Chat {
         return result;
     }
 
-/*    private String getStringFromFile(RandomAccessFile f) throws IOException {
-        String answer = "";
-        long randomLocation = (long) (Math.random() * f.length());
-        f.seek(randomLocation);
-        answer = f.readLine();
-        String s_L = "";
-        char a_char = Character.MIN_VALUE;
-        long leftLocation = randomLocation;
-        while (a_char != '\n' && a_char != '\r' && a_char != -1) {
-            a_char = (char)f.readByte();
-            s_L = a_char + s_L;
-            leftLocation--;
-            f.seek(leftLocation);
-        }
-        String s_R = "";
-        a_char = Character.MIN_VALUE;
-        while (a_char != '\n' && a_char != '\r' && a_char != -1) {
-            a_char = (char)f.readByte();
-            s_R = s_R + a_char;
-            randomLocation++;
-            f.seek(randomLocation);
-        }
-        System.out.println(String.format("%s%s%s", s_L, answer, s_R));
-        return String.format("%s%s%s", s_L, answer, s_R);
-    }*/
-
     @Override
     public String toString() {
         return "Chat{" +
@@ -106,7 +74,7 @@ public class Chat {
                 '}';
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Chat("D:\\test\\log.txt","D:\\test\\bot.txt").startDialog();
     }
 }
