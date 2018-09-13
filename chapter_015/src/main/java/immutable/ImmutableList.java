@@ -3,6 +3,7 @@ package immutable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class represents simple
@@ -12,10 +13,10 @@ import java.util.Iterator;
  */
 public class ImmutableList<E> implements Immutable<E> {
 
-    private final ArrayList<E> container;
+    private final List<E> container;
 
     public ImmutableList(final ArrayList<E> container) {
-        this.container = container;
+        this.container = Collections.unmodifiableList(container);
     }
 
     public int size() {
