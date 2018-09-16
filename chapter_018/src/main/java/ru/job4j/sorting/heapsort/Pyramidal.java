@@ -41,8 +41,9 @@ public class Pyramidal<T> implements Sorting<T>, Comparator<T> {
         while ((root * 2 <= bottom) && (!done)) {
             if (root * 2 == bottom)
                 maxChild = root * 2;
-            else if (compare(this.array[root * 2], this.array[root * 2 + 1]) > 0)
+            else if (compare(this.array[root * 2], this.array[root * 2 + 1]) > 0) {
                 maxChild = root * 2;
+            }
             else
                 maxChild = root * 2 + 1;
             if (compare(this.array[root], this.array[maxChild]) < 0) {
