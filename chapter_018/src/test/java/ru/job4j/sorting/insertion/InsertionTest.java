@@ -19,4 +19,12 @@ public class InsertionTest {
         insertion.sort();
         assertThat(new Integer(3), is(insertion.value(2)));
     }
+
+    @Test
+    public  void whenWeTestArrayWithFiveNumbersAndGetLast() {
+        Integer[] array = {1,9,8,3,2,6,4};
+        Sorting<Integer> insertion = new Insertion<Integer>(array);
+        insertion.sort();
+        assertThat(new Integer(9), is(insertion.value(6)));
+    }
 }
