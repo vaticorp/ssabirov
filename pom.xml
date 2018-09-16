@@ -31,6 +31,7 @@
         <module>chapter_015</module>
         <module>chapter_016</module>
         <module>chapter_017</module>
+        <module>chapter_018</module>
     </modules>
 
     <dependencies>
