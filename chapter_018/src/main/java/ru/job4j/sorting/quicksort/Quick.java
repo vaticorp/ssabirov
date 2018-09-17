@@ -53,6 +53,10 @@ public class Quick<T> implements Sorting<T>,Comparator<T> {
         return this.array[index];
     }
 
+    public T[] getArray() {
+        return array;
+    }
+
     public static void main(String[] args) {
         Integer[] array = {1,9,8,3,2,6,4};
         Sorting<Integer> quick = new Quick<Integer>(array);
