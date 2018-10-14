@@ -1,0 +1,66 @@
+body {
+    background: #DCDCDC;
+}
+
+q{
+    font-family: "Mistral";
+    font-weight: bold;
+    font-size: 18px;
+}
+/*body {
+    background-color: #000000;
+    background-image: url(images/green-1072828_1280.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+}*/
+
+.comments {
+    width: 400px;
+}
+
+.comment {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.comment p {
+    margin: 0 0 10px 0;
+}
+
+.dialog {
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    color: #222;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+.dialog::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 15px solid #fff;
+    left: -15px;
+    top: 15px;
+}
+
+a.button7 {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+}
+a.button7:hover { background: rgb(53, 167, 110); }
+a.button7:active {
+    background: rgb(33,147,90);
+    box-shadow: 0 3px rgb(33,147,90) inset;
+}

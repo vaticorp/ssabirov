@@ -1,0 +1,23 @@
+a.button7 {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(0,150,255);
+    box-shadow: 0 -3px rgb(0,120,255) inset;
+    transition: 0.2s;
+}
+a.button7:hover { background: rgb(0, 120, 255); }
+a.button7:active {
+    background: rgb(0,99,255);
+    box-shadow: 0 3px rgb(0,0,255) inset;
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid red;
+    border-radius: 4px;
+}

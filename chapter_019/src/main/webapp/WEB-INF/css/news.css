@@ -1,0 +1,52 @@
+.letter {
+    color: red; /* Красный цвет символов */
+    font-size: 150%; /* Размер шрифта в процентах */
+    font-family: serif; /* Шрифт с засечками */
+    position: relative; /* Относительное позиционирование */
+}
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-spacing: 30px;
+    text-align: left;
+    border-collapse: collapse;
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #F2906B;
+    color: #452F21;
+}
+th {
+    padding: 10px 8px;
+    background: white;
+}
+table th:first-child {
+    border-top-left-radius: 20px;
+}
+table th:last-child {
+    border-top-right-radius: 20px;
+}
+td {
+    border-top: 10px solid #F2906B;
+    padding: 8px;
+    background: white;
+}
+table td:first-child {
+    border-bottom-left-radius: 20px;
+}
+table td:last-child {
+    border-bottom-right-radius: 20px;
+}
+a.button7 {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(0,150,255);
+    box-shadow: 0 -3px rgb(0,120,255) inset;
+    transition: 0.2s;
+}
+a.button7:hover { background: rgb(0, 120, 255); }
+a.button7:active {
+    background: rgb(0,99,255);
+    box-shadow: 0 3px rgb(0,0,255) inset;
+}
