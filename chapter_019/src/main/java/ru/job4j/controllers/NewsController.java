@@ -66,22 +66,29 @@ public class NewsController {
         return "body-" + ready.getId();
     }
 
-    @GetMapping(value = "/test")
+    @GetMapping(value = "/comments")
     @ResponseBody
-    public String testNews(@RequestParam(required = false) String id, ModelMap modelMap) {
-/*        JSONObject jsonName = new JSONObject();
+    public String testNews(@RequestParam(required = false) String id, @RequestParam(required = false) String comment) {
+        JSONObject jsonName = new JSONObject();
         JSONArray array = new JSONArray();
         News news = newsService.getNewsById(Long.parseLong(id));
+        if (comment != null && comment != "") {
+            Set<Comment> comments = news.getComments();
+            Comment currentComment = new Comment();
+            currentComment.setAuthor("admin");
+            currentComment.setDescription(comment);
+            comments.add(currentComment);
+            news = newsService.addNews(news);
+        }
         Set<Comment> comments = news.getComments();
-        for (Comment comment : comments) {
+        for (Comment cuurent : comments) {
             JSONObject jsonModel = new JSONObject();
-            jsonModel.put("author", comment.getAuthor());
-            jsonModel.put("description", comment.getDescription());
+            jsonModel.put("author", cuurent.getAuthor());
+            jsonModel.put("description", cuurent.getDescription());
             array.add(jsonModel);
         }
         jsonName.put("comments", array);
         jsonName.put("list", array);
-        return jsonName.toString();*/
-        return "";
+        return jsonName.toString();
     }
 }

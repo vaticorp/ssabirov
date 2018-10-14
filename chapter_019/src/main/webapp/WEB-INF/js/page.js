@@ -1,15 +1,11 @@
-/*$( document ).ready(function()
-{
-    //console.log("<c:out value=\"${current.title}\"></c:out>");
-    //addNewComment(1);
-    console.log("enter");
-    //here you can call hello function
-    /!*$('.my_button').click(function() {
-        console.log($(this).attr('data-value'));
-    });*!/
-});*/
-function addNewComment(id) {
+$( document ).ready(function() {
+    showComments();
+});
+function showComments() {
     var xhttp = new XMLHttpRequest();
+    var id = document.getElementsByName("identifier")[0].value;
+    var textComment = document.getElementsByName("textComment")[0].value;
+    console.log("text: " + textComment);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(id);
@@ -28,6 +24,6 @@ function addNewComment(id) {
             list.innerHTML = result;
         }
     };
-    xhttp.open("GET", "${pageContext.servletContext.contextPath}/test?id=" + id, true);
+    xhttp.open("GET", "${pageContext.servletContext.contextPath}/comments?id=" + id + "&comment=" + textComment, true);
     xhttp.send();
 }
