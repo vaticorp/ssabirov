@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.AddressMapper">
+
+    <resultMap id="address" type="com.model.Address">
+        <id property="id" column="id"/>
+        <result property="index" column="index"/>
+        <result property="city" column="city"/>
+        <result property="street" column="street"/>
+        <result property="houseNumber" column="house_number"/>
+    </resultMap>
+
+    <cache />
+
+    <select id="getEntityById" parameterType="java.lang.Long" resultType="Address" resultMap="address">
+        SELECT id,
+               index,
+               city,
+               street,
+               house_number
+        FROM address
+        WHERE id = #{id}
+    </select>
+
+    <delete id="removeEntity" parameterType="Address">
+        DELETE FROM address
+        WHERE id = #{id};
+    </delete>
+
+    <select id="getListOfEntities" resultType="Address" resultMap="address">
+        SELECT id,
+               index,
+               city,
+               street,
+               house_number
+        FROM address
+    </select>
+
+    <insert id="addEntity" parameterType="Address" useGeneratedKeys="true" keyProperty="id" keyColumn="id" flushCache="true">
+        INSERT INTO address (index, city, street, house_number)
+        VALUES (#{index}, #{city}, #{street}, #{houseNumber})
+    </insert>
+
+</mapper>
