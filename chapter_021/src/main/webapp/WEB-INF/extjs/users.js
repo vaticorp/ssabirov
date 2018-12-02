@@ -13,7 +13,6 @@ Ext.onReady(function () {
             name: 'address'
         }]
     });
-
     Ext.define('Catalog.model.Address', {
         extend: 'Ext.data.Model',
         fields: [
@@ -24,7 +23,6 @@ Ext.onReady(function () {
             {name: 'houseNumber', type: 'int'}
         ]
     });
-
     Ext.define('Catalog.store.Users', {
         extend  : 'Ext.data.Store',
         storeId: 'userStore',
@@ -40,7 +38,6 @@ Ext.onReady(function () {
         },
         autoLoad: true
     });
-
     Ext.define('Catalog.view.UsersList', {
         extend: 'Ext.grid.Panel',
         alias: 'widget.userslist',
@@ -109,7 +106,6 @@ Ext.onReady(function () {
             this.callParent(arguments);
         }
     });
-
     Ext.define('Catalog.view.UsersForm', {
         extend  : 'Ext.window.Window',
         alias   : 'widget.usersform',
@@ -164,7 +160,6 @@ Ext.onReady(function () {
             }
         }]
     });
-
     Ext.define('Catalog.controller.Users', {
         extend  : 'Ext.app.Controller',
         stores  : ['Users'],
@@ -207,7 +202,6 @@ Ext.onReady(function () {
             var win = this.getFormWindow();
             var store = this.getUsersStore();
             var values = win.down('form').getValues();
-
             var action = win.getAction();
             var url = '';
             if(action == 'edit') {
@@ -231,7 +225,6 @@ Ext.onReady(function () {
             win.close();
         }
     });
-
     Ext.application({
             name  : 'Catalog',
             controllers: ['Users'],
